@@ -44,7 +44,6 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PREBUILT)/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
 	$(DEVICE_PREBUILT)/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
 	$(DEVICE_PREBUILT)/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-	$(DEVICE_PREBUILT)/vendor/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so \
 	$(DEVICE_PREBUILT)/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
 	$(DEVICE_PREBUILT)/lib/libIMGegl.so:system/lib/libIMGegl.so \
 	$(DEVICE_PREBUILT)/lib/libpvr2d.so:system/lib/libpvr2d.so \
@@ -54,6 +53,12 @@ PRODUCT_COPY_FILES += \
 	$(DEVICE_PREBUILT)/lib/libsrv_um.so:system/lib/libsrv_um.so \
 	$(DEVICE_PREBUILT)/lib/libusc.so:system/lib/libusc.so \
         $(DEVICE_PREBUILT)/bin/pvrsrvinit:system/bin/pvrsrvinit \
+
+# DRM Proprietary Files
+PRODUCT_COPY_FILES += \
+	$(DEVICE_PREBUILT)/vendor/lib/libwvm.so:system/vendor/lib/libwvm.so \
+	$(DEVICE_PREBUILT)/vendor/lib/libwvdrm_L3.so:system/vendor/lib/libwvdrm_L3.so \
+	$(DEVICE_PREBUILT)/vendor/lib/libWVStreamControlAPI_L3.so:system/vendor/lib/libWVStreamControlAPI_L3.so \
         
         
 # Vold Mounting
@@ -149,11 +154,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
         libinvensense_mpl \
-        hwcomposer.default \
         parse_hdmi_edid \
         libedid \
         audio_policy.default \
         libaudioutils
+#        hwcomposer.default 
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
