@@ -34,21 +34,22 @@ PRODUCT_COPY_FILES := \
     vendor/archos/archos_g9/proprietary/lib/hw/audio_policy.archos.so:/system/lib/hw/audio_policy.archos.so \
     vendor/archos/archos_g9/proprietary/lib/hw/gps.archos.so:/system/lib/hw/gps.archos.so \
     vendor/archos/archos_g9/proprietary/lib/hw/lights.archos.so:/system/lib/hw/lights.archos.so \
+    vendor/archos/archos_g9/proprietary/lib/hw/hwcomposer.omap4.so:/system/vendor/lib/hw/hwcomposer.omap4.so \
     vendor/archos/archos_g9/proprietary/lib/hw/sensors.omap4.so:/system/lib/hw/sensors.omap4.so 
 
 #    vendor/archos/archos_g9/proprietary/lib/hw/camera.omap4.so:/system/lib/hw/camera.omap4.so \
 #    vendor/archos/archos_g9/proprietary/lib/libskia.so:/system/lib/libskia.so
 
 # OMX Libraries for 512MB RAM Ducati binary
-PRODUCT_COPY_FILES += \
-    vendor/archos/archos_g9/proprietary/lib/libdomx.so:/system/lib/libdomx.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
-    vendor/archos/archos_g9/proprietary/lib/libOMX_Core.so:/system/lib/libOMX_Core.so
+#PRODUCT_COPY_FILES += \
+#    vendor/archos/archos_g9/proprietary/lib/libdomx.so:/system/lib/libdomx.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
+#    vendor/archos/archos_g9/proprietary/lib/libOMX_Core.so:/system/lib/libOMX_Core.so
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \

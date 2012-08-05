@@ -61,7 +61,6 @@ endif
 # Audio library
 COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 
-
 #ENABLE_WEBGL := true
 
 TARGET_USERIMAGES_USE_EXT4 := true

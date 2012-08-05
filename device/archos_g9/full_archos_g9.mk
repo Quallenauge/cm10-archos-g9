@@ -116,6 +116,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(DEVICE_PREBUILT)/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    $(DEVICE_PREBUILT)/etc/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:/system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \
