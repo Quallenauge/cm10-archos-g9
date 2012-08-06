@@ -1,0 +1,200 @@
+on init
+
+    # EHCI USB - prevent autosuspend
+    write /sys/bus/usb/devices/1-2/power/level on
+    write /sys/bus/usb/devices/1-2/power/suspend_support 0
+
+    # enable USB autosuspend for HDD
+    write /sys/devices/platformomap/usbhs_omap/ehci-omap.0/usb1/1-1/1-1.1/power/control auto
+
+# TSP
+    insmod /lib/modules/cypress-tma340.ko
+    insmod /lib/modules/tr16c0-i2c.ko
+
+# 3G keys
+    insmod /lib/modules/hso.ko
+
+    setprop ro.product.device A80
+    setprop ro.build.product G9A80
+    setprop ro.product.name G9A80
+    setprop ro.product.model "ARCHOS 80G9"
+    setprop ro.com.google.clientidbase android-archos
+    
+    setprop ro.board.has_hdmi yes
+    setprop ro.board.has_analog_out no
+    setprop ro.board.use_bluetooth yes
+    setprop ro.board.has_soft_keys no
+    setprop ro.board.has_earpiece no
+    setprop ro.board.has_speaker yes
+    setprop ro.board.has_hp_detection yes
+    setprop ro.board.desktop_experience "yes"
+    # rotation values are (anticlockwise) :
+    # 0 for 0 degree
+    # 1 for 90
+    # 2 for 180
+    # 3 for 270
+    #  (must be in sync with frameworks/base/core/java/android/view/Surface.java)
+    setprop ro.board.display_portrait 3
+    setprop ro.board.tv_portrait 3
+    setprop ro.board.has_gps yes
+    setprop ro.board.has_gsm no
+    setprop ro.board.has_mmc no
+    setprop ro.board.has_data_key yes
+    setprop ro.board.has_hdd yes
+    setprop ro.board.has_camera yes
+    setprop ro.board.camera_type OV7675
+    setprop ro.board.is_front_camera yes
+    setprop ro.board.camera_hflipped yes
+    setprop ro.board.camera_vflipped no
+    setprop ro.board.has_vibrator no
+    setprop ro.board.has_dsp yes
+    setprop ro.board.brightness.delay 800
+    setprop ro.board.brightness.dim 10
+    setprop ro.board.brightness.dim_default 135
+    setprop ro.board.light_sensor no
+    setprop ro.board.has_compass yes
+    setprop ro.board.can_charge_when_off no
+    
+    setprop media.stagefright.enable-player true
+    setprop media.stagefright.enable-http true
+    
+on early-boot
+
+    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
+    write /sys/class/android_usb/android0/iProduct $ro.product.model
+    write /sys/class/android_usb/android0/iSerial $ro.serialno
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1510
+    write /sys/class/android_usb/android0/f_rndis/wceis 1
+    write /sys/class/android_usb/f_mass_storage/inquiry_string "Archos A80     0100"
+
+    chown root system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0024/calibration_trigger
+    chown root system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-005c/calibration_trigger
+    chown root radio /sys/bus/usb/devices/usb1/power/control
+
+    chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0024/calibration_trigger
+    chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-005c/calibration_trigger
+    chmod 664 /sys/bus/usb/devices/usb1/power/control
+
+service omx_pm /system/bin/OMXPolicyManager
+    oneshot
+
+service ril-daemon /system/bin/rild
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw
+    disabled
+
+service pppd_datakey /system/bin/logwrapper /system/etc/ppp/init_pppd_datakey
+    user root
+    group radio cache inet misc
+    disabled
+    oneshot
+
+service pppd_secrets /system/bin/logwrapper /system/etc/ppp/write_secrets
+    user root
+    disabled
+    oneshot
+
+on property:sys.usb.config=none
+    stop adbd
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/bDeviceClass 0
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1511
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=mtp
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1518
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1519
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=rndis
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1513
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/bDeviceClass 2
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=rndis,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1514
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/bDeviceClass 2
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=ptp
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 151D
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=ptp,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 151E
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=mass_storage
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1510
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    setprop sys.usb.state $sys.usb.config
+
+on property:sys.usb.config=mass_storage,adb
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 0E79
+    write /sys/class/android_usb/android0/idProduct 1512
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
+   
+service smbd /usr/sbin/smbd --no-process-group -F -s /system/etc/smb.H.conf
+    class main
+    disabled
+    setenv  CLASSPATH /system/framework/am.jar
+
+service nmbd /usr/sbin/nmbd -F -s /system/etc/smb.H.conf
+    class main
+    disabled
+
+on property:service.smb.enable=1
+    start smbd
+    start nmbd
+
+on property:service.smb.enable=0
+    stop nmbd
+    stop smbd
+ 

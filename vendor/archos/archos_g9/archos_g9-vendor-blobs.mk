@@ -41,15 +41,17 @@ PRODUCT_COPY_FILES := \
 #    vendor/archos/archos_g9/proprietary/lib/libskia.so:/system/lib/libskia.so
 
 # OMX Libraries for 512MB RAM Ducati binary
-#PRODUCT_COPY_FILES += \
-#    vendor/archos/archos_g9/proprietary/lib/libdomx.so:/system/lib/libdomx.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
-#    vendor/archos/archos_g9/proprietary/lib/libOMX_Core.so:/system/lib/libOMX_Core.so
+PRODUCT_COPY_FILES += \
+    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
+    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
+    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
+    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
+    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
+    vendor/archos/archos_g9/proprietary/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
+    vendor/archos/archos_g9/proprietary/lib/libOMX_Core.so:/system/lib/libOMX_Core.so
+
+#    vendor/archos/archos_g9/proprietary/lib/libdomx.so:/system/lib/libdomx.so 
+
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \

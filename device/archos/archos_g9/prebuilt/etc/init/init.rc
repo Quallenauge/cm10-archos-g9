@@ -1,0 +1,10 @@
+on init
+	loglevel 3
+
+service logcats /system/bin/logcat -f /data/test/logcat.log -r 512 -v time -b main -b system -b radio
+    class core
+    oneshot
+
+service last_kmsg /system/bin/last_kmsg -c 5
+    class core
+    oneshot
