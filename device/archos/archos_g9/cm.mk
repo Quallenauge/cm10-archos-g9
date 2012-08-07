@@ -38,7 +38,7 @@ $(call inherit-product, vendor/archos/archos_g9/archos_g9-vendor.mk)
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 $(call inherit-product-if-exists, vendor/ti/proprietary/omap4xxx/ti-omap4-vendor.mk)
-$(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
+$(call inherit-product, device/archos/archos_g9/omap4xxx/omap4.mk)
 $(call inherit-product, vendor/cm/config/gsm.mk)
 
 
