@@ -1,5 +1,14 @@
 on early-init
-    export EXTERNAL_STORAGE /mnt/storage
+    # storage - begin (from tuna)
+    export EXTERNAL_STORAGE /mnt/sdcard0
+    mkdir /storage 0050 system sdcard_r
+    mkdir /storage/sdcard0 0000 system system
+    # for backwards compatibility
+    ln -s /storage/sdcard0 /sdcard
+    ln -s /storage/sdcard0 /mnt/sdcard
+    mkdir /storage/sdcard1 
+    mkdir /mnt/usbdisk 0755 system system
+    # storage - end (from tuna)
 
 on init
 
@@ -19,6 +28,11 @@ on init
     write /sys/devices/platform/omapdss/display1/hpd_enabled 1
 
 on post-fs-data
+    # storage - begin (from tuna)
+    mkdir /data/media 0770 media_rw media_rw
+    chown media_rw media_rw /data/media
+    # storage - end (from tuna)
+
 	mkdir /data/smc 0770 drmrpc drmrpc
 #    setprop vold.post_fs_data_done 1
 
@@ -39,7 +53,7 @@ on early-boot
 # Remove the Ultra Fast Media Card Reader on EHCI bus
 #	write /sys/bus/usb/devices/1-1.1/remove 1
 
-# wi-fi
+# Wi-Fi
 	mkdir /data/misc/wifi/sockets 0770 wifi wifi
 	mkdir /data/misc/dhcp 0770 dhcp dhcp
 	insmod /lib/modules/compat.ko
@@ -71,8 +85,8 @@ on fs
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
-#Give system ownership and permission to boost clock for specified timeout
-#Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
+# Give system ownership and permission to boost clock for specified timeout
+# Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
     chown system system /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
     chmod 0664  /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
 
@@ -186,7 +200,7 @@ on fs
 # request for boot time reduction
     write /sys/devices/system/cpu/cpufreq/hotplug/boost_timeout 3000000
 
-#setup the hdmi interface
+# setup the hdmi interface
     # Enable hotplug detection for HDMI
     write /sys/devices/platform/omapdss/display1/hpd_enabled 1
     
