@@ -30,6 +30,7 @@ PRODUCT_PACKAGES += \
         librs_jni
 
 TARGET_BOOTANIMATION_NAME := horizontal-1024x768
+
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, device/archos/archos_g9/full_archos_g9.mk)
@@ -38,6 +39,8 @@ $(call inherit-product, vendor/archos/archos_g9/archos_g9-vendor.mk)
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 $(call inherit-product-if-exists, vendor/ti/proprietary/omap4xxx/ti-omap4-vendor.mk)
+#$(call inherit-product, device/archos/archos_g9/omap4xxx/omap4.mk)
+$(call inherit-product, device/archos/archos_g9/omap4xxx/Android.mk)
 $(call inherit-product, device/archos/archos_g9/omap4xxx/omap4.mk)
 $(call inherit-product, vendor/cm/config/gsm.mk)
 
