@@ -1,5 +1,7 @@
 on early-init
     export EXTERNAL_STORAGE /mnt/storage
+    export SECONDARY_STORAGE /mnt/sdcard
+    export EXTERNAL_UDISK_STORAGE /mnt/ext_storage
 
 on init
 
