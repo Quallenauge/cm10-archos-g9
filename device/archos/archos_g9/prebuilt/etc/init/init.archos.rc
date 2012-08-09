@@ -1,5 +1,8 @@
 on early-init
-    export EXTERNAL_STORAGE /mnt/storage
+    export EXTERNAL_STORAGE /mnt/sdcard
+    export SECONDARY_STORAGE /mnt/ext_storage
+    # jellybean compatibility
+    symlink /mnt/sdcard /storage/sdcard0
 
 on init
 
