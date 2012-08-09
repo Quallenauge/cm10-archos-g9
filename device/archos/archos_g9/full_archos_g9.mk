@@ -24,7 +24,7 @@ endif
 PRODUCT_COPY_FILES := \
        	$(LOCAL_KERNEL):kernel \
        	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
-       	$(PREBUILT_PATH)/root/init.rc:root/init.archos-ics.rc \
+       	$(PREBUILT_PATH)/root/init.rc:root/init.archos-ics.rc
         
 
 # Modem Kernel Modules
