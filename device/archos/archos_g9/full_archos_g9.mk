@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-DEVICE_PREBUILT := device/archos/archos_g9/prebuilt
-
 PRODUCT_AAPT_CONFIG := normal mdpi mdpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 
@@ -28,100 +26,100 @@ endif
 # Init Files
 PRODUCT_COPY_FILES := \
        	$(LOCAL_KERNEL):kernel \
-       	$(DEVICE_PREBUILT)/root/init.dongle.rc:root/init.dongle.rc \
-       	$(DEVICE_PREBUILT)/root/init.rc:root/init.archos-ics.rc \
+       	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
+       	$(PREBUILT_PATH)/root/init.rc:root/init.archos-ics.rc \
         
 
 # Modem Kernel Modules
 PRODUCT_COPY_FILES += \
-        $(DEVICE_PREBUILT)/root/lib/modules/usb_wwan.ko:root/lib/modules/usb_wwan.ko \
-        $(DEVICE_PREBUILT)/root/lib/modules/option.ko:root/lib/modules/option.ko \
-        $(DEVICE_PREBUILT)/root/lib/modules/hso.ko:root/lib/modules/hso.ko 
+        $(PREBUILT_PATH)/root/lib/modules/usb_wwan.ko:root/lib/modules/usb_wwan.ko \
+        $(PREBUILT_PATH)/root/lib/modules/option.ko:root/lib/modules/option.ko \
+        $(PREBUILT_PATH)/root/lib/modules/hso.ko:root/lib/modules/hso.ko 
 
 # EGL Proprietary Files
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PREBUILT)/lib/egl/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
-	$(DEVICE_PREBUILT)/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
-	$(DEVICE_PREBUILT)/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
-	$(DEVICE_PREBUILT)/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-	$(DEVICE_PREBUILT)/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
-	$(DEVICE_PREBUILT)/lib/libIMGegl.so:system/lib/libIMGegl.so \
-	$(DEVICE_PREBUILT)/lib/libpvr2d.so:system/lib/libpvr2d.so \
-	$(DEVICE_PREBUILT)/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
-	$(DEVICE_PREBUILT)/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
-	$(DEVICE_PREBUILT)/lib/libsrv_init.so:system/lib/libsrv_init.so \
-	$(DEVICE_PREBUILT)/lib/libsrv_um.so:system/lib/libsrv_um.so \
-	$(DEVICE_PREBUILT)/lib/libusc.so:system/lib/libusc.so \
-        $(DEVICE_PREBUILT)/bin/pvrsrvinit:system/bin/pvrsrvinit \
+	$(PREBUILT_PATH)/lib/egl/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
+	$(PREBUILT_PATH)/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
+	$(PREBUILT_PATH)/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
+	$(PREBUILT_PATH)/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
+	$(PREBUILT_PATH)/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
+	$(PREBUILT_PATH)/lib/libIMGegl.so:system/lib/libIMGegl.so \
+	$(PREBUILT_PATH)/lib/libpvr2d.so:system/lib/libpvr2d.so \
+	$(PREBUILT_PATH)/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
+	$(PREBUILT_PATH)/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
+	$(PREBUILT_PATH)/lib/libsrv_init.so:system/lib/libsrv_init.so \
+	$(PREBUILT_PATH)/lib/libsrv_um.so:system/lib/libsrv_um.so \
+	$(PREBUILT_PATH)/lib/libusc.so:system/lib/libusc.so \
+        $(PREBUILT_PATH)/bin/pvrsrvinit:system/bin/pvrsrvinit \
 
 # DRM Proprietary Files
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PREBUILT)/vendor/lib/libwvm.so:system/vendor/lib/libwvm.so \
-	$(DEVICE_PREBUILT)/vendor/lib/libwvdrm_L3.so:system/vendor/lib/libwvdrm_L3.so \
-	$(DEVICE_PREBUILT)/vendor/lib/libWVStreamControlAPI_L3.so:system/vendor/lib/libWVStreamControlAPI_L3.so \
+	$(PREBUILT_PATH)/vendor/lib/libwvm.so:system/vendor/lib/libwvm.so \
+	$(PREBUILT_PATH)/vendor/lib/libwvdrm_L3.so:system/vendor/lib/libwvdrm_L3.so \
+	$(PREBUILT_PATH)/vendor/lib/libWVStreamControlAPI_L3.so:system/vendor/lib/libWVStreamControlAPI_L3.so \
         
         
 # Vold Mounting
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PREBUILT)/etc/fstab:system/etc/fstab \
-	$(DEVICE_PREBUILT)/etc/fstab_nand:system/etc/fstab_nand \
-	$(DEVICE_PREBUILT)/etc/fstab_nor:system/etc/fstab_nor \
-	$(DEVICE_PREBUILT)/etc/vold.A80H.fstab:system/etc/vold.A80H.fstab \
-	$(DEVICE_PREBUILT)/etc/vold.A80S.fstab:system/etc/vold.A80S.fstab \
-	$(DEVICE_PREBUILT)/etc/vold.A101H.fstab:system/etc/vold.A101H.fstab \
-	$(DEVICE_PREBUILT)/etc/vold.A101S.fstab:system/etc/vold.A101S.fstab \
-	$(DEVICE_PREBUILT)/etc/vold.fstab:system/etc/vold.fstab
+	$(PREBUILT_PATH)/etc/fstab:system/etc/fstab \
+	$(PREBUILT_PATH)/etc/fstab_nand:system/etc/fstab_nand \
+	$(PREBUILT_PATH)/etc/fstab_nor:system/etc/fstab_nor \
+	$(PREBUILT_PATH)/etc/vold.A80H.fstab:system/etc/vold.A80H.fstab \
+	$(PREBUILT_PATH)/etc/vold.A80S.fstab:system/etc/vold.A80S.fstab \
+	$(PREBUILT_PATH)/etc/vold.A101H.fstab:system/etc/vold.A101H.fstab \
+	$(PREBUILT_PATH)/etc/vold.A101S.fstab:system/etc/vold.A101S.fstab \
+	$(PREBUILT_PATH)/etc/vold.fstab:system/etc/vold.fstab
 
 # Key Layout/Screen Config.
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PREBUILT)/usr/idc/cpt_i2c_tsp.idc:system/usr/idc/cpt_i2c_tsp.idc \
-	$(DEVICE_PREBUILT)/usr/idc/cypress-tma340.idc:system/usr/idc/cypress-tma340.idc \
-	$(DEVICE_PREBUILT)/usr/idc/pixcir_i2c_tsp.idc:system/usr/idc/pixcir_i2c_tsp.idc \
-	$(DEVICE_PREBUILT)/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
-	$(DEVICE_PREBUILT)/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
-	$(DEVICE_PREBUILT)/usr/idc/tr16c0_i2c_tsp.idc:system/usr/idc/tr16c0_i2c_tsp.idc
+	$(PREBUILT_PATH)/usr/idc/cpt_i2c_tsp.idc:system/usr/idc/cpt_i2c_tsp.idc \
+	$(PREBUILT_PATH)/usr/idc/cypress-tma340.idc:system/usr/idc/cypress-tma340.idc \
+	$(PREBUILT_PATH)/usr/idc/pixcir_i2c_tsp.idc:system/usr/idc/pixcir_i2c_tsp.idc \
+	$(PREBUILT_PATH)/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
+	$(PREBUILT_PATH)/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
+	$(PREBUILT_PATH)/usr/idc/tr16c0_i2c_tsp.idc:system/usr/idc/tr16c0_i2c_tsp.idc
 
 # Init scripts
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PREBUILT)/etc/init/init.A80H.rc:system/etc/init/init.A80H.rc \
-	$(DEVICE_PREBUILT)/etc/init/init.A80S.rc:system/etc/init/init.A80S.rc \
-	$(DEVICE_PREBUILT)/etc/init/init.A101H.rc:system/etc/init/init.A101H.rc \
-	$(DEVICE_PREBUILT)/etc/init/init.A101S.rc:system/etc/init/init.A101S.rc \
-	$(DEVICE_PREBUILT)/etc/init/init.archos.rc:system/etc/init/init.archos.rc \
-	$(DEVICE_PREBUILT)/etc/init/init.rc:system/etc/init/init.rc \
-	$(DEVICE_PREBUILT)/etc/init/ueventd.archos.rc:system/etc/init/ueventd.archos.rc
+	$(PREBUILT_PATH)/etc/init/init.A80H.rc:system/etc/init/init.A80H.rc \
+	$(PREBUILT_PATH)/etc/init/init.A80S.rc:system/etc/init/init.A80S.rc \
+	$(PREBUILT_PATH)/etc/init/init.A101H.rc:system/etc/init/init.A101H.rc \
+	$(PREBUILT_PATH)/etc/init/init.A101S.rc:system/etc/init/init.A101S.rc \
+	$(PREBUILT_PATH)/etc/init/init.archos.rc:system/etc/init/init.archos.rc \
+	$(PREBUILT_PATH)/etc/init/init.rc:system/etc/init/init.rc \
+	$(PREBUILT_PATH)/etc/init/ueventd.archos.rc:system/etc/init/ueventd.archos.rc
 	
 # pppd scripts
 PRODUCT_COPY_FILES += \
-	$(DEVICE_PREBUILT)/etc/ppp/init_pppd_gprs:system/etc/ppp/init_pppd_gprs \
-	$(DEVICE_PREBUILT)/etc/ppp/init_pppd_datakey:system/etc/ppp/init_pppd_datakey \
-	$(DEVICE_PREBUILT)/etc/ppp/ip-up-datakey:system/etc/ppp/ip-up-datakey \
-	$(DEVICE_PREBUILT)/etc/ppp/ip-up-gprs:system/etc/ppp/ip-up-gprs \
-	$(DEVICE_PREBUILT)/etc/ppp/ip-down-datakey:system/etc/ppp/ip-down-datakey \
-	$(DEVICE_PREBUILT)/etc/ppp/ip-down-gprs:system/etc/ppp/ip-down-gprs \
-	$(DEVICE_PREBUILT)/etc/ppp/peers/datakey:system/etc/ppp/peers/datakey \
-	$(DEVICE_PREBUILT)/etc/ppp/peers/gprs:system/etc/ppp/peers/gprs \
-	$(DEVICE_PREBUILT)/etc/ppp/write_secrets:system/etc/ppp/write_secrets 
+	$(PREBUILT_PATH)/etc/ppp/init_pppd_gprs:system/etc/ppp/init_pppd_gprs \
+	$(PREBUILT_PATH)/etc/ppp/init_pppd_datakey:system/etc/ppp/init_pppd_datakey \
+	$(PREBUILT_PATH)/etc/ppp/ip-up-datakey:system/etc/ppp/ip-up-datakey \
+	$(PREBUILT_PATH)/etc/ppp/ip-up-gprs:system/etc/ppp/ip-up-gprs \
+	$(PREBUILT_PATH)/etc/ppp/ip-down-datakey:system/etc/ppp/ip-down-datakey \
+	$(PREBUILT_PATH)/etc/ppp/ip-down-gprs:system/etc/ppp/ip-down-gprs \
+	$(PREBUILT_PATH)/etc/ppp/peers/datakey:system/etc/ppp/peers/datakey \
+	$(PREBUILT_PATH)/etc/ppp/peers/gprs:system/etc/ppp/peers/gprs \
+	$(PREBUILT_PATH)/etc/ppp/write_secrets:system/etc/ppp/write_secrets 
 	
 # chatscripts scripts
 PRODUCT_COPY_FILES += \
-        $(DEVICE_PREBUILT)/etc/chatscripts/gprs_start:system/etc/chatscripts/gprs_start \
-        $(DEVICE_PREBUILT)/etc/chatscripts/gprs_stop:system/etc/chatscripts/gprs_stop \
-        $(DEVICE_PREBUILT)/etc/chatscripts/datakey_start:system/etc/chatscripts/datakey_start \
-        $(DEVICE_PREBUILT)/etc/chatscripts/datakey_stop:system/etc/chatscripts/datakey_stop 
+        $(PREBUILT_PATH)/etc/chatscripts/gprs_start:system/etc/chatscripts/gprs_start \
+        $(PREBUILT_PATH)/etc/chatscripts/gprs_stop:system/etc/chatscripts/gprs_stop \
+        $(PREBUILT_PATH)/etc/chatscripts/datakey_start:system/etc/chatscripts/datakey_start \
+        $(PREBUILT_PATH)/etc/chatscripts/datakey_stop:system/etc/chatscripts/datakey_stop 
 
 # xbin
 PRODUCT_COPY_FILES += \
-        $(DEVICE_PREBUILT)/bin/hotplugd:system/bin/hotplugd \
-        $(DEVICE_PREBUILT)/bin/sdcard:system/bin/sdcard \
-        $(DEVICE_PREBUILT)/xbin/chat:system/xbin/chat \
-        $(DEVICE_PREBUILT)/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
-        $(DEVICE_PREBUILT)/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
-        $(DEVICE_PREBUILT)/lib/libusb.so:system/lib/libusb.so                       
+        $(PREBUILT_PATH)/bin/hotplugd:system/bin/hotplugd \
+        $(PREBUILT_PATH)/bin/sdcard:system/bin/sdcard \
+        $(PREBUILT_PATH)/xbin/chat:system/xbin/chat \
+        $(PREBUILT_PATH)/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
+        $(PREBUILT_PATH)/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
+        $(PREBUILT_PATH)/lib/libusb.so:system/lib/libusb.so                       
 
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PREBUILT)/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    $(DEVICE_PREBUILT)/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    $(PREBUILT_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    $(PREBUILT_PATH)/etc/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:/system/etc/permissions/tablet_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \

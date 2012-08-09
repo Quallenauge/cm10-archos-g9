@@ -20,7 +20,7 @@
 #USE_CAMERA_STUB := true
 
 # Use the non-open-source parts, if they're present
--include vendor/archos/archos_g9/BoardConfigVendor.mk
+-include $(VENDOR_PATH)/BoardConfigVendor.mk
 
 TARGET_CPU_ABI             := armeabi-v7a
 TARGET_CPU_ABI2            := armeabi
@@ -31,7 +31,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 BOARD_HAVE_BLUETOOTH := true
 TARGET_NO_BOOTLOADER := true
 
-TARGET_PREBUILT_KERNEL := device/archos/archos_g9/kernel
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
 BOARD_KERNEL_BASE      := 0x80000000
 #BOARD_KERNEL_CMDLINE  :=
 
@@ -45,7 +45,7 @@ TARGET_BOOTLOADER_BOARD_NAME := archos
 # device-specific extensions to the updater binary
 #TARGET_RELEASETOOLS_EXTENSIONS := device/ti/panda
 
-BOARD_EGL_CFG := device/archos/archos_g9/prebuilt/lib/egl/egl.cfg
+BOARD_EGL_CFG := $(PREBUILT_PATH)/lib/egl/egl.cfg
 
 #BOARD_USES_HGL            := true
 #BOARD_USES_OVERLAY        := true

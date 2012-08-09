@@ -19,6 +19,10 @@
 # named (liblights.panda), and must build everywhere, or limit themselves
 # to only building on ARM if they include assembly. Individual makefiles
 # are responsible for having their own logic, for fine-grained control.
+
+# Set up variables
 LOCAL_PATH := $(call my-dir)
+PREBUILT_PATH := $(call my-dir)/prebuilt
+VENDOR_PATH := vendor/archos/archos_g9
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
