@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-PRODUCT_AAPT_CONFIG := normal mdpi mdpi
-PRODUCT_AAPT_PREF_CONFIG := mdpi
-
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 LOCAL_KERNEL := device/archos/archos_g9/kernel
 else
