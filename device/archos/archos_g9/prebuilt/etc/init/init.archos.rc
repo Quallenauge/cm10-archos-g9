@@ -3,6 +3,9 @@ on early-init
     export SECONDARY_STORAGE /mnt/ext_storage
     # jellybean compatibility
     symlink /mnt/sdcard /storage/sdcard0
+    # usb device mounting
+    export EXTERNAL_UDISK_STORAGE /mnt/usbdisk
+    mkdir /mnt/usbdisk 0775 system system
 
 on init
 
