@@ -22,7 +22,7 @@
 
 # Set up variables
 LOCAL_PATH := $(call my-dir)
-PREBUILT_PATH := $(call my-dir)/prebuilt
-VENDOR_PATH := vendor/archos/archos_g9
+#PREBUILT_PATH := $(call my-dir)/prebuilt
+#VENDOR_PATH := vendor/archos/archos_g9
 
 include $(call all-makefiles-under,$(LOCAL_PATH))

@@ -14,6 +14,10 @@
 # limitations under the License.
 #
 
+LOCAL_PATH := device/archos/archos_g9
+
+$(warning "LocalPath: $(LOCAL_PATH)")
+
 # These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
 #BOARD_USES_GENERIC_AUDIO := false

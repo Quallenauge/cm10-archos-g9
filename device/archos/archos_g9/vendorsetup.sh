@@ -20,5 +20,9 @@
 # In particular, you can add lunch options with the add_lunch_combo
 # function: add_lunch_combo generic-eng
 
+export LOCAL_PATH=device/archos/archos_g9
+export PREBUILT_PATH=$LOCAL_PATH/prebuilt
+export VENDOR_PATH=vendor/archos/archos_g9
+
 add_lunch_combo cm_archos_g9-userdebug
 add_lunch_combo cm_archos_g9-eng

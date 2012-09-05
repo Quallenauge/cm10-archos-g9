@@ -24,6 +24,8 @@
 # Boot animation
 TARGET_BOOTANIMATION_NAME := horizontal-1024x768
 
+$(warning "LocalPath1: $(LOCAL_PATH)")
+
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, $(LOCAL_PATH)/full_archos_g9.mk)
@@ -33,7 +35,7 @@ $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 $(call inherit-product-if-exists, vendor/ti/proprietary/omap4xxx/ti-omap4-vendor.mk)
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
-$(call inherit-product, hardware/ti/omap4xxx/ti-wpan-products.mk)
+$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
 
 # About our tablet
 PRODUCT_NAME := cm_archos_g9
