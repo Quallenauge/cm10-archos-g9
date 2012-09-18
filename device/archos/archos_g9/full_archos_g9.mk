@@ -34,20 +34,20 @@ PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/root/lib/modules/hso.ko:root/lib/modules/hso.ko 
 
 # EGL Proprietary Files
-PRODUCT_COPY_FILES += \
-	$(PREBUILT_PATH)/lib/egl/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
-	$(PREBUILT_PATH)/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
-	$(PREBUILT_PATH)/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
-	$(PREBUILT_PATH)/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-	$(PREBUILT_PATH)/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
-	$(PREBUILT_PATH)/lib/libIMGegl.so:system/lib/libIMGegl.so \
-	$(PREBUILT_PATH)/lib/libpvr2d.so:system/lib/libpvr2d.so \
-	$(PREBUILT_PATH)/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
-	$(PREBUILT_PATH)/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
-	$(PREBUILT_PATH)/lib/libsrv_init.so:system/lib/libsrv_init.so \
-	$(PREBUILT_PATH)/lib/libsrv_um.so:system/lib/libsrv_um.so \
-	$(PREBUILT_PATH)/lib/libusc.so:system/lib/libusc.so \
-        $(PREBUILT_PATH)/bin/pvrsrvinit:system/bin/pvrsrvinit \
+#PRODUCT_COPY_FILES += \
+#	$(PREBUILT_PATH)/lib/egl/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
+#	$(PREBUILT_PATH)/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
+#	$(PREBUILT_PATH)/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
+#	$(PREBUILT_PATH)/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
+#	$(PREBUILT_PATH)/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
+#	$(PREBUILT_PATH)/lib/libIMGegl.so:system/lib/libIMGegl.so \
+#	$(PREBUILT_PATH)/lib/libpvr2d.so:system/lib/libpvr2d.so \
+#	$(PREBUILT_PATH)/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
+#	$(PREBUILT_PATH)/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
+#	$(PREBUILT_PATH)/lib/libsrv_init.so:system/lib/libsrv_init.so \
+#	$(PREBUILT_PATH)/lib/libsrv_um.so:system/lib/libsrv_um.so \
+#	$(PREBUILT_PATH)/lib/libusc.so:system/lib/libusc.so \
+#        $(PREBUILT_PATH)/bin/pvrsrvinit:system/bin/pvrsrvinit \
 
 # DRM Proprietary Files
 PRODUCT_COPY_FILES += \
@@ -220,3 +220,4 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9
+

@@ -26,3 +26,4 @@ LOCAL_PATH := $(call my-dir)
 #VENDOR_PATH := vendor/archos/archos_g9
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
+

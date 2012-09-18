@@ -18,10 +18,25 @@ LOCAL_PATH := device/archos/archos_g9
 
 $(warning "LocalPath: $(LOCAL_PATH)")
 
+GLOBAL_C_INCLUDES += \
+    external/bltsville/bltsville/include
+
+# define OMAP_ENHANCEMENT variables
+include device/archos/archos_g9/Config.mk
+
+
 # These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
-#BOARD_USES_GENERIC_AUDIO := false
-#USE_CAMERA_STUB := true
+BOARD_USES_GENERIC_AUDIO := true
+USE_CAMERA_STUB := true
+OMAP_ENHANCEMENT := true
+ENHANCED_DOMX := true
+
+ifdef OMAP_ENHANCEMENT
+    OMAP_ENHANCEMENT_S3D :=
+    OMAP_ENHANCEMENT_CPCAM :=
+    OMAP_ENHANCEMENT_VTC := true
+endif
 
 # Use the non-open-source parts, if they're present
 -include $(VENDOR_PATH)/BoardConfigVendor.mk
@@ -57,6 +72,7 @@ USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
 # OMAP
+BLTSVILLE_ENHANCEMENT :=true
 OMAP_ENHANCEMENT     := true
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
 
@@ -75,8 +91,8 @@ BOARD_FLASH_BLOCK_SIZE             := 4096
 
 # Connectivity - Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
+WPA_SUPPLICANT_VERSION           := VER_0_8_X_TI
+BOARD_HOSTAPD_DRIVER      	 := NL80211
 BOARD_WLAN_DEVICE                := wl12xx_mac80211
 BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
 WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
@@ -84,8 +100,17 @@ WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER             := ""
 COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
 
+#BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
+
+ifdef OMAP_ENHANCEMENT
+COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
+endif
+
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
 # Boot animation
 TARGET_BOOTANIMATION_USE_RGB565 := true
+
+# Common device independent definitions
+include device/ti/common-open/BoardConfig.mk

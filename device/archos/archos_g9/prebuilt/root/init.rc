@@ -268,8 +268,13 @@ on post-fs-data
 
     # network
     insmod /lib/modules/fuse.ko
+    insmod /lib/modules/twl6030_bci_battery.ko
+    insmod /lib/modules/twl6030_bci_battery.ko
 
 on boot
+# Disable Archos UMTS stick
+echo "0" >/sys/class/rfkill/rfkill0/state
+
 # basic network init
     ifup lo
     hostname localhost
@@ -705,9 +710,9 @@ service reboot /system/bin/reboot
 service nand /system/bin/nand /data/nand 1000 1015
     class main
     
-    	service mdnsd /system/bin/mdnsd
-        class main
-    	   user mdnsr
+service mdnsd /system/bin/mdnsd
+    class main
+    user mdnsr
     	            group inet net_raw
     	                socket mdnsd stream 0660 mdnsr inet
     	                    disabled

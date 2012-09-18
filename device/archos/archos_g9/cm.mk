@@ -33,9 +33,16 @@ $(call inherit-product, $(LOCAL_PATH)/usb_modeswitch.mk)
 $(call inherit-product, $(VENDOR_PATH)/archos_g9-vendor.mk)
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
-$(call inherit-product-if-exists, vendor/ti/proprietary/omap4xxx/ti-omap4-vendor.mk)
+
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
-$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
+$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
+$(call inherit-product-if-exists, device/ti/proprietary-open/omap4/ti-omap4-vendor.mk)
+$(call inherit-product-if-exists, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
+$(call inherit-product-if-exists, device/ti/common-open/s3d/s3d-products.mk)
+$(call inherit-product-if-exists, device/ti/proprietary-open/omap4/ducati-blaze_tablet.mk)
+
+# clear OMAP_ENHANCEMENT variables
+$(call ti-clear-vars)
 
 # About our tablet
 PRODUCT_NAME := cm_archos_g9
@@ -43,3 +50,14 @@ PRODUCT_DEVICE := archos_g9
 PRODUCT_BRAND := Android
 PRODUCT_MODEL := Archos G9
 PRODUCT_MANUFACTURER := Archos
+
+# Make a symlink from /system/vendor/lib/hw/gralloc.omap4460.so to /system/lib/hw/gralloc.archos.so
+COMMANDS = gralloc.archos.so
+SYMLINKS := $(addprefix $(TARGET_OUT_SHARED_LIBRARIES)/hw/,$(COMMANDS))
+$(SYMLINKS): GRALLOC_LIB := $(TARGET_OUT_VENDOR)/lib/hw/gralloc.omap4460.so
+$(wdwdSYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
+	@echo "Symlink: $@ -> $(GRALLOC_BINARY)"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf $(GRALLOC_BINARY) $@
+ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
