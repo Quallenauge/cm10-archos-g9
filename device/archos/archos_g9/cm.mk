@@ -32,10 +32,11 @@ $(call inherit-product, $(LOCAL_PATH)/full_archos_g9.mk)
 $(call inherit-product, $(LOCAL_PATH)/usb_modeswitch.mk)
 $(call inherit-product, $(VENDOR_PATH)/archos_g9-vendor.mk)
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+$(call inherit-product, device/ti/proprietary-open/omap4/ti-omap4-vendor.mk)
+$(call inherit-product, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
+#$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
-$(call inherit-product-if-exists, vendor/ti/proprietary/omap4xxx/ti-omap4-vendor.mk)
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
-$(call inherit-product, hardware/ti/wpan/ti-wpan-products.mk)
 
 # About our tablet
 PRODUCT_NAME := cm_archos_g9
