@@ -35,9 +35,28 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 BOARD_HAVE_BLUETOOTH := true
 TARGET_NO_BOOTLOADER := true
 
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
+#TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
+TARGET_KERNEL_CONFIG    := archos_g9_defconfig
 BOARD_KERNEL_BASE      := 0x80000000
 #BOARD_KERNEL_CMDLINE  :=
+
+SGX_MODULES:
+	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
+	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
+	# It seems that the default sgx deployment will overwrite the builded one
+	mv out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
+
+TIWLAN_MODULES:
+	make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_spi.ko $(KERNEL_MODULES_OUT)
+    
+TARGET_KERNEL_MODULES := TIWLAN_MODULES SGX_MODULES
+
 
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
@@ -66,7 +85,8 @@ COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 #ENABLE_WEBGL := true
 
 TARGET_USERIMAGES_USE_EXT4         := true
-BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 268435456
+# Use 384MByte as system image
+BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 402653184
 #BOARD_SYSTEMIMAGE_PARTITION_SIZE  := 16777216
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 536870912
 BOARD_CACHEIMAGE_PARTITION_SIZE    := 268435456
