@@ -25,6 +25,6 @@ PRODUCT_COPY_FILES := \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
 
 # Pick up overlay for features that depend on non-open-source files
-DEVICE_PACKAGE_OVERLAYS := vendor/archos/archos_g9/overlay
+DEVICE_PACKAGE_OVERLAYS := device/archos/archos_g9/overlay
 
-$(call inherit-product, vendor/archos/archos_g9/archos_g9-vendor-blobs.mk)
+$(call inherit-product, device/archos/archos_g9/archos_g9-vendor-blobs.mk)
