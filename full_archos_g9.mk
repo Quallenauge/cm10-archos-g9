@@ -49,6 +49,11 @@ PRODUCT_COPY_FILES += \
 #	$(PREBUILT_PATH)/lib/libusc.so:system/lib/libusc.so \
 #        $(PREBUILT_PATH)/bin/pvrsrvinit:system/bin/pvrsrvinit \
 
+# Graphics
+PRODUCT_COPY_FILES += \
+	$(PREBUILT_PATH)/lib/modules/omaplfb_sgx540_120.ko:system/lib/modules/omaplfb_sgx540_120.ko \
+	$(PREBUILT_PATH)/vendor/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so
+
 # DRM Proprietary Files
 PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/vendor/lib/libwvm.so:system/vendor/lib/libwvm.so \
@@ -217,10 +222,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	hciconfig \
 	hcitool
-	
+
 # Bluetooth
 PRODUCT_PACKAGES += \
 	ti-wpan-fw
+
+# SGX driver
+RODUCT_PACKAGES += \
+	ti_omap4_sgx_libs
 
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9

@@ -16,7 +16,7 @@
 
 LOCAL_PATH := device/archos/archos_g9
 
-$(warning "LocalPath: $(LOCAL_PATH)")
+#$(warning "LocalPath: $(LOCAL_PATH)")
 
 # These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
@@ -44,7 +44,11 @@ SGX_MODULES:
 	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
 	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
 	# It seems that the default sgx deployment will overwrite the builded one
-	mv out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
+	cp out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
+
+SGX_PREBUILD_MODULES:
+	# Copy prebuild modules from archos
+	cp -v -r device/archos/archos_g9/prebuilt/sgx/* $(TARGET_OUT)/
 
 TIWLAN_MODULES:
 	make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
@@ -76,8 +80,9 @@ USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
 # OMAP
-OMAP_ENHANCEMENT     := true
-COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
+#OMAP_ENHANCEMENT     := true
+#COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
+COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP4
 
 # Audio library
 COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB

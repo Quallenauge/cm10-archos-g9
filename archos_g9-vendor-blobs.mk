@@ -52,7 +52,6 @@ PRODUCT_COPY_FILES := \
 
 #    device/archos/archos_g9/proprietary/lib/libdomx.so:/system/lib/libdomx.so 
 
-
 # Misc Stuff
 PRODUCT_COPY_FILES += \
     device/archos/archos_g9/proprietary/etc/gps/cert/client_keystore.bks:/system/etc/gps/cert/client_keystore.bks \
