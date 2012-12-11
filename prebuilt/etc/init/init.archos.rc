@@ -220,8 +220,8 @@ on fs
 # SGX driver
     chmod 0666 /dev/pvrsrvkm
 # Initialize the SGX driver
-service pvrsrvinit /system/bin/pvrsrvinit
-#service pvrsrvinit /system/vendor/bin/pvrsrvinit
+#service pvrsrvinit /system/bin/pvrsrvinit
+service pvrsrvinit /system/vendor/bin/pvrsrvinit
     class core
     user root
     group root
