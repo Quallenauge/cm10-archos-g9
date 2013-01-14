@@ -59,7 +59,7 @@ TIWLAN_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_spi.ko $(KERNEL_MODULES_OUT)
     
-TARGET_KERNEL_MODULES := TIWLAN_MODULES SGX_MODULES
+TARGET_KERNEL_MODULES := SGX_MODULES
 
 
 TARGET_NO_RADIOIMAGE         := true
