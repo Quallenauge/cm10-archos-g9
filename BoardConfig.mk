@@ -26,6 +26,7 @@ LOCAL_PATH := device/archos/archos_g9
 # Use the non-open-source parts, if they're present
 -include $(VENDOR_PATH)/BoardConfigVendor.mk
 
+TARGET_ARCH		   := arm
 TARGET_CPU_ABI             := armeabi-v7a
 TARGET_CPU_ABI2            := armeabi
 TARGET_CPU_SMP             := true
@@ -117,7 +118,7 @@ WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER             := ""
 COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
-USES_TI_MAC80211		 := true
+USES_TI_MAC80211                 := true
 
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true

@@ -28,7 +28,7 @@ PRODUCT_COPY_FILES := \
 
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 	
 #	Live wallpaper packages
 PRODUCT_PACKAGES := \
@@ -133,76 +133,80 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(PREBUILT_PATH)/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    frameworks/native/data/etc/tablet_core_hardware.xml:/system/etc/permissions/tablet_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:/system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:/system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:/system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:/system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:/system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:/system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.camera.xml:/system/etc/permissions/android.hardware.camera.xml \
-    frameworks/native/data/etc/android.hardware.camera.front.xml:/system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:/system/etc/permissions/android.hardware.camera.autofocus.xml \
-    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:/system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
  
 # All non-essential proprietary files for Archos G9 but are still kinda important
-PRODUCT_COPY_FILES := \
-    $PREBUILT_PATH/bin/batteryd:/system/bin/batteryd \
-    $PREBUILT_PATH/bin/akmd8975:/system/bin/akmd8975 \
-    $PREBUILT_PATH/bin/last_kmsg:/system/bin/last_kmsg \
-    $PREBUILT_PATH/bin/nand:/system/bin/nand \
-    $PREBUILT_PATH/bin/powerd:/system/bin/powerd \
-    $PREBUILT_PATH/bin/sharesd:/system/bin/sharesd \
-    $PREBUILT_PATH/bin/uim-sysfs:/system/bin/uim-sysfs \
-    $PREBUILT_PATH/bin/watchdog_daemon:/system/bin/watchdog_daemon \
-    $PREBUILT_PATH/bin/navd:/system/bin/navd \
-    $PREBUILT_PATH/bin/rfkill_chmod.sh:/system/bin/rfkill_chmod.sh \
-    $PREBUILT_PATH/lib/libedid.so:/system/lib/libedid.so \
-    $PREBUILT_PATH/lib/libgps.so:/system/lib/libgps.so \
-    $PREBUILT_PATH/lib/libgpsservices.so:/system/lib/libgpsservices.so \
-    $PREBUILT_PATH/lib/libmcphalgps.so:/system/lib/libmcphalgps.so \
-    $PREBUILT_PATH/lib/libsupllocationprovider.so:/system/lib/libsupllocationprovider.so \
-    $PREBUILT_PATH/lib/libtiutils.so:/system/lib/libtiutils.so \
-    $PREBUILT_PATH/lib/hw/audio.primary.archos.so:/system/lib/hw/audio.primary.archos.so \
-    $PREBUILT_PATH/lib/hw/audio_policy.archos.so:/system/lib/hw/audio_policy.archos.so \
-    $PREBUILT_PATH/lib/hw/gps.archos.so:/system/lib/hw/gps.archos.so \
-    $PREBUILT_PATH/lib/hw/lights.archos.so:/system/lib/hw/lights.archos.so \
-    $PREBUILT_PATH/lib/hw/sensors.omap4.so:/system/lib/hw/sensors.omap4.so 
+PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/bin/batteryd:system/bin/batteryd \
+    $(PREBUILT_PATH)/bin/akmd8975:system/bin/akmd8975 \
+    $(PREBUILT_PATH)/bin/last_kmsg:system/bin/last_kmsg \
+    $(PREBUILT_PATH)/bin/nand:system/bin/nand \
+    $(PREBUILT_PATH)/bin/powerd:system/bin/powerd \
+    $(PREBUILT_PATH)/bin/sharesd:system/bin/sharesd \
+    $(PREBUILT_PATH)/bin/uim-sysfs:system/bin/uim-sysfs \
+    $(PREBUILT_PATH)/bin/watchdog_daemon:system/bin/watchdog_daemon \
+    $(PREBUILT_PATH)/bin/navd:system/bin/navd \
+    $(PREBUILT_PATH)/bin/rfkill_chmod.sh:system/bin/rfkill_chmod.sh \
+    $(PREBUILT_PATH)/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
+    $(PREBUILT_PATH)/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so \
+    $(PREBUILT_PATH)/lib/hw/gps.archos.so:system/lib/hw/gps.archos.so \
+    $(PREBUILT_PATH)/lib/hw/lights.archos.so:system/lib/hw/lights.archos.so \
+    $(PREBUILT_PATH)/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so \
+    $(PREBUILT_PATH)/lib/hw/camera.omap4.so:system/lib/hw/camera.omap4.so
 
-#    $PREBUILT_PATH/lib/hw/hwcomposer.omap4.so:/system/vendor/lib/hw/hwcomposer.omap4.so \
-#    $PREBUILT_PATH/lib/hw/camera.omap4.so:/system/lib/hw/camera.omap4.so \
-#    $PREBUILT_PATH/lib/libskia.so:/system/lib/libskia.so
+# GPS libraries 
+PRODUCT_COPY_FILES += \
+	 $(PREBUILT_PATH)/lib/libgpsservices.so:system/lib/libgpsservices.so \
+	 $(PREBUILT_PATH)/lib/libmcphalgps.so:system/lib/libmcphalgps.so \
+	 $(PREBUILT_PATH)/lib/libsupllocationprovider.so:system/lib/libsupllocationprovider.so \
+	 $(PREBUILT_PATH)/lib/libsuplhelperservicejni.so:system/lib/libsuplhelperservicejni.so \
+	 $(PREBUILT_PATH)/lib/libgps.so:system/lib/libgps.so
+
+#    $(PREBUILT_PATH)/lib/libedid.so:system/lib/libedid.so \
+# 	 $(PREBUILT_PATH)/lib/libtiutils.so:system/lib/libtiutils.so \
+#    $(PREBUILT_PATH)/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so \
+#    $(PREBUILT_PATH)/lib/libskia.so:system/lib/libskia.so
 
 
 # archos audio depends on tinyalsa
-PRODUCT_COPY_FILES := \
-    $PREBUILT_PATH/lib/libtinyalsa.so:/system/lib/libtinyalsa.so
+PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/lib/libtinyalsa.so:system/lib/libtinyalsa.so
 
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
-    $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
-    $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
-    $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
-    $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
-    $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
-    $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
-    $PREBUILT_PATH/lib/libOMX_Core.so:/system/lib/libOMX_Core.so
-
-#    $PREBUILT_PATH/lib/libdomx.so:/system/lib/libdomx.so 
+    $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
+    $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
+    $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
+    $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
+    $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
+    $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
+    $(PREBUILT_PATH)/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
+    $(PREBUILT_PATH)/lib/libdomx.so:system/lib/libdomx.so \
+    $(PREBUILT_PATH)/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
-    $PREBUILT_PATH/etc/gps/cert/client_keystore.bks:/system/etc/gps/cert/client_keystore.bks \
-    $PREBUILT_PATH/etc/gps/config/GPSCConfigFile.cfg:/system/etc/gps/config/GPSCConfigFile.cfg \
-    $PREBUILT_PATH/etc/gps/config/GpsConfigFile.txt:/system/etc/gps/config/GpsConfigFile.txt \
-    $PREBUILT_PATH/etc/gps/config/inavconfigfile.txt:/system/etc/gps/config/inavconfigfile.txt \
-    $PREBUILT_PATH/etc/gps/config/pathconfigfile.txt:/system/etc/gps/config/pathconfigfile.txt \
-    $PREBUILT_PATH/etc/gps/config/PeriodicConfFile.cfg:/system/etc/gps/config/PeriodicConfFile.cfg \
-    $PREBUILT_PATH/etc/gps/config/SuplConfig.spl:/system/etc/gps/config/SuplConfig.spl \
-    $PREBUILT_PATH/etc/gps/patch/patch-X.0.ce:/system/etc/gps/patch/patch-X.0.ce
+    $(PREBUILT_PATH)/etc/gps/cert/client_keystore.bks:system/etc/gps/cert/client_keystore.bks \
+    $(PREBUILT_PATH)/etc/gps/config/GPSCConfigFile.cfg:system/etc/gps/config/GPSCConfigFile.cfg \
+    $(PREBUILT_PATH)/etc/gps/config/GpsConfigFile.txt:system/etc/gps/config/GpsConfigFile.txt \
+    $(PREBUILT_PATH)/etc/gps/config/inavconfigfile.txt:system/etc/gps/config/inavconfigfile.txt \
+    $(PREBUILT_PATH)/etc/gps/config/pathconfigfile.txt:system/etc/gps/config/pathconfigfile.txt \
+    $(PREBUILT_PATH)/etc/gps/config/PeriodicConfFile.cfg:system/etc/gps/config/PeriodicConfFile.cfg \
+    $(PREBUILT_PATH)/etc/gps/config/SuplConfig.spl:system/etc/gps/config/SuplConfig.spl \
+    $(PREBUILT_PATH)/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
 PRODUCT_PACKAGES := \
         Superuser \
@@ -229,9 +233,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
 	hwui.render_dirty_regions=false
-
-PRODUCT_PROPERTY_OVERRIDES += \	
-	qemu.hw.mainkeys=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
