@@ -176,6 +176,11 @@ PRODUCT_COPY_FILES := \
 #    $PREBUILT_PATH/lib/hw/camera.omap4.so:/system/lib/hw/camera.omap4.so \
 #    $PREBUILT_PATH/lib/libskia.so:/system/lib/libskia.so
 
+
+# archos audio depends on tinyalsa
+PRODUCT_COPY_FILES := \
+    $PREBUILT_PATH/lib/libtinyalsa.so:/system/lib/libtinyalsa.so
+
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
     $PREBUILT_PATH/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
