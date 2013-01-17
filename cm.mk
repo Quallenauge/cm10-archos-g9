@@ -28,7 +28,6 @@ TARGET_BOOTANIMATION_NAME := horizontal-1024x768
 $(call inherit-product, $(LOCAL_PATH)/full_archos_g9.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 $(call inherit-product, $(LOCAL_PATH)/usb_modeswitch.mk)
-$(call inherit-product, $(LOCAL_PATH)/archos_g9-vendor.mk)
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
 # Enable the next line, to include the TI provided sgx libraries
