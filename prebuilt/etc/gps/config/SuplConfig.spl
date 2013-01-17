@@ -1,0 +1,7 @@
+<StorePath> /system/etc/gps/cert/client_keystore.bks
+<ImplType> Socket
+<Localhost> false
+<ProtocolType> TLS
+<slphost_fqdn> supl.google.com
+<port> 7275
+<slp_type> FQDN_IP

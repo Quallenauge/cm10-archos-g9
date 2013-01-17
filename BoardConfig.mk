@@ -108,6 +108,7 @@ WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER             := ""
 COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
+USES_TI_MAC80211		 := true
 
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true

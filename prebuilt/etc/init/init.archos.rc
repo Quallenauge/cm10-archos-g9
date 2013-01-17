@@ -1,9 +1,22 @@
-on early-init
-    export EXTERNAL_STORAGE /mnt/storage
-    export SECONDARY_STORAGE /mnt/sdcard
-    export EXTERNAL_UDISK_STORAGE /mnt/ext_storage
+#on early-init
+#    export EXTERNAL_STORAGE /mnt/storage
+#    export SECONDARY_STORAGE /mnt/sdcard
+#    export EXTERNAL_UDISK_STORAGE /mnt/ext_storage
 
 on init
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+	
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
 
 # power management
 # Enable off mode by default
@@ -23,6 +36,7 @@ on init
 on post-fs-data
 	mkdir /data/smc 0770 drmrpc drmrpc
 #    setprop vold.post_fs_data_done 1
+	mkdir /data/media 0770 media_rw media_rw
 
 on early-boot
 	chmod 0666 /dev/pvrsrvkm

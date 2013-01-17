@@ -90,8 +90,12 @@ service pppd_secrets /system/bin/logwrapper /system/etc/ppp/write_secrets
     disabled
     oneshot
 
-service sdcard /system/bin/sdcard /data/media 1000 1015
-    class main
+#service sdcard /system/bin/sdcard /data/media 1000 1015
+#    class main
+
+#virtual sdcard daemon running as media_rw (1023)
+service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+    class late_start
 
 on property:sys.usb.config=none
     stop adbd

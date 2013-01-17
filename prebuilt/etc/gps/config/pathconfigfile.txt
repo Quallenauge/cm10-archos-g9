@@ -1,0 +1,47 @@
+#
+# Config file
+GPSC_CONFIG_FILE    /system/etc/gps/config/GPSCConfigFile.cfg
+
+# Patch file
+PATCH_FILE   /system/etc/gps/patch/patch-X.0.ce
+
+# Aiding file storage
+AIDING_PATH	   /data/gps/aiding/
+
+#Logger Control 
+#0->dont log:
+#1-> UDP 
+#2-> NVM
+#3-> ANDROID
+#4-> STDIO
+#5-> CUSTOM FUNC
+LOGGER_CONTROL      3
+
+#logger IP & PORT when LOGGER_CONTROL = 1, else ignored
+DEBUG_UDP 192.168.16.1 5555
+
+#Logger NVM setting, when LOGGER_CONTROL = 2, else ignored
+LOGGER_NVM_FILE /data/gps/logs/
+
+#Logger - maximum lines in log per file in NVM
+MAX_LOG_LINES 100000
+
+#Logger - maximum log files in NVM
+MAX_NVM_FILES 10
+
+#To/From Sensor Control 
+#0->Dont write:
+#1->Write to UDP(Not supported):
+#2->Write to NVM:
+SENSOR_CONTROL 0
+
+#Sensor log NVM setting
+SENSOR_NVM_PATH /data/gps/logs/
+
+#Session log Control 
+#0->Dont write
+#1->Write to NVM
+SESSION_LOG_CONTROL 1
+
+#Session log NVM setting
+SESSION_LOG_NVM_PATH /data/gps/logs/
