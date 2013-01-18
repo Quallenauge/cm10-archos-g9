@@ -124,11 +124,12 @@ PRODUCT_COPY_FILES += \
 # xbin
 PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/bin/hotplugd:system/bin/hotplugd \
-        $(PREBUILT_PATH)/bin/sdcard:system/bin/sdcard \
         $(PREBUILT_PATH)/xbin/chat:system/xbin/chat \
         $(PREBUILT_PATH)/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
         $(PREBUILT_PATH)/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
         $(PREBUILT_PATH)/lib/libusb.so:system/lib/libusb.so                       
+
+#$(PREBUILT_PATH)/bin/sdcard:system/bin/sdcard \
 
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/etc/media_profiles.xml:system/etc/media_profiles.xml \
@@ -297,6 +298,10 @@ PRODUCT_PACKAGES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	ti-wpan-fw
+
+# Camera
+PRODUCT_PACKAGES += \
+	camera.archos
 
 # SGX driver
 RODUCT_PACKAGES += \

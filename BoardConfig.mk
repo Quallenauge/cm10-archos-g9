@@ -80,11 +80,19 @@ BOARD_EGL_CFG := $(PREBUILT_PATH)/lib/egl/egl.cfg
 USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
+# HWComposer                                                                                                                                                                                                                                                                   
+BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
+BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true                                                                                                                                                                                                                                     
+# set if the target supports FBIO_WAITFORVSYNC                                                                                                                                                                                                                                 
+TARGET_HAS_WAITFORVSYNC := true                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                               
+# Camera                                                                                                                                                                                                                                                                       
+COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK                                                                                                                                                                                                                            
+
 # OMAP
 #OMAP_ENHANCEMENT     := true
 #COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP4
-
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi

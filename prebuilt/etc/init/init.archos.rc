@@ -4,6 +4,9 @@
 #    export EXTERNAL_UDISK_STORAGE /mnt/ext_storage
 
 on init
+
+    echo "0" >/sys/class/rfkill/rfkill0/state
+
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
