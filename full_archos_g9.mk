@@ -195,8 +195,8 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
     $(PREBUILT_PATH)/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
     $(PREBUILT_PATH)/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
-    $(PREBUILT_PATH)/lib/libdomx.so:system/lib/libdomx.so \
-    $(PREBUILT_PATH)/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
+    $(PREBUILT_PATH)/lib/libdomx.so:system/lib/libdomx.so 
+#    $(PREBUILT_PATH)/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
