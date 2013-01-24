@@ -5,7 +5,7 @@
 
 on init
 
-    echo "0" >/sys/class/rfkill/rfkill0/state
+    write /sys/class/rfkill/rfkill0/state 0
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -14,6 +14,8 @@ on init
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
+    export SECONDARY_STORAGE /mnt/storage_sd_card
+    export SECOND_VOLUME_STORAGE /mnt/storage_sd_card
 	
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
