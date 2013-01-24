@@ -24,7 +24,11 @@ endif
 PRODUCT_COPY_FILES := \
        	$(LOCAL_KERNEL):kernel \
        	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
-       	$(PREBUILT_PATH)/root/init.rc:root/init.archos-ics.rc
+       	$(PREBUILT_PATH)/root/init.rc:root/init.rc \
+       	$(PREBUILT_PATH)/root/init.archos_init.rc:root/init.archos_init.rc \
+       	$(PREBUILT_PATH)/root/init.A80S.rc:root/init.A80S.rc \
+       	$(PREBUILT_PATH)/root/ueventd.rc:root/ueventd.rc \
+       	$(PREBUILT_PATH)/root/init:root/init
 
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
