@@ -73,7 +73,7 @@ TARGET_BOOTLOADER_BOARD_NAME := archos
 # device-specific extensions to the updater binary
 #TARGET_RELEASETOOLS_EXTENSIONS := device/ti/panda
 
-BOARD_EGL_CFG := $(PREBUILT_PATH)/lib/egl/egl.cfg
+BOARD_EGL_CFG := $(PREBUILT_PATH)/system/lib/egl/egl.cfg
 
 #BOARD_USES_HGL            := true
 #BOARD_USES_OVERLAY        := true
@@ -125,8 +125,9 @@ BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
 WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER             := ""
-COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
-USES_TI_MAC80211                 := true
+
+#COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
+#USES_TI_MAC80211                 := true
 
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true

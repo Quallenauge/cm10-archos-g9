@@ -1,5 +1,4 @@
 on init
-
 # TSP
     insmod /lib/modules/cypress-tma340.ko
     insmod /lib/modules/tr16c0-i2c.ko
@@ -68,6 +67,13 @@ on early-boot
     chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-005c/calibration_trigger
     chmod 664 /sys/bus/usb/devices/usb1/power/control
 
+
+on fs                                                              
+# mount partitions                                                       
+     mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
+#    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
+#    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
+     mount_all /fstab.archosa80sboard
 
 service omx_pm /system/bin/OMXPolicyManager
     oneshot

@@ -8,8 +8,6 @@
 
 on init
 #    log "On init in archos_init..."
-#    rmmod Hallo
-
     write /sys/class/rfkill/rfkill0/state 0
 
     # See storage config details at http://source.android.com/tech/storage/
@@ -49,7 +47,7 @@ on post-fs-data
 	mkdir /data/media 0770 media_rw media_rw
 
 on early-boot
-	chmod 0666 /dev/pvrsrvkm
+#	chmod 0666 /dev/pvrsrvkm
 #	setprop ro.crypto.keyfile.userdata /dev/block/platform/omap/omap_hsmmc.1/by-name/crypto
 
 
@@ -68,7 +66,7 @@ on early-boot
 # wi-fi
 	mkdir /data/misc/wifi/sockets 0770 wifi wifi
 	mkdir /data/misc/dhcp 0770 dhcp dhcp
-	insmod /lib/modules/compat.ko
+ 	insmod /lib/modules/compat.ko
 	insmod /lib/modules/cfg80211.ko
 	insmod /lib/modules/mac80211.ko
 	insmod /lib/modules/wl12xx.ko debug_level=0x63c00
@@ -79,7 +77,7 @@ on early-boot
 on fs
 
 # change permissions for ION driver
-    chmod 0777 /dev/ion
+     chmod 0777 /dev/ion
 #    chmod 0777 /dev/dce
 
 # We chown/chmod /factory because mount is run as root + defaults
@@ -246,7 +244,6 @@ service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
     user root
     group root
-    disabled
 
 # SGX driver
     chmod 0666 /dev/pvrsrvkm
@@ -279,11 +276,11 @@ service thermaldaemon /system/bin/thermaldaemon
 on property:ro.board.cpu_type=OMAP4460
     start thermaldaemon    
 
-service watchdog_daemon /system/bin/watchdog_daemon
-    class core
-    user root
-    group root
-    critical
+#service watchdog_daemon /system/bin/watchdog_daemon
+#    class core
+#    user root
+#    group root
+#    critical
     
 #Load IVA firmware
 #service baseimage /system/bin/syslink_daemon.out -f /lib/firmware/base_image_sys_m3.xem3 /lib/firmware/base_image_app_m3.xem3
@@ -397,9 +394,9 @@ on property:wlan.driver.status=ok
     chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
 
 # GPS services
-service navl_server /system/bin/navd --android_log NAVD  -p3 -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"
-    user root
-    oneshot
+#service navl_server /system/xbin/strace -tt -o/data/navd.strace /system/bin/navd --android_log NAVD  -p3 -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"
+#    user root
+#    oneshot
 
 service cplc_main /system/bin/cplc_main XML
        disabled
