@@ -24,8 +24,8 @@ endif
 
 # Init Files
 PRODUCT_COPY_FILES := \
-       	$(LOCAL_KERNEL):kernel \
-       	$(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
+	$(LOCAL_KERNEL):kernel \
+	$(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
 	$(PREBUILT_PATH)/root/init.archos_init.rc:root/init.archos_init.rc \
 	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
 	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
@@ -36,7 +36,7 @@ PRODUCT_COPY_FILES := \
 	$(PREBUILT_PATH)/root/ueventd.rc:root/ueventd.rc
 
 # Start Scripts for proprietary programs
-PRODUCT_COPY_FILES := \
+PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/root/usr/bin/start_avos:root/usr/bin/start_avos \
 	$(PREBUILT_PATH)/root/usr/sbin/start_audiomixer:root/usr/sbin/start_audiomixer
 
@@ -46,14 +46,6 @@ PRODUCT_COPY_FILES := \
 PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 	
-#	Live wallpaper packages
-PRODUCT_PACKAGES := \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    VisualizationWallpapers \
-    librs_jni
-        
 # Modem Kernel Modules
 PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/root/lib/modules/usb_wwan.ko:root/lib/modules/usb_wwan.ko \
@@ -203,7 +195,8 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
     $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
     $(PREBUILT_PATH)/system/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
-    $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so 
+    $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so \
+    $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
 #    $(PREBUILT_PATH)/system/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
 
 # Misc Stuff
@@ -228,6 +221,7 @@ PRODUCT_PACKAGES += \
         wlan_cu \
         dhcpcd.conf \
         wpa_supplicant.conf \
+        calibrator \
         make_ext4fs \
 	com.android.future.usb.accessory
 
@@ -239,22 +233,7 @@ PRODUCT_PACKAGES += \
         libaudioutils
 #        hwcomposer.default 
 
-PRODUCT_PROPERTY_OVERRIDES := \
-	wifi.interface=wlan0 \
-	hwui.render_dirty_regions=false
-
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.sf.lcd_density=160
-
-PRODUCT_CHARACTERISTICS := tablet
-
-# Pick up overlay for features that depend on non-open-source files
-DEVICE_PACKAGE_OVERLAYS := \
-        device/archos/archos_g9/overlay
-
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
         LiveWallpapers \
         LiveWallpapersPicker \
         VisualizationWallpapers \
@@ -285,16 +264,12 @@ PRODUCT_PACKAGES += \
         
 
 PRODUCT_PACKAGES += \
-	calibrator
-
-
-PRODUCT_PACKAGES += \
 	audio.a2dp.default \
-	libaudioutils
+	libaudioutils \
+	libnetcmdiface
 
 PRODUCT_PACKAGES += \
 	dhcpcd.conf \
-	TQS_D_1.7.ini \
 	calibrator
 
 # Filesystem management tools
@@ -318,6 +293,22 @@ PRODUCT_PACKAGES += \
 # SGX driver
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
+
+
+PRODUCT_PROPERTY_OVERRIDES := \
+	wifi.interface=wlan0 \
+	hwui.render_dirty_regions=false
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.sf.lcd_density=160
+
+PRODUCT_CHARACTERISTICS := tablet
+
+# Pick up overlay for features that depend on non-open-source files
+DEVICE_PACKAGE_OVERLAYS := \
+        device/archos/archos_g9/overlay
+
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9

@@ -17,3 +17,6 @@ ro.crypto.state=unsupported
 ro.board.tsp_has_calibration=true
 ro.telephony.default_network=3
 qemu.hw.mainkeys=0
+
+# Only for debug reasons
+service.adb.root=1

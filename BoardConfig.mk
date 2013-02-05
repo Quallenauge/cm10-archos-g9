@@ -49,7 +49,7 @@ SGX_MODULES:
 
 SGX_PREBUILD_MODULES:
 	# Copy prebuild modules from archos
-	cp -v -r device/archos/archos_g9/prebuilt/sgx/* $(TARGET_OUT)/
+	cp -v -r device/archos/archos_g9/prebuilt/system/sgx/* $(TARGET_OUT)/
 
 TIWLAN_MODULES:
 	make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
@@ -59,9 +59,35 @@ TIWLAN_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_spi.ko $(KERNEL_MODULES_OUT)
-    
-TARGET_KERNEL_MODULES := SGX_MODULES
 
+
+TIWLAN_OPENSOURCE_MODULES:
+	cd hardware/ti/wlan_os/ && pwd && sh scripts/driver-select wl12xx
+	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
+	echo "Remove kernel builded (and oputdated modules)..."
+	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
+	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
+	mv hardware/ti/wlan_os/compat/compat.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan_os/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan_os/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore_sdio.ko $(KERNEL_MODULES_OUT)
+	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
+
+	if [ ! -d ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity ]; then mkdir -p ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity; fi
+	cp hardware/linux-firmware/ti-connectivity/TIInit_7.2.31.bts ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-2.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-ap.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+	cp hardware/linux-firmware/ti-connectivity/wl1271-fw.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+	cp hardware/linux-firmware/ti-connectivity/wl1271-nvs.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+	cp hardware/linux-firmware/ti-connectivity/wl127x-fw-5-sr.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+	cp hardware/linux-firmware/ti-connectivity/wl12xx-nvs.bin  ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
+
+	if [ ! -d ${PRODUCT_OUT}/system/etc/wifi ]; then mkdir -p ${PRODUCT_OUT}/system/etc/wifi; fi
+	cp hardware/ti/wlan/mac80211/ti-utils/ini_files/127x/TQS_S_2.6.ini ${PRODUCT_OUT}/system/etc/wifi
+    
+TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_OPENSOURCE_MODULES
 
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
@@ -122,8 +148,14 @@ WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
 BOARD_WLAN_DEVICE                := wl12xx_mac80211
 BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
-WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
-WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
+
+#Openlink drivers
+#WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
+#WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
+
+# Opensource driver uses wlcore
+WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wlcore_sdio.ko"
+WIFI_DRIVER_MODULE_NAME          := "wlcore_sdio"
 WIFI_FIRMWARE_LOADER             := ""
 
 #COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
@@ -131,6 +163,9 @@ WIFI_FIRMWARE_LOADER             := ""
 
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
+
+#Developer option to let adbd always run as root
+BOARD_ALWAYS_INSECURE := true
 
 # Boot animation
 TARGET_BOOTANIMATION_USE_RGB565 := true
