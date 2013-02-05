@@ -154,7 +154,7 @@ BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
 #WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
 
 # Opensource driver uses wlcore
-WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wlcore_sdio.ko"
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlcore_sdio.ko"
 WIFI_DRIVER_MODULE_NAME          := "wlcore_sdio"
 WIFI_FIRMWARE_LOADER             := ""
 
