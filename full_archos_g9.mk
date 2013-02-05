@@ -196,6 +196,8 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
     $(PREBUILT_PATH)/system/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
     $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so \
+    $(PREBUILT_PATH)/system/lib/libion.so:system/lib/libion.so \
+    $(PREBUILT_PATH)/system/lib/libstagefrighthw.so:system/lib/libstagefrighthw.so \
     $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
 #    $(PREBUILT_PATH)/system/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
 
