@@ -15,7 +15,7 @@ AIDING_PATH	   /data/gps/aiding/
 #3-> ANDROID
 #4-> STDIO
 #5-> CUSTOM FUNC
-LOGGER_CONTROL      3
+LOGGER_CONTROL      0
 
 #logger IP & PORT when LOGGER_CONTROL = 1, else ignored
 DEBUG_UDP 192.168.16.1 5555
