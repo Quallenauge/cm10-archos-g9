@@ -100,6 +100,10 @@ PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
 	$(PREBUILT_PATH)/system/usr/idc/tr16c0_i2c_tsp.idc:system/usr/idc/tr16c0_i2c_tsp.idc
 
+# apns
+PRODUCT_COPY_FILES += \
+	$(PREBUILT_PATH)/system/etc/apns-conf.xml:system/etc/apns-conf.xml
+
 # pppd scripts
 PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/etc/ppp/init_pppd_gprs:system/etc/ppp/init_pppd_gprs \
@@ -119,15 +123,14 @@ PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/etc/chatscripts/datakey_start:system/etc/chatscripts/datakey_start \
         $(PREBUILT_PATH)/system/etc/chatscripts/datakey_stop:system/etc/chatscripts/datakey_stop 
 
-# xbin
+# binaries
 PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
         $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
+        $(PREBUILT_PATH)/system/bin/rild:system/bin/rild \
         $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
         $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
-        $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so                       
-
-#$(PREBUILT_PATH)/system/bin/sdcard:system/bin/sdcard \
+        $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so
 
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \

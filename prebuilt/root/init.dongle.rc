@@ -1,8 +1,9 @@
 on post-fs-data
 
     # 3g
-    insmod /lib/modules/usb_wwan.ko
-    insmod /lib/modules/option.ko
+    insmod /system/lib/modules/usb_wwan.ko
+    insmod /system/lib/modules/option.ko
+    insmod /system/lib/modules/hso.ko
 
 on boot
  
@@ -16,5 +17,5 @@ service hotplugd /system/bin/logwrapper /system/bin/hotplugd
 # preheated is a symlink to hotplug. This check if the device is already connected
 service preheated /system/bin/logwrapper /system/bin/hotplugd preheated
     oneshot     
-    disbaled
+    disabled
     

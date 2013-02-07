@@ -1,6 +1,8 @@
 #Import Archos A80S board init file
 #import init.A80S.rc
 
+import init.dongle.rc
+
 #on early-init
 #    export EXTERNAL_STORAGE /mnt/storage
 #    export SECONDARY_STORAGE /mnt/sdcard

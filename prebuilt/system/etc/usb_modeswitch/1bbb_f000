@@ -1,7 +1,13 @@
+########################################################
 # Alcatel X200/X200L/X060S
 
+DefaultVendor= 0x1bbb
+DefaultProduct=0xf000
+
 TargetVendor=  0x1bbb
-TargetProductList="0000,0017"
+TargetProductList="0000,0017,00b7"
 
-MessageContent="55534243123456788000000080000606f50402527000000000000000000000"
+CheckSuccess=3
 
+# for product=0017 MessageContent="55534243785634120100000080010606000000000000000000000000000000"
+MessageContent="5553424308a05984c000000080000606f50402527000000000000000000000"
