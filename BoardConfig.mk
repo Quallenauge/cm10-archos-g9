@@ -43,7 +43,9 @@ BOARD_KERNEL_BASE      := 0x80000000
 
 SGX_MODULES:
 	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
+	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean
 	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
+#	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=debug TARGET_SGX=540 PLATFORM_VERSION=4.0
 	# It seems that the default sgx deployment will overwrite the builded one
 	cp out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
 
@@ -116,6 +118,7 @@ TARGET_HAS_WAITFORVSYNC := true
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK                                                                                                                                                                                                                            
 
 # OMAP
+ENHANCED_DOMX        := true
 #OMAP_ENHANCEMENT     := true
 #COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP4
@@ -169,3 +172,7 @@ BOARD_ALWAYS_INSECURE := true
 
 # Boot animation
 TARGET_BOOTANIMATION_USE_RGB565 := true
+
+
+# Common TI device independent definitions (such as DOMX_PATH...)
+include device/ti/common-open/BoardConfig.mk

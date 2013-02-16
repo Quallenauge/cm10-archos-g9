@@ -69,9 +69,9 @@ PRODUCT_COPY_FILES += \
 #        $(PREBUILT_PATH)/system/bin/pvrsrvinit:system/bin/pvrsrvinit \
 
 # Graphics
-PRODUCT_COPY_FILES += \
-	$(PREBUILT_PATH)/system/lib/modules/omaplfb_sgx540_120.ko:system/lib/modules/omaplfb_sgx540_120.ko \
-	$(PREBUILT_PATH)/system/vendor/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so
+#PRODUCT_COPY_FILES += \
+#	$(PREBUILT_PATH)/system/lib/modules/omaplfb_sgx540_120.ko:system/lib/modules/omaplfb_sgx540_120.ko \
+#	$(PREBUILT_PATH)/system/vendor/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so
 
 # DRM Proprietary Files
 PRODUCT_COPY_FILES += \
@@ -100,10 +100,6 @@ PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
 	$(PREBUILT_PATH)/system/usr/idc/tr16c0_i2c_tsp.idc:system/usr/idc/tr16c0_i2c_tsp.idc
 
-# apns
-PRODUCT_COPY_FILES += \
-	$(PREBUILT_PATH)/system/etc/apns-conf.xml:system/etc/apns-conf.xml
-
 # pppd scripts
 PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/etc/ppp/init_pppd_gprs:system/etc/ppp/init_pppd_gprs \
@@ -123,14 +119,15 @@ PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/etc/chatscripts/datakey_start:system/etc/chatscripts/datakey_start \
         $(PREBUILT_PATH)/system/etc/chatscripts/datakey_stop:system/etc/chatscripts/datakey_stop 
 
-# binaries
+# xbin
 PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
         $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
-        $(PREBUILT_PATH)/system/bin/rild:system/bin/rild \
         $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
         $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
-        $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so
+        $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so                       
+
+#$(PREBUILT_PATH)/system/bin/sdcard:system/bin/sdcard \
 
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
@@ -190,19 +187,20 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
 
 # OMX Libraries for 512MB RAM Ducati binary
-PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
-    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
-    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
-    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
-    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
-    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
-    $(PREBUILT_PATH)/system/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
-    $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so \
-    $(PREBUILT_PATH)/system/lib/libion.so:system/lib/libion.so \
-    $(PREBUILT_PATH)/system/lib/libstagefrighthw.so:system/lib/libstagefrighthw.so \
-    $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
-#    $(PREBUILT_PATH)/system/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
+#PRODUCT_COPY_FILES += \
+#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
+#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
+#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
+#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
+#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
+#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
+#    $(PREBUILT_PATH)/system/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
+#    $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so \
+#    $(PREBUILT_PATH)/system/lib/libion.so:system/lib/libion.so \
+#    $(PREBUILT_PATH)/system/lib/libstagefrighthw.so:system/lib/libstagefrighthw.so \
+#    $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
+
+##    $(PREBUILT_PATH)/system/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
