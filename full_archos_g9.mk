@@ -297,6 +297,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
 
+# Ducati binary
+DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
+PRODUCT_PACKAGES += \
+	ducati-m3.bin
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
