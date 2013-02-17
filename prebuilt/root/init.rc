@@ -459,6 +459,7 @@ on property:sys.usb.config=accessory,adb
 # Used to set USB configuration at boot and to switch the configuration
 # when changing the default configuration
 on property:persist.sys.usb.config=*
+    setprop sys.usb.config none
     setprop sys.usb.config $persist.sys.usb.config
 
 # external_apks extraction
@@ -524,7 +525,9 @@ on property:persist.serv.avos.enable=0
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
     class core
+    socket adbd stream 660 system system
     disabled
+    seclabel u:r:adbd:s0
 
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
