@@ -204,6 +204,7 @@ PRODUCT_COPY_FILES += \
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
     $(PREBUILT_PATH)/system/etc/gps/cert/client_keystore.bks:system/etc/gps/cert/client_keystore.bks \
     $(PREBUILT_PATH)/system/etc/gps/config/GPSCConfigFile.cfg:system/etc/gps/config/GPSCConfigFile.cfg \
     $(PREBUILT_PATH)/system/etc/gps/config/GpsConfigFile.txt:system/etc/gps/config/GpsConfigFile.txt \
