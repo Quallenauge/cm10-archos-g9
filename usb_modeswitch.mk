@@ -15,6 +15,7 @@
 #
 
 PRODUCT_COPY_FILES += \
+        $(PREBUILT_PATH)/system/etc/usb_modeswitch/1bbb_00b7:system/etc/usb_modeswitch/1bbb_00b7 \
         $(PREBUILT_PATH)/system/etc/usb_modeswitch/03f0_002a:system/etc/usb_modeswitch/03f0_002a \
         $(PREBUILT_PATH)/system/etc/usb_modeswitch/0408_f000:system/etc/usb_modeswitch/0408_f000 \
         $(PREBUILT_PATH)/system/etc/usb_modeswitch/0421_060c:system/etc/usb_modeswitch/0421_060c \

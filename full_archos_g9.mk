@@ -122,6 +122,7 @@ PRODUCT_COPY_FILES += \
 # xbin
 PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
+        $(PREBUILT_PATH)/system/bin/rild:system/bin/rild \
         $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
         $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
         $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
@@ -164,9 +165,9 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/gps.archos.so:system/lib/hw/gps.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/lights.archos.so:system/lib/hw/lights.archos.so \
-    $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so \
-    $(PREBUILT_PATH)/system/lib/hw/camera.omap4.so:system/lib/hw/camera.omap4.so \
-    $(PREBUILT_PATH)/system/lib/hw/camera.archos.so:system/lib/hw/camera.archos.so 
+    $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so
+#    $(PREBUILT_PATH)/system/lib/hw/camera.omap4.so:system/lib/hw/camera.omap4.so \
+#    $(PREBUILT_PATH)/system/lib/hw/camera.archos.so:system/lib/hw/camera.archos.so 
 
 # GPS libraries 
 PRODUCT_COPY_FILES += \
