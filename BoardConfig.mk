@@ -77,6 +77,13 @@ TIWLAN_OPENSOURCE_MODULES:
 	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore_sdio.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 
+	if [ ! -d ${KERNEL_MODULES_OUT}/bluetooth ]; then mkdir -p ${KERNEL_MODULES_OUT}/bluetooth; fi
+	mv hardware/ti/wlan_os/net/bluetooth/bluetooth.ko $(KERNEL_MODULES_OUT)/bluetooth/
+	mv hardware/ti/wlan_os/net/bluetooth/rfcomm/rfcomm.ko $(KERNEL_MODULES_OUT)/bluetooth/
+	mv hardware/ti/wlan_os/net/bluetooth/hidp/hidp.ko $(KERNEL_MODULES_OUT)/bluetooth/
+	mv hardware/ti/wlan_os/drivers/bluetooth/btwilink.ko $(KERNEL_MODULES_OUT)/bluetooth/
+	mv hardware/ti/wlan_os/net/bluetooth/bnep/bnep.ko $(KERNEL_MODULES_OUT)/bluetooth/
+
 	if [ ! -d ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity ]; then mkdir -p ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity; fi
 	cp hardware/linux-firmware/ti-connectivity/TIInit_7.2.31.bts ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
 	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-2.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
