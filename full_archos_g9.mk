@@ -188,7 +188,9 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
 
 # OMX Libraries for 512MB RAM Ducati binary
-#PRODUCT_COPY_FILES += \
+PRODUCT_COPY_FILES += \
+     $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
+     
 #    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
 #    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
 #    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
@@ -291,18 +293,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ti-wpan-fw
 
-# Camera
-PRODUCT_PACKAGES += \
-	camera.archos
+## Camera
+#PRODUCT_PACKAGES += \
+#	camera.archos
 
 # SGX driver
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
 
-# Ducati binary
-DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
-PRODUCT_PACKAGES += \
-	ducati-m3.bin
+# Ducati binary (from TI)
+#DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
+#PRODUCT_PACKAGES += \
+#	ducati-m3.bin
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
