@@ -64,7 +64,7 @@ TIWLAN_MODULES:
 
 
 TIWLAN_OPENSOURCE_MODULES:
-	cd hardware/ti/wlan_os/ && pwd && sh scripts/driver-select wl12xx
+	cd hardware/ti/wlan_os/ && pwd && bash scripts/driver-select wl12xx
 	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
 	echo "Remove kernel builded (and oputdated modules)..."
 	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
@@ -181,7 +181,7 @@ BOARD_ALWAYS_INSECURE := true
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
 #adb has changed his security model since 4.2.2, don't use it (for now)
-ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0
+ADDITIONAL_DEFAULT_PROPERTIES = ro.adb.secure=0
 
 # adb has root
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
