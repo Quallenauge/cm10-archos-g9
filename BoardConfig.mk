@@ -115,6 +115,8 @@ BOARD_EGL_CFG := $(PREBUILT_PATH)/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
+
+
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
 BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true                                                                                                                                                                                                                                     
@@ -127,8 +129,13 @@ COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
 # OMAP
 ENHANCED_DOMX        := true
 OMAP_ENHANCEMENT     := true
-#COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP4
+OMAP_ENHANCEMENT_MULTIGPU := true
+BOARD_USE_TI_ENHANCED_DOMX := true
+
+ifdef OMAP_ENHANCEMENT_MULTIGPU
+    COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
+endif
 
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -137,6 +144,15 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+
+# CodeAurora Optimizations: msm8960: Improve performance of memmove, bcopy, and memmove_words
+# added by twa_priv
+TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
+TARGET_USE_KRAIT_PLD_SET := true
+TARGET_KRAIT_BIONIC_PLDOFFS := 10
+TARGET_KRAIT_BIONIC_PLDTHRESH := 10
+TARGET_KRAIT_BIONIC_BBTHRESH := 64
+TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Audio library
 COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
@@ -190,8 +206,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 
 
 # The SGS series is hdpi however with new development going toward xhdpi we need to inherit xhdpi or we will lose those pngs
-PRODUCT_AAPT_CONFIG := large mdpi hdpi xhdpi
-PRODUCT_AAPT_PREF_CONFIG := xhdpi
+PRODUCT_AAPT_CONFIG := large mdpi hdpi xhdpi nodpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Misc.
 BOARD_NEEDS_CUTILS_LOG := true
