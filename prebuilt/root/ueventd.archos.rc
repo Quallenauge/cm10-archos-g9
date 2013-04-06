@@ -41,3 +41,7 @@
 
 # for dvb adapter
 /dev/dvb*                 0660   system     media
+
+# for Bluetooth
+/dev/hci_tty		  0666		bluetooth bluetooth	
+

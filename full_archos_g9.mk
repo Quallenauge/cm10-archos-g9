@@ -31,7 +31,7 @@ PRODUCT_COPY_FILES := \
 	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
 	$(PREBUILT_PATH)/root/init.goldfish.rc:root/init.goldfish.rc \
 	$(PREBUILT_PATH)/root/init.rc:root/init.rc \
-	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archos.rc \
+	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
 	$(PREBUILT_PATH)/root/ueventd.goldfish.rc:root/ueventd.goldfish.rc \
 	$(PREBUILT_PATH)/root/ueventd.rc:root/ueventd.rc
 
@@ -156,7 +156,6 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/nand:system/bin/nand \
     $(PREBUILT_PATH)/system/bin/powerd:system/bin/powerd \
     $(PREBUILT_PATH)/system/bin/sharesd:system/bin/sharesd \
-    $(PREBUILT_PATH)/system/bin/uim-sysfs:system/bin/uim-sysfs \
     $(PREBUILT_PATH)/system/bin/watchdog_daemon:system/bin/watchdog_daemon \
     $(PREBUILT_PATH)/system/bin/navd:system/bin/navd \
     $(PREBUILT_PATH)/system/bin/start_navd:system/bin/start_navd \
@@ -165,9 +164,12 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/gps.archos.so:system/lib/hw/gps.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/lights.archos.so:system/lib/hw/lights.archos.so \
-    $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so
+    $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so 
+
+    
 #    $(PREBUILT_PATH)/system/lib/hw/camera.omap4.so:system/lib/hw/camera.omap4.so \
-#    $(PREBUILT_PATH)/system/lib/hw/camera.archos.so:system/lib/hw/camera.archos.so 
+#    $(PREBUILT_PATH)/system/lib/hw/camera.archos.so:system/lib/hw/camera.archos.so \
+#    $(PREBUILT_PATH)/system/bin/uim-sysfs:system/bin/uim-sysfs
 
 # GPS libraries 
 PRODUCT_COPY_FILES += \

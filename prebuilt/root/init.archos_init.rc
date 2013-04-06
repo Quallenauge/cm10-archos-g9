@@ -79,12 +79,16 @@ on early-boot
 	insmod /system/lib/modules/wl12xx.ko
 
 # bluetooth
-	insmod /system/lib/modules/compat.ko
-	insmod /system/lib/modules/bluetooth/bluetooth.ko
-	insmod /system/lib/modules/bluetooth/rfcomm.ko
-	insmod /system/lib/modules/bluetooth/hidp.ko
-	insmod /system/lib/modules/bluetooth/btwilink.ko
-	insmod /system/lib/modules/bluetooth/bnep.ko
+        insmod /system/lib/modules/compat.ko                              
+        insmod /system/lib/modules/bluetooth/bluetooth.ko                           
+        insmod /system/lib/modules/bluetooth/rfcomm.ko                              
+        insmod /system/lib/modules/bluetooth/hidp.ko                                        
+        insmod /system/lib/modules/bluetooth/hci_uart.ko                                                 
+        insmod /system/lib/modules/bluetooth/bnep.ko                                
+        insmod /system/lib/modules/tty_hci.ko
+
+# btwilink is insmodded by uim-sysfs.
+#	insmod /system/lib/modules/bluetooth/btwilink.ko
 
 # GPS
 #	insmod /system/lib/modules/gps_drv.ko
@@ -253,7 +257,6 @@ on fs
 #    chown system system /sys/devices/platform/omapdss/display0/s3d_enable
 #    chown system system /sys/devices/platform/omapdss/display1/s3d_enable
 #    chown system system /sys/devices/platform/omapdss/display1/s3d_type
-
 
 service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
