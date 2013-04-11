@@ -207,6 +207,13 @@ TARGET_BOOTANIMATION_USE_RGB565 := true
 #adb has changed his security model since 4.2.2, don't use it (for now)
 ADDITIONAL_DEFAULT_PROPERTIES = ro.adb.secure=0
 
+#camera
+#COMMON_GLOBAL_CFLAGS             += -DTIMM_OSAL_DEBUG_TRACE_DETAIL=2 -DTIMM_OSAL_DEBUG_TRACE_LEVEL=5
+#TI_CAMERAHAL_DEBUG_ENABLED         := true
+#TI_CAMERAHAL_VERBOSE_DEBUG_ENABLED := true
+#TI_CAMERAHAL_DEBUG_FUNCTION_NAMES  := true
+# For further logging take a look into camera_inc_CameraHal.h and turn on the debug flag
+
 # adb has root
 ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 ADDITIONAL_DEFAULT_PROPERTIES += ro.allow.mock.location=1
@@ -222,5 +229,8 @@ BOARD_NEEDS_CUTILS_LOG := true
 BOARD_USES_SECURE_SERVICES := true
 
 
+
 # Common TI device independent definitions (such as DOMX_PATH...)
 include device/ti/common-open/BoardConfig.mk
+
+
