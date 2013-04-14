@@ -12,6 +12,9 @@ on init
 #    log "On init in archos_init..."
     write /sys/class/rfkill/rfkill0/state 0
 
+    # Enable watchdog configuration - hardcoded to 4460     
+    setprop ro.board.cpu_type OMAP4460
+
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
@@ -294,10 +297,10 @@ service thermaldaemon /system/bin/thermaldaemon
 on property:ro.board.cpu_type=OMAP4460
     start thermaldaemon    
 
-#service watchdog_daemon /system/bin/watchdog_daemon
-#    class core
-#    user root
-#    group root
+service watchdog_daemon /system/bin/watchdog_daemon
+    class core
+    user root
+    group root
 #    critical
     
 #Load IVA firmware
