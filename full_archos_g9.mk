@@ -230,6 +230,7 @@ PRODUCT_PACKAGES += \
         wlan_cu \
         dhcpcd.conf \
         wpa_supplicant.conf \
+        hostapd.conf \
         calibrator \
         make_ext4fs \
 	com.android.future.usb.accessory
