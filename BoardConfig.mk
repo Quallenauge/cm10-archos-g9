@@ -34,8 +34,10 @@ TARGET_ARCH_VARIANT        := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Bluetooth
+BOARD_HAVE_BLUETOOTH_TI := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_WPAN_DEVICE := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/archos/archos_g9/bluetooth
 
 TARGET_NO_BOOTLOADER := true
 
