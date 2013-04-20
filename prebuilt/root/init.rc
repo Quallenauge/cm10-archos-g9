@@ -161,6 +161,9 @@ on post-fs
     chown system cache /data/cache
     chmod 0771 /data/cache
 
+    # Add folder for paid apps
+    mkdir /data/app-asec 0700 root root
+
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
     chmod 0770 /cache/recovery
@@ -653,6 +656,7 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
     onrestart write /sys/power/state on
     onrestart restart media
     onrestart restart netd
+    critical
 
 service drm /system/bin/drmserver
     class main
