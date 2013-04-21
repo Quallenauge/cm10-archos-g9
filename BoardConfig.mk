@@ -233,6 +233,10 @@ PRODUCT_AAPT_PREF_CONFIG := mdpi
 BOARD_NEEDS_CUTILS_LOG := true
 BOARD_USES_SECURE_SERVICES := true
 
+# Recovery
+BOARD_HAS_SDCARD_INTERNAL := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
 
 
 # Common TI device independent definitions (such as DOMX_PATH...)
