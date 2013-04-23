@@ -1,10 +1,10 @@
 on init
 # TSP
-    insmod /lib/modules/cypress-tma340.ko
-    insmod /lib/modules/tr16c0-i2c.ko
+    insmod /system/lib/modules/cypress-tma340.ko
+    insmod /system/lib/modules/tr16c0-i2c.ko
 
 # 3G keys
-    insmod /lib/modules/hso.ko
+    insmod /system/lib/modules/hso.ko
 
     setprop ro.product.device A80
     setprop ro.build.product G9A80
