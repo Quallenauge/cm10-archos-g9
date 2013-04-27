@@ -1,63 +1,64 @@
+import init.archosa80sboard.usb.rc
+
+on early-init
+    mount debugfs debugfs /sys/kernel/debug
+    symlink /data/cache /cache
+
 on init
-# TSP
-    insmod /system/lib/modules/cypress-tma340.ko
-    insmod /system/lib/modules/tr16c0-i2c.ko
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
 
-# 3G keys
-    insmod /system/lib/modules/hso.ko
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
 
-    setprop ro.product.device A80
-    setprop ro.build.product G9A80
-    setprop ro.product.name G9A80
-    setprop ro.product.model "ARCHOS 80G9"
-    setprop ro.com.google.clientidbase android-archos
+    # Support legacy paths
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
 
-    setprop ro.board.has_hdmi yes
-    setprop ro.board.has_analog_out no
-    setprop ro.board.use_bluetooth yes
-    setprop ro.board.has_soft_keys no
-    setprop ro.board.has_earpiece no
-    setprop ro.board.has_speaker yes
-    setprop ro.board.has_hp_detection yes
-    setprop ro.board.desktop_experience "yes"
-    # rotation values are (anticlockwise) :
-    # 0 for 0 degree
-    # 1 for 90
-    # 2 for 180
-    # 3 for 270
-    #  (must be in sync with frameworks/base/core/java/android/view/Surface.java)
-    setprop ro.board.display_portrait 3
-    setprop ro.board.tv_portrait 3
-    setprop ro.board.has_gps yes
-    setprop ro.board.has_gsm no
-    setprop ro.board.has_mmc yes
-    setprop ro.board.has_data_key yes
-    setprop ro.board.has_camera yes
-    setprop ro.board.camera_type OV7675
-    setprop ro.board.is_front_camera yes
-    setprop ro.board.camera_hflipped yes
-    setprop ro.board.camera_vflipped no
-    setprop ro.board.has_vibrator no
-    setprop ro.board.has_dsp yes
-    setprop ro.board.brightness.delay 800
-    setprop ro.board.brightness.dim 10
-    setprop ro.board.brightness.dim_default 135
-    setprop ro.board.light_sensor no
-    setprop ro.board.has_compass yes
-    setprop ro.board.can_charge_when_off no
+    # create directory for mounting usb drives
+    mkdir /storage/usbdisk 0666 system system
+    symlink /storage/usbdisk /mnt/usbdisk
+    symlink /mnt/usbdisk /usbdisk
    
+    mkdir /mnt/rawfs 0777 root system
+    # Archos
+    mkdir /mnt/system
+    mkdir /mnt/storage_usb      0550 system sdcard_rw
+    mkdir /mnt/sdcard1          0550 system sdcard_rw
+   
+    write /sys/class/rfkill/rfkill0/state 0
+
+    # Enable watchdog configuration - hardcoded to 4460     
+    setprop ro.board.cpu_type OMAP4460
+
+
+    mkdir /storage/sdcard1 0775 system system
+    mkdir /storage/usbdisk0 0775 system system
+
+    export SECONDARY_STORAGE /mnt/storage_sd_card
+    export SECOND_VOLUME_STORAGE /mnt/storage_sd_card
+   
+    
+    setprop ro.com.google.clientidbase android-archosa
+
     setprop media.stagefright.enable-player true
     setprop media.stagefright.enable-http true
     
-on early-boot
+# switch on the lcd
+    write /sys/class/leds/lcd-backlight/brightness 150    
 
-    write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
-    write /sys/class/android_usb/android0/iProduct $ro.product.model
-    write /sys/class/android_usb/android0/iSerial $ro.serialno
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1500
-    write /sys/class/android_usb/android0/f_rndis/wceis 1
-    write /sys/class/android_usb/f_mass_storage/inquiry_string "Archos A80     0100"
+# Enable Smart Reflex in debugfs
+    write /sys/kernel/debug/pm_debug/smartreflex/sr_core/autocomp 1
+    write /sys/kernel/debug/pm_debug/smartreflex/sr_iva/autocomp 1
+    write /sys/kernel/debug/pm_debug/smartreflex/sr_mpu/autocomp 1
+
+    write /sys/devices/platform/omapdss/display1/hpd_enabled 1
+    
+on early-boot
     
     chown root system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0024/calibration_trigger
     chown root system /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-005c/calibration_trigger
@@ -66,14 +67,236 @@ on early-boot
     chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0024/calibration_trigger
     chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-005c/calibration_trigger
     chmod 664 /sys/bus/usb/devices/usb1/power/control
+    
+    
+# TSP
+    insmod /system/lib/modules/cypress-tma340.ko
+    insmod /system/lib/modules/tr16c0-i2c.ko
 
+# 3G keys
+    insmod /system/lib/modules/hso.ko
+
+# wi-fi
+	mkdir /data/misc/wifi/sockets 0770 wifi wifi
+	mkdir /data/misc/dhcp 0770 dhcp dhcp
+ 	insmod /system/lib/modules/compat.ko
+	insmod /system/lib/modules/cfg80211.ko
+	insmod /system/lib/modules/mac80211.ko
+	insmod /system/lib/modules/wlcore.ko debug_level=0x63c00
+	insmod /system/lib/modules/wl12xx.ko
+
+# bluetooth
+    insmod /system/lib/modules/compat.ko                              
+    insmod /system/lib/modules/bluetooth/bluetooth.ko                           
+    insmod /system/lib/modules/bluetooth/rfcomm.ko                              
+    insmod /system/lib/modules/bluetooth/hidp.ko                                        
+    insmod /system/lib/modules/bluetooth/hci_uart.ko                                                 
+    insmod /system/lib/modules/bluetooth/bnep.ko                                
+    insmod /system/lib/modules/tty_hci.ko
+
+on boot 
+
+    # enable suspend (off mode).
+    setprop persist.archos.suspend enabled
+
+    setprop windowsmgr.max_events_per_sec 65
+    
+    #    # generate nvs with calibration and mac
+    exec /system/bin/logwrapper /system/bin/create_nvs -t /etc/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/wifi/ti-connectivity/wl1271-nvs.bin -w wl127x
 
 on fs                                                              
-# mount partitions                                                       
+# mount partitions          
+     
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
 #    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
-#    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
+     mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
+     mount ext4 loop@/data/local/archos.ext4 /system nosuid nodev
      mount_all /fstab.archosa80sboard
+
+# change permissions for ION driver
+     chmod 0777 /dev/ion
+#    chmod 0777 /dev/dce
+
+# We chown/chmod /factory because mount is run as root + defaults
+	chown radio radio /factory
+	chmod 0775 /factory
+
+# add symlink for HDCP key
+#        symlink /factory/hdcp.keys /system/vendor/firmware/hdcp.keys
+
+# allow system to modify cpufreq control files
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+#Give system ownership and permission to boost clock for specified timeout
+#Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
+    chmod 0664  /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq
+
+# Boost the CPU for 60 sec for boot optimization
+    write /sys/devices/system/cpu/cpufreq/hotplug/boost_timeout 60000000
+    write /sys/devices/system/cpu/cpu0/cpufreq/boost_cpufreq 1
+
+    chown media media /dev/syslink-proc4430
+    chown media media /dev/syslink-procmgr
+    chown media media /dev/syslink_ipc
+    chown media media /dev/omap-rproc0
+    chown media media /dev/omap-rproc1
+    chown media media /dev/omap-rproc2
+    chown media media /dev/iovmm-omap0
+    chown media media /dev/iovmm-omap1
+    chown media media /dev/omap-devh0
+    chown media media /dev/omap-devh1
+    chown media media /dev/omap-devh2
+
+    chmod 660 /dev/syslink-proc4430
+    chmod 660 /dev/syslink-procmgr
+    chmod 660 /dev/syslink_ipc
+    chmod 440 /dev/omap-rproc0
+    chmod 440 /dev/omap-rproc1
+    chmod 440 /dev/omap-rproc2
+    chmod 440 /dev/iovmm-omap0
+    chmod 440 /dev/iovmm-omap1
+    chmod 440 /dev/omap-devh0
+    chmod 440 /dev/omap-devh1
+    chmod 440 /dev/omap-devh2
+
+    chmod 777 /dev/notifyducatidrv
+    chmod 777 /dev/ipcnotify
+
+    chmod 777 /dev/syslink_platform
+
+    # change permissions for Tiler driver
+    chown media media /dev/tiler
+    chmod 0777 /dev/tiler
+    chmod 0777 /dev/dmm
+
+    # change permissions for modem
+    chmod 0660 /dev/ttyS0
+    chown radio radio /dev/ttyS0
+
+    
+    # change permissions for overlay managers and display devices
+    chown system system /sys/devices/platform/omapdss/display0/enabled
+    chown system system /sys/devices/platform/omapdss/display1/enabled
+    chown system system /sys/devices/platform/omapdss/display1/hpd_enabled
+    chown system system /sys/devices/platform/omapdss/display2/enabled
+    chown system system /sys/devices/platform/omapdss/display3/enabled
+    chown system system /sys/devices/platform/omapdss/display0/name
+    chown system system /sys/devices/platform/omapdss/display1/name
+    chown system system /sys/devices/platform/omapdss/display2/name
+    chown system system /sys/devices/platform/omapdss/display3/name
+    chown system system /sys/devices/platform/omapdss/overlay0/manager
+    chown system system /sys/devices/platform/omapdss/overlay1/manager
+    chown system system /sys/devices/platform/omapdss/overlay2/manager
+    chown system system /sys/devices/platform/omapdss/overlay3/manager
+    chown system system /sys/devices/platform/omapdss/overlay0/zorder
+    chown system system /sys/devices/platform/omapdss/overlay1/zorder
+    chown system system /sys/devices/platform/omapdss/overlay2/zorder
+    chown system system /sys/devices/platform/omapdss/overlay3/zorder
+    
+    #change permissions on overlay1, 2 and 3 for hdmi setup
+    chown system system /sys/devices/platform/omapdss/overlay1/position
+    chown system system /sys/devices/platform/omapdss/overlay1/input_size
+    chown system system /sys/devices/platform/omapdss/overlay1/output_size
+    chown system system /sys/devices/platform/omapdss/overlay2/position
+    chown system system /sys/devices/platform/omapdss/overlay2/input_size
+    chown system system /sys/devices/platform/omapdss/overlay2/output_size
+    chown system system /sys/devices/platform/omapdss/overlay3/position
+    chown system system /sys/devices/platform/omapdss/overlay3/input_size
+    chown system system /sys/devices/platform/omapdss/overlay3/output_size
+    
+    # change permissions for manager tranparency parameters
+    chown system system /sys/devices/platform/omapdss/manager0/name
+    chown system system /sys/devices/platform/omapdss/manager0/display
+    chown system system /sys/devices/platform/omapdss/manager1/name
+    chown system system /sys/devices/platform/omapdss/manager1/display
+    chown system system /sys/devices/platform/omapdss/manager2/name
+    chown system system /sys/devices/platform/omapdss/manager2/display
+    chown system system /sys/devices/platform/omapdss/overlay0/enabled
+    chown system system /sys/devices/platform/omapdss/overlay1/enabled
+    chown system system /sys/devices/platform/omapdss/overlay2/enabled
+    chown system system /sys/devices/platform/omapdss/overlay3/enabled
+
+    # change permissions for display timings to get the resolutions
+    chown system system /sys/devices/platform/omapdss/display0/timings
+    chown system system /sys/devices/platform/omapdss/display1/timings
+    chown system system /sys/devices/platform/omapdss/display2/timings
+    chown system system /sys/devices/platform/omapdss/display3/timings
+
+    # change permissions for overlay setting
+    chown system system /sys/module/omapdss/parameters/overscan_percent
+
+    # change permissions for s3d parameters (let hwc write)
+    chown system system /sys/devices/platform/omapdss/display1/s3d_enable
+    chown system system /sys/devices/platform/omapdss/display1/s3d_type
+
+    symlink /dev/ttyO0 /dev/tigps
+
+# Enable secondary display on Blaze
+#    write /sys/devices/platform/omapdss/display1/enabled 1
+#    write /sys/devices/platform/omapdss/overlay1/enabled 0
+#    write /sys/devices/platform/omapdss/overlay1/manager "2lcd"
+#    write /sys/devices/platform/omapdss/overlay1/enabled 1
+
+# Revert the boost_timeout to the default value of 3 sec. Note this won't affect the prev boost
+# request for boot time reduction
+    write /sys/devices/system/cpu/cpufreq/hotplug/boost_timeout 3000000
+
+#setup the hdmi interface
+    # Enable hotplug detection for HDMI
+    write /sys/devices/platform/omapdss/display1/hpd_enabled 1
+    
+
+# Change permissions for FB overlays for HDMI UI Cloning
+    chown system system /sys/class/graphics/fb0/overlays
+    chown system system /sys/class/graphics/fb0/fit_to_screen
+    chown system system /sys/class/graphics/fb1/overlays
+
+# Disable GPS
+    write /sys/devices/platform/nl5550.0/gps_nshutdown/value 0
+
+# Enable UI-Cloning Service in SystemServer
+    setprop tv.hdmi.uicloning.enable true
+
+# TouchInputMapper config for hdmi
+    setprop touch.deviceTypeOnHdmi touchScreen
+    setprop touch.strictPositionOnHdmi off
+
+# Keypad permissions
+    chmod 0444 /system/usr/keychars/omap-keypad.kcm.bin
+    chmod 0444 /system/usr/keychars/qwerty.kcm.bin
+
+# change permissions for S3D hardware
+#    chown system system /sys/devices/platform/omapdss/display0/s3d_enable
+#    chown system system /sys/devices/platform/omapdss/display1/s3d_enable
+#    chown system system /sys/devices/platform/omapdss/display1/s3d_type
+
+
+on post-fs
+    chown system system /mnt/rawfs/params
+    
+    # We chown/chmod /cache again so because mount is run as root + defaults
+    mkdir /data/cache 0771 system cache
+    chown system cache /data/cache
+    chmod 0771 /data/cache
+    
+    
+on post-fs-data
+    
+    mkdir /data/smc 0770 drmrpc drmrpc
+#    setprop vold.post_fs_data_done 1
+	mkdir /data/media 0770 media_rw media_rw
+
+    mkdir /data/misc/wifi/ti-connectivity 0775 wifi wifi
+    mkdir /data/cache
+    # copy hostapd.conf (WLAN HotSpot)
+    copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
+
 
 service omx_pm /system/bin/OMXPolicyManager
     oneshot
@@ -102,105 +325,195 @@ service pppd_secrets /system/bin/logwrapper /system/etc/ppp/write_secrets
 #virtual sdcard daemon running as media_rw (1023)
 service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class late_start
+    
+service create_SysId /system/bin/logwrapper /system/bin/create_sysid -p /data/media/
+    class core
+    oneshot
 
-on property:sys.usb.config=none
-    stop adbd
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/bDeviceClass 0
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1501
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mtp
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1508
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mtp,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1509
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=rndis
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1503
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/bDeviceClass 2
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=rndis,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1504
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/bDeviceClass 2
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=ptp
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 150D
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=ptp,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 150E
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mass_storage
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1500
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mass_storage,adb
-    write /sys/class/android_usb/android0/enable 0
-    write /sys/class/android_usb/android0/idVendor 0E79
-    write /sys/class/android_usb/android0/idProduct 1502
-    write /sys/class/android_usb/android0/functions $sys.usb.config
-    write /sys/class/android_usb/android0/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-   
-service smbd /usr/sbin/smbd --no-process-group -F -s /system/etc/smb.S.conf
+# sgx for tvout
+service mknod_omaplfb /system/bin/logwrapper /system/xbin/mknod /dev/omaplfb c 30 0
+    class core
+    oneshot
+    
+service navl_server /system/bin/start_navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"a
+    user root 
     class main
     disabled
-    setenv  CLASSPATH /system/framework/am.jar
+    oneshot
+    
+service kmsg_log /system/bin/logwrapper cat /proc/kmsg
+    class core
+    user root
+    group root
 
-service nmbd /usr/sbin/nmbd -F -s /system/etc/smb.S.conf
+
+# SGX driver
+    chmod 0666 /dev/pvrsrvkm
+# Initialize the SGX driver
+#service pvrsrvinit /system/bin/pvrsrvinit
+service pvrsrvinit /system/vendor/bin/pvrsrvinit
+    class core
+    user root
+    group root
+    oneshot
+
+service thermaldaemon /system/bin/thermaldaemon
+    class core
+    user root
+    group root
+    disabled
+    critical
+
+###################################################
+# MSHIELD SMC PA Control - installs the SMC PA into the Secure Environment
+###################################################
+#service smc_pa /system/bin/smc_pa_ctrl \
+#    -c /vendor/etc/smc_normal_world_android_cfg.ini \
+#    start /vendor/firmware/smc_pa.ift
+#    class core
+#    user root
+#    group root
+#    oneshot
+
+on property:ro.board.cpu_type=OMAP4460
+    start thermaldaemon    
+
+service watchdog_daemon /system/bin/watchdog_daemon
+    class core
+    user root
+    group root
+#    critical
+    
+#Load IVA firmware
+#service baseimage /system/bin/syslink_daemon.out -f /lib/firmware/base_image_sys_m3.xem3 /lib/firmware/base_image_app_m3.xem3
+#    class core
+#    critical
+#    user root
+#    group media
+    
+service akmd /system/bin/akmd8975 -m 6
+    class core
+    user compass
+    group misc
+
+service switch_ms_to_3g /system/bin/logwrapper /usr/bin/usb_modeswitch
+    class core
+    user root
+    group root
+    disabled
+    oneshot
+
+#shared transport user space mgr service for Bluetooth, FM and GPS
+service uim /system/bin/uim-sysfs
+    class core
+    user root
+    group bluetooth net_bt_admin
+
+service hciattach /system/bin/hciattach -l
+    user root
+# changing user to root from bluetooth is a potential security issue
+# service hciattach_legacy is used instead of hciattach because, we dont
+# have nodes named ttyHS0
+    group bluetooth net_bt_admin misc
+    disabled
+    oneshot
+
+# WLAN Related services
+#service wlan_loader /system/bin/wlan_loader \
+#    -f /system/etc/wifi/firmware.bin -i /data/misc/wifi/tiwlan.ini -e /data/misc/wifi/wlanconf.nvs
+#    class main
+#    disabled
+#    oneshot
+    
+#service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c /system/etc/wifi/wpa_supplicant.conf
+#    class main
+#    socket wpa_wlan0 dgram 660 wifi wifi
+#    disabled
+#    oneshot
+
+service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class main
     disabled
+    oneshot
 
-on property:service.smb.enable=1
-    start smbd
-    start nmbd
+service iprenew_wlan0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
 
-on property:service.smb.enable=0
-    stop nmbd
-    stop smbd
- 
+service dhcpcd_bnep0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_bnep0 /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_p2p /system/bin/dhcpcd -aABKL
+    class main
+    disabled
+    oneshot
+
+service iprenew_p2p /system/bin/dhcpcd -n
+    class main
+    disabled
+    oneshot
+
+service dhcpcd_eth0 /system/bin/dhcpcd -ABKL
+    class main
+    disabled
+    oneshot
+
+service hostapd_bin /system/bin/hostapd -d /data/misc/wifi/hostapd.conf
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
+# HotSpot Related services
+#service wlan_ap_loader /system/bin/tiap_loader \
+#    -f /system/etc/wifi/softap/firmware_ap.bin \
+#    -i /system/etc/wifi/softap/tiwlan_ap.ini \
+#    -e /data/misc/wifi/wlanconf.nvs
+#    class main
+#    disabled
+#    oneshot
+    
+#service ifcfg_softap /system/bin/ifconfig tiap0 up
+#    class main
+#    disabled
+#    oneshot
+
+on property:wlan.driver.status=ok
+    chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
+
+# GPS services
+#service navl_server /system/xbin/strace -tt -o/data/navd.strace /system/bin/navd --android_log NAVD  -p3 -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"
+#    user root
+#    oneshot
+
+service cplc_main /system/bin/cplc_main XML
+       disabled
+       oneshot
+
+service rilPos-daemon /system/bin/rilposd -l /system/lib/librilpos.so -- -c CAIF -p 3000 -h localhost
+       disabled
+       oneshot
+
+service console /bin/sh
+    class core
+    console
+    disabled
+#    user shell
+#    group log
+
+on property:ro.secure=0
+    start console    
