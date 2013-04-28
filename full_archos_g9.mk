@@ -22,7 +22,7 @@ PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/ueventd.archosa80sboard.rc:root/ueventd.archosa80sboard.rc \
     $(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.archosa101sboard.usb.rc:root/init.archosa101sboard.usb.rc \
-    $(PREBUILT_PATH)/root/ueventd.archosa101sboard.rc:root/ueventd.archosa101sboard.rc
+    $(PREBUILT_PATH)/root/ueventd.archosa101sboard.rc:root/ueventd.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard \
 
 # Publish that we support the live wallpaper feature.
