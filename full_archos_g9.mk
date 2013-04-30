@@ -17,7 +17,7 @@
 
 PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
-    $(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archos-common.rc \
+    $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archos-common.rc \
     $(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
     $(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
     $(PREBUILT_PATH)/root/init.archosa80sboard.usb.rc:root/init.archosa80sboard.usb.rc \
