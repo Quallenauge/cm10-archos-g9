@@ -14,6 +14,6 @@
 #    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
 #    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
 
-#/dev/block/mmcblk0p1 						/mnt/rawfs	rawfs
-/dev/block/mmcblk0p2						/mnt/system 	ext4	noatime,nosuid,noexec	wait
-#/dev/block/mmcblk0p4						/data		ext4	noatime,nosuid		wait,check,encryptable=footer
+/dev/block/mmcblk0p1 						/mnt/rawfs	rawfs
+#/dev/block/mmcblk0p2						/mnt/system 	ext4	noatime,nosuid,noexec	wait
+/dev/block/mmcblk0p4						/data		ext4	noatime,nosuid		wait,check,encryptable=footer
