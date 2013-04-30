@@ -242,6 +242,6 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recov
 
 # Common TI device independent definitions (such as DOMX_PATH...)
 include device/ti/common-open/BoardConfig.mk
-include $(LOCAL_PATH)/device-vendor.mk
+#include $(LOCAL_PATH)/device-vendor.mk
 include $(LOCAL_PATH)/versions.mk
 

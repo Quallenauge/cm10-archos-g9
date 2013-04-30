@@ -13,10 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+##### This wants removing after testing in favour of the original one
+##### in system/core/rootdir
+PRODUCT_COPY_FILES := \
+    $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
 
 
 PRODUCT_COPY_FILES := \
-    $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
     $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archos-common.rc \
     $(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
     $(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
@@ -25,7 +28,7 @@ PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.archosa101sboard.usb.rc:root/init.archosa101sboard.usb.rc \
     $(PREBUILT_PATH)/root/ueventd.archosa101sboard.rc:root/ueventd.archosa101sboard.rc \
-    $(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard \
+    $(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard 
 
 # Publish that we support the live wallpaper feature.
 PRODUCT_COPY_FILES += \
@@ -47,8 +50,6 @@ PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/usr/idc/cpt_i2c_tsp.idc:system/usr/idc/cpt_i2c_tsp.idc \
 	$(PREBUILT_PATH)/system/usr/idc/cypress-tma340.idc:system/usr/idc/cypress-tma340.idc \
 	$(PREBUILT_PATH)/system/usr/idc/pixcir_i2c_tsp.idc:system/usr/idc/pixcir_i2c_tsp.idc \
-	$(PREBUILT_PATH)/system/usr/idc/qwerty.idc:system/usr/idc/qwerty.idc \
-	$(PREBUILT_PATH)/system/usr/idc/qwerty2.idc:system/usr/idc/qwerty2.idc \
 	$(PREBUILT_PATH)/system/usr/idc/tr16c0_i2c_tsp.idc:system/usr/idc/tr16c0_i2c_tsp.idc
 
 # pppd scripts
@@ -72,7 +73,6 @@ PRODUCT_COPY_FILES += \
 
 # xbin
 PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/bin/abcbox:system/bin/abcbox \
     $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
     $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
     $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
@@ -201,10 +201,12 @@ PRODUCT_PACKAGES += \
         Mms
         
 
+
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	libaudioutils \
-	libnetcmdiface
+	libnetcmdiface \
+	PCKeyboard
 
 PRODUCT_PACKAGES += \
 	dhcpcd.conf \
