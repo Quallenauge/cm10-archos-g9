@@ -125,7 +125,7 @@ BOARD_EGL_CFG := $(PREBUILT_PATH)/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
-BOARD_USES_BOOTMENU := true
+
 
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
