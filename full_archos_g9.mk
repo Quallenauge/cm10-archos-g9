@@ -14,6 +14,7 @@
 # limitations under the License.
 #
 
+
 PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
     $(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \

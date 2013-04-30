@@ -31,6 +31,7 @@ TARGET_CPU_ABI             := armeabi-v7a
 TARGET_CPU_ABI2            := armeabi
 TARGET_CPU_SMP             := true
 TARGET_ARCH_VARIANT        := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU		:= cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 # Bluetooth
@@ -124,7 +125,7 @@ BOARD_EGL_CFG := $(PREBUILT_PATH)/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
-
+BOARD_USES_BOOTMENU := true
 
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
@@ -220,7 +221,7 @@ ADDITIONAL_DEFAULT_PROPERTIES = ro.adb.secure=0
 # For further logging take a look into camera_inc_CameraHal.h and turn on the debug flag
 
 # adb has root
-ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
+ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0 
 ADDITIONAL_DEFAULT_PROPERTIES += ro.allow.mock.location=1
 ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 
@@ -241,5 +242,6 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recov
 
 # Common TI device independent definitions (such as DOMX_PATH...)
 include device/ti/common-open/BoardConfig.mk
-
+include $(LOCAL_PATH)/device-vendor.mk
+include $(LOCAL_PATH)/versions.mk
 
