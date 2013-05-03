@@ -239,7 +239,7 @@ BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
 
-
+BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
 # Common TI device independent definitions (such as DOMX_PATH...)
 include device/ti/common-open/BoardConfig.mk
 #include $(LOCAL_PATH)/device-vendor.mk

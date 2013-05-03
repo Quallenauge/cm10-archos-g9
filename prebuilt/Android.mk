@@ -31,12 +31,12 @@ ABCBOX_LINKS := acat adev aosparser autodim bat cramfschecker create_nvs create_
 # Make #!/system/bin/abcbox launchers for each tool.
 #
 SYMLINKS := $(addprefix $(TARGET_OUT)/bin/,$(ABCBOX_LINKS))
-$(SYMLINKS): TOOLBOX_BINARY := $(LOCAL_MODULE)
+$(SYMLINKS): ABCBOX_BINARY := $(LOCAL_MODULE)
 $(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
-	@echo "Symlink: $@ -> $(TOOLBOX_BINARY)"
+	@echo "Symlink: $@ -> $(ABCBOX_BINARY)"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf $(TOOLBOX_BINARY) $@
+	$(hide) ln -sf $(ABCBOX_BINARY) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
 

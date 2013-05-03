@@ -20,6 +20,7 @@ PRODUCT_COPY_FILES := \
 
 
 PRODUCT_COPY_FILES := \
+    device/archos/archos_g9/init.recovery.rc:recovery/root/init.rc \
     $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archos-common.rc \
     $(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
     $(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
