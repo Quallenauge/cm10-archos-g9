@@ -198,7 +198,7 @@ static int write_leds(struct power_led_info *leds)
 		if (err)
 			goto err_write_fail;
 	case ON:
-		err = led_sysfs_write(buf, LED_TRIGGER_FILE, "%x", "default-on");
+		err = led_sysfs_write(buf, LED_TRIGGER_FILE, "%s", "default-on");
 		if (err)
 			goto err_write_fail;
 		err = led_sysfs_write(buf, LED_BRIGHTNESS_FILE, "%d",
