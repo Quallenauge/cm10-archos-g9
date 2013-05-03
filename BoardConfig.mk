@@ -25,6 +25,8 @@ LOCAL_PATH := device/archos/archos_g9
 
 # Use the non-open-source parts, if they're present
 -include $(VENDOR_PATH)/BoardConfigVendor.mk
+-include vendor/widevine/archos_g9/device-partial.mk
+
 
 TARGET_ARCH		   := arm
 TARGET_CPU_ABI             := armeabi-v7a
