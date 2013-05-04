@@ -1,4 +1,4 @@
-on early-init
+lson early-init
     start ueventd
 
 on init
@@ -27,13 +27,14 @@ on boot
 	write /sys/class/leds/lcd-backlight/brightness 150
     class_start default
     start sde_boot
-    start adbd
+
 
 service ueventd /sbin/ueventd
     critical
 
 service recovery /sbin/recovery
-	
+	disabled
+    
 service sde_boot /sbin/reboot_into -s sde
 	oneshot
 	disabled
@@ -52,7 +53,6 @@ on property:ro.debuggable=1
     write /sys/class/android_usb/android0/iManufacturer $ro.product.manufacturer
     write /sys/class/android_usb/android0/iProduct $ro.product.model
     write /sys/class/android_usb/android0/iSerial $ro.serialno
-    start adbd
     setprop service.adb.root 1
 
 # Restart adbd so it can run as root

@@ -232,6 +232,12 @@ on fs
     chown system system /sys/devices/platform/omapdss/display1/s3d_enable
     chown system system /sys/devices/platform/omapdss/display1/s3d_type
 
+    # change permissions for the power/battery light 
+    chown system system /sys/class/leds/power/brightness
+    chown system system /sys/class/leds/power/trigger
+    chown system system /sys/class/leds/power/delay_on
+    chown system system /sys/class/leds/power/delay_off
+    
     symlink /dev/ttyO0 /dev/tigps
 
 # Enable secondary display on Blaze

@@ -40,9 +40,11 @@
 
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
-char const *const LCD_FILE = "/sys/class/backlight/lcd-backlight/brightness";
+char const *const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
 const char *const LED_DIR = "/sys/class/leds/power";
 
+
+const char *const LED_BATTERY_FILE = "/sys/class/leds/power/brightness";
 const char *const LED_BRIGHTNESS_FILE = "brightness";
 const char *const LED_DELAY_ON_FILE = "delay_on";
 const char *const LED_DELAY_OFF_FILE = "delay_off";
@@ -94,8 +96,9 @@ static int set_light_backlight(struct light_device_t *dev,
 			struct light_state_t const *state)
 {
 	int err = 0;
+	
 	int brightness = rgb_to_brightness(state);
-
+	ALOGD("set_light_backlight brightness=%d",brightness);
 	pthread_mutex_lock(&g_lock);
 	err = write_int(LCD_FILE, brightness);
 
@@ -151,7 +154,7 @@ static int led_sysfs_write(char *buf, const char *command, char *format, ...)
 		err = -errno;
 		if (fd < 0) {
 			if (errno != EINTR && errno != EACCES && time_after(&timeout)) {
-				ALOGE("failed to open %s!", path_name);
+				ALOGE("failed to open sysfs %s!", path_name);
 				return err;
 			}
 			sched_yield();
@@ -181,7 +184,8 @@ static int write_leds(struct power_led_info *leds)
 	int err = -1;
 
 	pthread_mutex_lock(&g_lock);
-    
+ 
+ 
 	switch(leds->state) {
 	case OFF:
 		err = led_sysfs_write(buf, LED_TRIGGER_FILE, "%s",
@@ -214,38 +218,62 @@ err_write_fail:
 
 	return err;
 }
+static int set_light_leds_battery(struct light_device_t* dev,
+        struct light_state_t const* state)
+{
+	int err = 0;
+	
+	int brightness = rgb_to_brightness(state);
+	ALOGD("set_light_leds_battery brightness=%d",brightness);
+	pthread_mutex_lock(&g_lock);
+	err = write_int(LED_BATTERY_FILE, brightness);
+
+	pthread_mutex_unlock(&g_lock);
+	return err;
+}
 
 static int set_light_leds(struct light_state_t const *state, int type)
 {
 	struct power_led_info leds;
 
-
+	ALOGD("set_light_leds type=%d",type);
 	memset(&leds, 0, sizeof(leds));
 
 	switch (state->flashMode) {
 	case LIGHT_FLASH_NONE:{
+		ALOGD("set_light_leds LIGHT_FLASH_NONE");
 		leds.state = OFF;
 		break; }
 	case LIGHT_FLASH_TIMED:
+		ALOGD("set_light_leds LIGHT_FLASH_TIMED");
 	case LIGHT_FLASH_HARDWARE:{
-		if (state->flashOnMS < 0 || state->flashOffMS < 0)
+		ALOGD("set_light_leds LIGHT_FLASH_HARDWARE");
+		if (state->flashOnMS < 0 || state->flashOffMS < 0){
+			ALOGE("error in set_light_leds state->flashOnMS=%d state->flashOffMS=%d",state->flashOnMS,state->flashOffMS);
 			return -EINVAL;
-
+		}
+		ALOGD("set_light_leds state->flashOnMS=%d state->flashOffMS=%d",state->flashOnMS,state->flashOffMS);
 		leds.delay_off = state->flashOffMS;
 		leds.delay_on = state->flashOnMS;
 		
     
 
-		if (leds.delay_on == 0)
+		if (leds.delay_on == 0){
 			leds.state = OFF;
-		else if (leds.delay_off)
+			ALOGD("set_light_leds leds.state=OFF");
+		}else if (leds.delay_off){
+			ALOGD("set_light_leds leds.state=BLINK");
 			leds.state = BLINK;
-		else
+		}else{
+			ALOGD("set_light_leds leds.state=ON");
 			leds.state = ON;
+		}
 		break;
     }
-	default:
+	default:{
+		ALOGW("error : set_light_leds mode unknown state->flashMode=%d ",state->flashMode);
 		return -EINVAL;
+	}
 	}
 
 	return write_leds(&leds);
@@ -254,18 +282,29 @@ static int set_light_leds(struct light_state_t const *state, int type)
 static int set_light_leds_notifications(struct light_device_t *dev,
 			struct light_state_t const *state)
 {
+	int err = 0;
+	int brightness = rgb_to_brightness(state);
+
+	pthread_mutex_lock(&g_lock);
+	err = write_int(LED_DIR, brightness);
+
+	pthread_mutex_unlock(&g_lock);
+	return err;
+	
 	return set_light_leds(state, 0);
 }
 
 static int set_light_leds_attention(struct light_device_t *dev,
 			struct light_state_t const *state)
 {
-	return set_light_leds(state, 1);
+	return set_light_leds(state, 3);
 }
 
 static int open_lights(const struct hw_module_t *module, char const *name,
 						struct hw_device_t **device)
 {
+	
+	ALOGD("open_lights name=%s",name);
 	int (*set_light)(struct light_device_t *dev,
 		struct light_state_t const *state);
 
@@ -273,14 +312,18 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 		set_light = set_light_backlight;
 	else if (strcmp(LIGHT_ID_NOTIFICATIONS, name) == 0)
 		set_light = set_light_leds_notifications;
+	else if (strcmp(LIGHT_ID_BATTERY, name) == 0)
+		set_light = set_light_leds_battery;
 	else if (strcmp(LIGHT_ID_ATTENTION, name) == 0)
 		set_light = set_light_leds_attention;
 	else
 		return -EINVAL;
 
 	struct light_device_t *dev = malloc(sizeof(struct light_device_t));
-	if (!dev)
+	if (!dev){
+		ALOGE("open_lights failed name=%s",name);
 		return -ENOMEM;
+	}
 	memset(dev, 0, sizeof(*dev));
 
 	dev->common.tag = HARDWARE_DEVICE_TAG;
