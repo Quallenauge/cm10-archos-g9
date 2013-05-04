@@ -13,11 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+LOCAL_PATH:= $(call my-dir)
 # abcbox archos binary
 include $(CLEAR_VARS)
 LOCAL_MODULE := abcbox
-LOCAL_SRC_FILES := prebuilt/system/bin/abcbox
+LOCAL_SRC_FILES := system/bin/abcbox
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_MODULE_PATH := $(TARGET_OUT_EXECUTABLES)
 LOCAL_MODULE_TAGS := optional
@@ -32,6 +32,33 @@ ABCBOX_LINKS := acat adev aosparser autodim bat cramfschecker create_nvs create_
 #
 SYMLINKS := $(addprefix $(TARGET_OUT)/bin/,$(ABCBOX_LINKS))
 $(SYMLINKS): ABCBOX_BINARY := $(LOCAL_MODULE)
+$(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
+	@echo "Symlink: $@ -> $(ABCBOX_BINARY)"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf $(ABCBOX_BINARY) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
+
+# We need this so that the installed files could be picked up based on the
+# local module name
+ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
+    $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := abcbox_recovery
+LOCAL_SRC_FILES := system/bin/abcbox
+LOCAL_MODULE_CLASS := RECOVERY_EXECUTABLES
+LOCAL_MODULE_PATH :=  $(TARGET_RECOVERY_ROOT_OUT)/sbin
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_OWNER := archos
+LOCAL_MODULE_STEM := abcbox
+include $(BUILD_PREBUILT)
+
+# Make #!/system/bin/abcbox launchers for each tool.
+#
+SYMLINKS := $(addprefix $(TARGET_RECOVERY_ROOT_OUT)/sbin/,$(ABCBOX_LINKS))
+$(SYMLINKS): ABCBOX_BINARY := $(LOCAL_MODULE_STEM)
 $(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
 	@echo "Symlink: $@ -> $(ABCBOX_BINARY)"
 	@mkdir -p $(dir $@)

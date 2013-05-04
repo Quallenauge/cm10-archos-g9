@@ -16,11 +16,10 @@
 ##### This wants removing after testing in favour of the original one
 ##### in system/core/rootdir
 PRODUCT_COPY_FILES := \
-    $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
+    $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc
 
 
 PRODUCT_COPY_FILES := \
-    device/archos/archos_g9/init.recovery.rc:recovery/root/init.rc \
     $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archos-common.rc \
     $(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
     $(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
@@ -31,10 +30,6 @@ PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/ueventd.archosa101sboard.rc:root/ueventd.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard 
 
-# Publish that we support the live wallpaper feature.
-PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
-       
 # Vold Mounting
 PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/etc/vold.fstab:system/etc/vold.fstab
@@ -70,10 +65,8 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
     $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
     $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
-    $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
-    $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so                       
-	
-
+    $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so
+    
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(PREBUILT_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
