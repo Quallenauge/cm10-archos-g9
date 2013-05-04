@@ -107,8 +107,8 @@ on fs
      
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
      mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
-     mount ext4 loop@/data/local/archos.ext4 /system nosuid nodev wait
-     mount ext4 loop@/data/local/cache.ext4 /cache nosuid nodev wait
+     mount ext4 /dev/block/mmcblk0p3 /system nosuid nodev wait
+     mount ext4 /dev/block/mmcblk0p2 /cache nosuid nodev wait
 
 # change permissions for ION driver
      chmod 0777 /dev/ion
