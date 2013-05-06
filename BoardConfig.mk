@@ -242,7 +242,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
 
 TARGET_RECOVERY_FSTAB := device/archos/archos_g9/recovery.fstab
-TARGET_RECOVERY_INITRC := device/archos/archos_g9/init.recovery.rc
 
 #BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
 # Common TI device independent definitions (such as DOMX_PATH...)

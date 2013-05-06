@@ -1,0 +1,16 @@
+on init
+    mkdir /mnt
+    mkdir /mnt/rawfs
+    mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
+    start sde_boot
+    
+on boot
+    
+    write /sys/class/leds/lcd-backlight/brightness 150 
+
+
+
+service sde_boot /sbin/reboot_into -s sde
+	oneshot
+	disabled
+    
