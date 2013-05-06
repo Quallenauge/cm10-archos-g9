@@ -57,17 +57,17 @@ include $(BUILD_PREBUILT)
 
 # Make #!/system/bin/abcbox launchers for each tool.
 #
-SYMLINKS := $(addprefix $(TARGET_RECOVERY_ROOT_OUT)/sbin/,$(ABCBOX_LINKS))
-$(SYMLINKS): ABCBOX_BINARY := $(LOCAL_MODULE_STEM)
-$(SYMLINKS): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
+SYMLINKS_RECOVERY := $(addprefix $(TARGET_RECOVERY_ROOT_OUT)/sbin/,$(ABCBOX_LINKS))
+$(SYMLINKS_RECOVERY): ABCBOX_BINARY := $(LOCAL_MODULE_STEM)
+$(SYMLINKS_RECOVERY): $(LOCAL_INSTALLED_MODULE) $(LOCAL_PATH)/Android.mk
 	@echo "Symlink: $@ -> $(ABCBOX_BINARY)"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
 	$(hide) ln -sf $(ABCBOX_BINARY) $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS_RECOVERY)
 
 # We need this so that the installed files could be picked up based on the
 # local module name
 ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
-    $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
+    $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS_RECOVERY)
