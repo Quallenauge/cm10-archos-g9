@@ -1,6 +1,11 @@
-This repo contains the files required to build Cyanogenmod 10 for the Archos G9 Series
+This repo contains the files required to build various android distro's
+for the Archos G9 Series.
+
+This branch [ cm10.1-a101s ] is a copy of the cm10.1 branch taken at 
+commit : ed483dd023180a31363b1cc403face00af12c1bf
+
+This branch contains the files required to enable support on the a101s
 
 
-WORK IN PROGRESS - CURRENT STATUS 
-2012-07-28 = Although this will/should build successful, the rom will not boot........
+
 
