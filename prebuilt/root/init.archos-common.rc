@@ -109,13 +109,16 @@ on boot
 on fs                                                              
 # mount partitions          
      
+######  Real Partitions External SDCard #############     
+     
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
      mount ext4 /dev/block/mmcblk1p4 /data noatime nosuid
-     mount ext4 /dev/block/mmcblk1p2 /system noatime nosuid
-     mount ext4 /dev/block/mmcblk1p3 /cache noatime nosuid
+     mount ext4 /dev/block/mmcblk1p2 /cache noatime nosuid
+     mount ext4 /dev/block/mmcblk1p3 /system noatime nosuid     
      
+#############################################
      
-######  Real Partitions #############
+######  Real Partitions Internal SDCard #############
 #
 #   If you want to use real partition you must repartition the internal sdcard
 #
