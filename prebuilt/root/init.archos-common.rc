@@ -1,3 +1,5 @@
+import init.${ro.hardware}.usb.rc
+
 on early-init
     mount debugfs debugfs /sys/kernel/debug
     #symlink /data/cache /cache
@@ -28,7 +30,9 @@ on init
     mkdir /mnt/storage_usb      0550 system sdcard_rw
     mkdir /mnt/sdcard1          0550 system sdcard_rw
    
-    write /sys/class/rfkill/rfkill0/state 0
+    
+    # make sure the full size usb is on
+    write /sys/class/rfkill/rfkill0/state 1
 
     # Enable watchdog configuration - hardcoded to 4460     
     setprop ro.board.cpu_type OMAP4460
@@ -106,9 +110,22 @@ on fs
 # mount partitions          
      
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
-     mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
-     mount ext4 /dev/block/mmcblk0p3 /system nosuid nodev wait
-     mount ext4 /dev/block/mmcblk0p2 /cache nosuid nodev wait
+     mount ext4 /dev/block/mmcblk1p4 /data noatime nosuid
+     mount ext4 /dev/block/mmcblk1p2 /system noatime nosuid
+     mount ext4 /dev/block/mmcblk1p3 /cache noatime nosuid
+     
+     
+######  Real Partitions #############
+#
+#   If you want to use real partition you must repartition the internal sdcard
+#
+#   WARNINIG : DO NOT REMOVE mmcblk0p1 - This contains the boot loader .
+#              If you remove this partition you will brick you device.
+
+#   mount ext4 /dev/block/mmcblk0p3 /system nosuid nodev wait
+#   mount ext4 /dev/block/mmcblk0p2 /cache nosuid nodev wait
+
+####################################
 
 # change permissions for ION driver
      chmod 0777 /dev/ion

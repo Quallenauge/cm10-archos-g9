@@ -22,17 +22,15 @@ PRODUCT_COPY_FILES := \
 
 
 PRODUCT_COPY_FILES := \
-    $(PREBUILT_PATH)/root/init.recovery.archosa101sboard.rc:root/init.recovery.archosa101sboard.rc \
-    $(PREBUILT_PATH)/root/init.recovery.archosa80sboard.rc:root/init.recovery.archosa80sboard.rc \
-    $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archos-common.rc \
-    $(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
-    $(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
+    $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa101sboard.rc \
+    $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa80sboard.rc \
+    $(PREBUILT_PATH)/root/fstab.archos:root/fstab.archos \
+    $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archosa80sboard.rc \
+    $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.archosa80sboard.usb.rc:root/init.archosa80sboard.usb.rc \
-    $(PREBUILT_PATH)/root/ueventd.archosa80sboard.rc:root/ueventd.archosa80sboard.rc \
-    $(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.archosa101sboard.usb.rc:root/init.archosa101sboard.usb.rc \
-    $(PREBUILT_PATH)/root/ueventd.archosa101sboard.rc:root/ueventd.archosa101sboard.rc \
-    $(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard 
+    $(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa101sboard.rc \
+    $(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa80sboard.rc
 
 # Vold Mounting
 PRODUCT_COPY_FILES += \

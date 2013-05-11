@@ -1,6 +1,0 @@
-import init.archosa80sboard.usb.rc
-import init.archos-common.rc
-
-on fs                                                              
-
-     mount_all /fstab.archosa80sboard
