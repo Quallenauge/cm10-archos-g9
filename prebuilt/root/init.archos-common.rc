@@ -66,14 +66,6 @@ on early-boot
     chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-0024/calibration_trigger
     chmod 664 /sys/devices/platform/omap/omap_i2c.4/i2c-4/4-005c/calibration_trigger
     chmod 664 /sys/bus/usb/devices/usb1/power/control
-    
-    
-# TSP
-    insmod /system/lib/modules/cypress-tma340.ko
-    insmod /system/lib/modules/tr16c0-i2c.ko
-
-# 3G keys
-    insmod /system/lib/modules/hso.ko
 
 # wi-fi
 	mkdir /data/misc/wifi/sockets 0770 wifi wifi
@@ -95,26 +87,42 @@ on early-boot
 
 on boot 
 
-    # enable suspend (off mode).
-    #setprop persist.archos.suspend enabled
-
-    setprop windowsmgr.max_events_per_sec 65
+    #setprop windowsmgr.max_events_per_sec 65
     
     #    # generate nvs with calibration and mac
     
     exec /system/bin/logwrapper /system/bin/create_nvs -t /etc/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/wifi/ti-connectivity/wl1271-nvs.bin -w wl127x
 
 on fs                                                              
-# mount partitions          
      
+     # mount the rawfs for reboot mode          
+     mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
+     
+######  LOOP Partitions  #############     
+
+    # if we are going to have loop mounted partitions then 
+    # we may as well have all our partitions loop mounted
+    #
+    # create a directory where the ext4 images can live
+    mkdir /mnt/partitions 0755 root system
+    
+    # mount the internal sdcard to this location
+    mount ext4 /dev/block/mmcblk0p4 /mnt/partitions rw
+    
+    # loop mount our images here
+    mount ext4 loop@/mnt/partitions/data.ext4 /data noatime nosuid
+    mount ext4 loop@/mnt/partitions/cache.ext4 /cache noatime nosuid
+    mount ext4 loop@/mnt/partitions/system.ext4 /system noatime nosuid  
+    
+         
 ######  Real Partitions External SDCard #############     
      
-     mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
-     mount ext4 /dev/block/mmcblk1p4 /data noatime nosuid
-     mount ext4 /dev/block/mmcblk1p2 /cache noatime nosuid
-     mount ext4 /dev/block/mmcblk1p3 /system rw noatime nosuid     
+
+#     mount ext4 /dev/block/mmcblk1p4 /data noatime nosuid
+#     mount ext4 /dev/block/mmcblk1p2 /cache noatime nosuid
+#     mount ext4 /dev/block/mmcblk1p3 /system rw noatime nosuid     
     
-     start sde_boot
+    
      
 #############################################
      
@@ -129,6 +137,12 @@ on fs
 #   mount ext4 /dev/block/mmcblk0p2 /cache nosuid nodev wait
 
 ####################################
+
+     # once the system is mounted we can set the archos
+     # bootloader to reboot into sde mode.
+     # extra insurance to stop confusion
+     start sde_boot
+     
 
 # change permissions for ION driver
      chmod 0777 /dev/ion
@@ -534,6 +548,11 @@ on property:ro.secure=0
 service sde_boot /system/bin/reboot_into -s sde
 	oneshot
 	disabled
+    
+service recovery_boot /system/bin/reboot_into -s recovery
+	oneshot
+	disabled
+
 
 service battery /system/bin/logwrapper /system/bin/batteryd -d
     class core

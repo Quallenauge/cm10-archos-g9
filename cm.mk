@@ -22,11 +22,22 @@
 #
 
 # Boot animation
-TARGET_BOOTANIMATION_NAME := horizontal-1024x768
 
+## Specify phone tech before including full_phone
+$(call inherit-product, vendor/cm/config/gsm.mk)
+
+# Release name
+PRODUCT_RELEASE_NAME := g9
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 768
+TARGET_SCREEN_WIDTH := 1024
+
+# Inherit some common CM stuff.
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(LOCAL_PATH)/full_archos_g9.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+
 $(call inherit-product, $(LOCAL_PATH)/usb_modeswitch.mk)
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 

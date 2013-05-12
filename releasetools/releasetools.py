@@ -21,12 +21,16 @@ def FullOTA_InstallBegin(info):
     
     info.output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "mount")
     info.output_zip.write(os.path.join(UTILITIES_DIR, "kd_flasher"), "kd_flasher")
+    info.output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"), "make_ext4fs")
     info.output_zip.write(os.path.join(TARGET_DIR, "kernel"), "kernel")
     info.output_zip.write(os.path.join(TARGET_DIR, "ramdisk.img"), "ramdisk.img")
     
     info.script.AppendExtra('package_extract_file("mount", "/tmp/mount");')
     info.script.AppendExtra('package_extract_file("kd_flasher", "/tmp/kd_flasher");')
+    info.script.AppendExtra('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");')
+    
     info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/mount");')
+    info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/make_ext4fs");')
     info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/kd_flasher");')
     
     info.script.AppendExtra('if (!is_mounted("/mnt/rawfs")) then')
@@ -39,6 +43,10 @@ def FullOTA_InstallBegin(info):
     info.script.AppendExtra('package_extract_file("ramdisk.img", "/tmp/ramdisk.img");')
     info.script.AppendExtra('assert(run_program("/tmp/utils/kd_flasher","-i", "/tmp/ramdisk.img", "-k" , "/tmp/kernel" ));')
     info.script.AppendExtra('ui_print("*****               DONE                *****");')
+    info.script.AppendExtra('ui_print("");')
+    info.script.AppendExtra('ui_print("*****        INSTALLING SYSTEM          *****");')
+    
+    
     
 def FullOTA_InstallEnd(info):
   # Remove writing boot.img from script (we do it in updater.sh)

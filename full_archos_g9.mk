@@ -130,10 +130,6 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/gps/config/SuplConfig.spl:system/etc/gps/config/SuplConfig.spl \
     $(PREBUILT_PATH)/system/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
-PRODUCT_PACKAGES := \
-        Superuser \
-        su 
-
 # Wifi
 PRODUCT_PACKAGES += \
         lib_driver_cmd_wl12xx \
@@ -144,6 +140,7 @@ PRODUCT_PACKAGES += \
         hostapd.conf \
         calibrator \
         make_ext4fs \
+	setup_fs \
 	com.android.future.usb.accessory
 	
 PRODUCT_PACKAGES += \
@@ -168,42 +165,24 @@ PRODUCT_PACKAGES += \
 
 ## It all gets a bit experiemental here. See if we can enable voice and Sms/Mms
 PRODUCT_PACKAGES += \
-        Apollo \
         BasicSmsReceiver \
-        Camera \
-        CMWallpapers \
-        CellBroadcastReceiver \
-        Music \
         MusicFx \
         DeskClock \
-        Development \
         Galaxy4 \
         Gallery2 \
         HoloSpiralWallpaper \
         Term \
         ThemeChooser \
         ThemeManager \
-        Trebuchet \
         SpareParts \
         Phone \
         Mms
         
-
-
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	libaudioutils \
 	libnetcmdiface \
 	PCKeyboard
-
-PRODUCT_PACKAGES += \
-	dhcpcd.conf \
-	calibrator
-
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-	make_ext4fs \
-	setup_fs \
 
 # BlueZ test tools
 PRODUCT_PACKAGES += \
@@ -236,13 +215,6 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9
 
-
-### Ghetto Shell Scripts for quick testing
-PRODUCT_COPY_FILES += \
-    device/archos/archos_g9/releasetools/flash-ramdisk.sh:flash-ramdisk.sh
-
-PRODUCT_PACKAGES += \
-    static_busybox \
-    utility_kdflasher
+-include 
     
 
