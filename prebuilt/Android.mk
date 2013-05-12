@@ -77,13 +77,14 @@ ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
 #### kd_flasher utility tool #####
 
 include $(CLEAR_VARS)
-LOCAL_SRC_FILES := system/bin/abcbox
-LOCAL_STATIC_LIBRARIES := libcutils libc
 LOCAL_MODULE := utility_kdflasher
-LOCAL_MODULE_TAGS := eng
-LOCAL_MODULE_STEM := kd_flasher
+LOCAL_SRC_FILES := system/bin/abcbox
 LOCAL_MODULE_CLASS := UTILITY_EXECUTABLES
-LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/utilities
 LOCAL_MODULE_PATH := $(PRODUCT_OUT)/utilities
-LOCAL_FORCE_STATIC_EXECUTABLE := true
-include $(BUILD_EXECUTABLE)
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_OWNER := archos
+LOCAL_MODULE_STEM := kd_flasher
+include $(BUILD_PREBUILT)
+
+
+
