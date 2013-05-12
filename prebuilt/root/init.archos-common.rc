@@ -539,5 +539,12 @@ service battery /system/bin/logwrapper /system/bin/batteryd -d
     class core
     
 
-on property:ro.product.processor=*
-    setprop ro.product.board ${ro.product.processor}
+on property:ro.product.processor=omap4430
+    setprop ro.product.board omap4430
+    
+on property:ro.product.processor=omap4460
+    setprop ro.product.board omap4460
+    
+on property:ro.product.processor=omap4470
+    setprop ro.product.board omap4460
+    
