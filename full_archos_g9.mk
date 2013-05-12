@@ -98,9 +98,9 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/navd:system/bin/navd \
     $(PREBUILT_PATH)/system/bin/start_navd:system/bin/start_navd \
     $(PREBUILT_PATH)/system/bin/rfkill_chmod.sh:system/bin/rfkill_chmod.sh \
-    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.omap4.so \
-    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.omap4.so \
-    $(PREBUILT_PATH)/system/lib/hw/gps.archos.so:system/lib/hw/gps.omap4.so \
+    $(PREBUILT_PATH)/system/lib/hw/audio.primary.omap4.so:system/lib/hw/audio.primary.omap4.so \
+    $(PREBUILT_PATH)/system/lib/hw/audio_policy.omap4.so:system/lib/hw/audio_policy.omap4.so \
+    $(PREBUILT_PATH)/system/lib/hw/gps.omap4.so:system/lib/hw/gps.omap4.so \
     $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so 
 
 
