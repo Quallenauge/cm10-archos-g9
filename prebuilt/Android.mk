@@ -45,6 +45,8 @@ ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS)
 ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
     $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS)
 
+####### abcbox recovery version ######################
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := abcbox_recovery
 LOCAL_SRC_FILES := system/bin/abcbox
@@ -71,3 +73,17 @@ ALL_DEFAULT_INSTALLED_MODULES += $(SYMLINKS_RECOVERY)
 # local module name
 ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
     $(ALL_MODULES.$(LOCAL_MODULE).INSTALLED) $(SYMLINKS_RECOVERY)
+    
+#### kd_flasher utility tool #####
+
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := system/bin/abcbox
+LOCAL_STATIC_LIBRARIES := libcutils libc
+LOCAL_MODULE := utility_kdflasher
+LOCAL_MODULE_TAGS := eng
+LOCAL_MODULE_STEM := kd_flasher
+LOCAL_MODULE_CLASS := UTILITY_EXECUTABLES
+LOCAL_UNSTRIPPED_PATH := $(PRODUCT_OUT)/symbols/utilities
+LOCAL_MODULE_PATH := $(PRODUCT_OUT)/utilities
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+include $(BUILD_EXECUTABLE)

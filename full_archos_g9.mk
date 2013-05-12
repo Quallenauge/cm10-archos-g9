@@ -235,3 +235,14 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9
+
+
+### Ghetto Shell Scripts for quick testing
+PRODUCT_COPY_FILES += \
+    device/archos/archos_g9/releasetools/flash-ramdisk.sh:flash-ramdisk.sh
+
+PRODUCT_PACKAGES += \
+    static_busybox \
+    utility_kdflasher
+    
+
