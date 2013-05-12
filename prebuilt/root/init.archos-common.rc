@@ -14,6 +14,7 @@ on init
     export EMULATED_STORAGE_TARGET /storage/emulated
 
     # Support legacy paths
+    mount rootfs rootfs / rw remount
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
@@ -36,7 +37,6 @@ on init
 
     # Enable watchdog configuration - hardcoded to 4460     
     setprop ro.board.cpu_type OMAP4460
-
 
     mkdir /storage/sdcard1 0775 system system
     mkdir /storage/usbdisk0 0775 system system
@@ -115,6 +115,9 @@ on fs
      mount ext4 /dev/block/mmcblk1p4 /data noatime nosuid
      mount ext4 /dev/block/mmcblk1p2 /cache noatime nosuid
      mount ext4 /dev/block/mmcblk1p3 /system noatime nosuid     
+     
+     start sde_boot
+     setprop ro.board.platform ${ro.product.processor}
      
 #############################################
      
@@ -308,6 +311,8 @@ on post-fs
     chown system cache /data/cache
     chmod 0771 /data/cache
     
+    mount rootfs rootfs / rw remount
+    
     
 on post-fs-data
     
@@ -358,7 +363,7 @@ service mknod_omaplfb /system/bin/logwrapper /system/xbin/mknod /dev/omaplfb c 3
     class core
     oneshot
     
-service navl_server /system/bin/start_navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"a
+service navl_server /system/bin/start_navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"
     user root 
     class main
     disabled
@@ -528,3 +533,10 @@ service rilPos-daemon /system/bin/rilposd -l /system/lib/librilpos.so -- -c CAIF
 
 on property:ro.secure=0
     start console    
+
+service sde_boot /system/bin/reboot_into -s sde
+	oneshot
+	disabled
+
+service battery /system/bin/logwrapper /system/bin/batteryd -d
+    class core

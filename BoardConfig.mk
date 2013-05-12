@@ -76,9 +76,9 @@ TIWLAN_OPENSOURCE_MODULES:
 	echo "make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m"
 	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8
 	echo "Remove kernel builded (and oputdated modules)..."
-	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
-	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
-	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
+	#rm $(KERNEL_MODULES_OUT)/wl12xx.ko
+	#rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+	#rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
 	mv hardware/ti/wlan_os/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan_os/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan_os/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)

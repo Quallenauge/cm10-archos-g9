@@ -19,11 +19,12 @@ PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc
 
 
-
-
-PRODUCT_COPY_FILES := \
+#### Recovery files
+PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa80sboard.rc \
+
+PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/root/fstab.archos:root/fstab.archos \
     $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archosa80sboard.rc \
     $(PREBUILT_PATH)/root/init.archos-common.rc:root/init.archosa101sboard.rc \
@@ -79,7 +80,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
