@@ -167,16 +167,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
         BasicSmsReceiver \
         MusicFx \
-        DeskClock \
-        Galaxy4 \
-        Gallery2 \
-        HoloSpiralWallpaper \
-        Term \
-        ThemeChooser \
-        ThemeManager \
         SpareParts \
-        Phone \
-        Mms
         
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
@@ -215,6 +206,8 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9
 
--include 
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(LOCAL_PATH)/versions.mk )
+$(call inherit-product, $(LOCAL_PATH)/releasetools/otatools.mk )
     
 

@@ -38,8 +38,10 @@ ARCH_ARM_HAVE_TLS_REGISTER 	:= true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
-TARGET_NO_BOOTLOADER := true
-TARGET_NO_RADIOIMAGE         := true
+TARGET_NO_BOOTLOADER 	:= true
+TARGET_NO_RADIOIMAGE    := true
+TARGET_NO_RECOVERY		:= true
+BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_TI := true
@@ -221,6 +223,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 PRODUCT_AAPT_CONFIG := large mdpi hdpi xhdpi nodpi
 PRODUCT_AAPT_PREF_CONFIG := mdpi
 
+WITH_DEXPREOPT := true
+
 # Misc.
 BOARD_NEEDS_CUTILS_LOG := true
 BOARD_USES_SECURE_SERVICES := true
@@ -229,13 +233,9 @@ BOARD_USES_SECURE_SERVICES := true
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
-TARGET_RECOVERY_FSTAB := device/archos/archos_g9/recovery.fstab
 
-
-BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
 # Common TI device independent definitions (such as DOMX_PATH...)
 include device/ti/common-open/BoardConfig.mk
 #include $(LOCAL_PATH)/device-vendor.mk
-include $(LOCAL_PATH)/versions.mk
-include $(LOCAL_PATH)/releasetools/otatools.mk
+
 

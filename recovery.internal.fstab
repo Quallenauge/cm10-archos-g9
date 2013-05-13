@@ -1,7 +1,7 @@
 # mount point	fstype		device
 
-/sdcard			datamedia	/dev/null
-/external_sdcard	vfat		/dev/block/mmcblk1p1
+/internal_sd		datamedia	/dev/null
+/external_sd		vfat		/dev/block/mmcblk1p1
 /system			ext4		/dev/block/mmcblk0p3
 /data			ext4		/dev/block/mmcblk0p4
 /cache			ext4		/dev/block/mmcblk0p2

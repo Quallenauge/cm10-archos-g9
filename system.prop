@@ -1,16 +1,14 @@
 dalvik.vm.checkjni=false
 dalvik.vm.verify-bytecode=false
 persist.service.sv.enable=1
-persist.archos.suspend=enabled
 opencore.asmd=1
 browser.tioptimization=true
 connection.concurrent=10
 com.ti.omap_enhancement=true
+com.ti.omap_enhancement_s3d=true
 omap.enhancement=true
 ro.opengles.version=131072
 tv.hdmi.uicloning.enable=true
-media.avos.enable-rtsp=true
-media.avos.enable-scanner=true
 ro.com.google.mcc_fallback=262
 enable.3d.bypass=0
 ro.crypto.state=unsupported
