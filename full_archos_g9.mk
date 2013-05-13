@@ -210,4 +210,3 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(LOCAL_PATH)/versions.mk )
 $(call inherit-product, $(LOCAL_PATH)/releasetools/otatools.mk )
     
-
