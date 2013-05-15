@@ -8,5 +8,6 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PACKAGES += \
     static_busybox \
-    utility_kdflasher \
+    utility_abcbox \
     utility_make_ext4fs
+    

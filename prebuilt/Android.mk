@@ -77,13 +77,13 @@ ALL_MODULES.$(LOCAL_MODULE).INSTALLED := \
 #### kd_flasher utility tool #####
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := utility_kdflasher
+LOCAL_MODULE := utility_abcbox
 LOCAL_SRC_FILES := system/bin/abcbox
 LOCAL_MODULE_CLASS := UTILITY_EXECUTABLES
 LOCAL_MODULE_PATH := $(PRODUCT_OUT)/utilities
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := archos
-LOCAL_MODULE_STEM := kd_flasher
+LOCAL_MODULE_STEM := abcbox
 include $(BUILD_PREBUILT)
 
 

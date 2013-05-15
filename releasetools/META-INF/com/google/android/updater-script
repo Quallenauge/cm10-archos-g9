@@ -1,0 +1,28 @@
+ui_print("");ui_print("");
+ui_print("*****   ARCHOS SDE BOOT IMAGE INSTALLER *****");
+ui_print("");ui_print("");
+set_progress(1.000000);
+#
+# check to see whether the system is mounted
+#
+if (!is_mounted("/mnt/rawfs")) then 
+    ui_print("mounting rawfs");
+    assert(run_program("/tmp/utils/mount","-trawfs", "/dev/block/mmcblk0p1", "/mnt/rawfs"));
+endif;
+#
+#  Extract Utils Directory and Set Permission
+#  So we can execute the binaries
+#
+package_extract_dir("utils","/tmp/utils");
+set_perm_recursive(0, 0, 0755, 0755, "/tmp/utils");
+#
+#  Extract Boot Directory and create symlinks 
+#
+package_extract_file("boot.img","/tmp/boot.img");
+ui_print("*****        FLASHING BOOT IMAGE        *****");
+ui_print("");ui_print("");ui_print("");
+assert(run_program("/tmp/utils/bootimage-extract","/tmp/boot.img", "-k","-i" ));
+assert(run_program("/tmp/utils/kd_flasher","-i", "ramdisk.img", "-k" , "kernel" ));
+set_progress(0.100000);
+ui_print("*****               DONE                *****");
+ui_print("");ui_print("");

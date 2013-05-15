@@ -15,6 +15,12 @@
 #
 ##### This wants removing after testing in favour of the original one
 ##### in system/core/rootdir
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(LOCAL_PATH)/versions.mk )
+$(call inherit-product, $(LOCAL_PATH)/releasetools/otatools.mk )
+
+
 PRODUCT_COPY_FILES := \
     $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc
 
@@ -206,7 +212,4 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(LOCAL_PATH)/versions.mk )
-$(call inherit-product, $(LOCAL_PATH)/releasetools/otatools.mk )
     

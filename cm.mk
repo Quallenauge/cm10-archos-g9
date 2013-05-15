@@ -36,19 +36,18 @@ TARGET_SCREEN_WIDTH := 1024
 # Inherit some common CM stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit from those products. Most specific first.
+$(call inherit-product, device/archos/archos_g9/wpan/ti-wpan-products.mk)
+$(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
+$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+$(call inherit-product, device/ti/proprietary-open/omap4/ti-omap4-vendor.mk)
 $(call inherit-product, $(LOCAL_PATH)/full_archos_g9.mk)
 
 $(call inherit-product, $(LOCAL_PATH)/usb_modeswitch.mk)
-$(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
+
 
 # Enable the next line, to include the TI provided sgx libraries
-$(call inherit-product, device/ti/proprietary-open/omap4/ti-omap4-vendor.mk)
 
 
-#$(call inherit-product, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
-$(call inherit-product, device/archos/archos_g9/wpan/ti-wpan-products.mk)
-$(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
-$(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
 
 # About our tablet
 PRODUCT_NAME := cm_archos_g9

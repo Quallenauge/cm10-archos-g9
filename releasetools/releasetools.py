@@ -18,20 +18,25 @@ import os
 TARGET_DIR = os.getenv('OUT')
 UTILITIES_DIR = os.path.join(TARGET_DIR, 'utilities')
 def FullOTA_InstallBegin(info):
-    
-    info.output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "mount")
-    info.output_zip.write(os.path.join(UTILITIES_DIR, "kd_flasher"), "kd_flasher")
+
+
+    info["fstab"] = [partition for partition in info["fstab"] if not "boot" in cmd]
+    info.output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "busybox")
+    info.output_zip.write(os.path.join(UTILITIES_DIR, "abcbox"), "abcbox")
     info.output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"), "make_ext4fs")
+    
     info.output_zip.write(os.path.join(TARGET_DIR, "kernel"), "kernel")
     info.output_zip.write(os.path.join(TARGET_DIR, "ramdisk.img"), "ramdisk.img")
     
-    info.script.AppendExtra('package_extract_file("mount", "/tmp/mount");')
-    info.script.AppendExtra('package_extract_file("kd_flasher", "/tmp/kd_flasher");')
+    info.script.AppendExtra('package_extract_file("busybox", "/tmp/busybox");')
+    info.script.AppendExtra('package_extract_file("abcbox", "/tmp/abcbox");')
     info.script.AppendExtra('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");')
     
-    info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/mount");')
+    info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/busybox");')
     info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/make_ext4fs");')
-    info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/kd_flasher");')
+    info.script.AppendExtra('set_perm(0, 0, 0755, "/tmp/abcbox");')
+    info.script.AppendExtra('symlink("/tmp/abcbox","/tmp/kd_flasher","/tmp/flash_partition_erase","/tmp/reboot_into");')
+    info.script.AppendExtra('symlink("/tmp/busybox","/tmp/mount","/tmp/mkdir");')
     
     info.script.AppendExtra('if (!is_mounted("/mnt/rawfs")) then')
     info.script.AppendExtra('ui_print("mounting rawfs");')

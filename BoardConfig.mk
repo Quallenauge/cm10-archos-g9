@@ -16,17 +16,15 @@
 
 LOCAL_PATH := device/archos/archos_g9
 
-#$(warning "LocalPath: $(LOCAL_PATH)")
+# set to allow building from omap4-common
+BOARD_VENDOR := archos
 
-# These two variables are set first, so they can be overridden
-# by BoardConfigVendor.mk
-#BOARD_USES_GENERIC_AUDIO := false
-#USE_CAMERA_STUB := true
+
 
 # Use the non-open-source parts, if they're present
 -include $(VENDOR_PATH)/BoardConfigVendor.mk
 -include vendor/widevine/archos_g9/device-partial.mk
-
+include device/ti/common-open/BoardConfig.mk
 
 TARGET_ARCH		   			:= arm
 TARGET_CPU_ABI             	:= armeabi-v7a
@@ -41,7 +39,9 @@ TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_NO_BOOTLOADER 	:= true
 TARGET_NO_RADIOIMAGE    := true
 TARGET_NO_RECOVERY		:= true
-BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/archos/archos_g9/releasetools/g9_ota_from_target_files
+TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := device/archos/archos_g9/releasetools/g9_img_from_target_files
+
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_TI := true
@@ -49,11 +49,9 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_WPAN_DEVICE := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/archos/archos_g9/bluetooth
 
-
-#TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
 TARGET_KERNEL_CONFIG    := archos_g9_defconfig
 BOARD_KERNEL_BASE      := 0x80000000
-#BOARD_KERNEL_CMDLINE  :=
+
 
 SGX_MODULES:
 	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
@@ -148,12 +146,29 @@ ENHANCED_DOMX        := true
 OMAP_ENHANCEMENT     := true
 COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP4
 OMAP_ENHANCEMENT_MULTIGPU := true
+OMAP_ENHANCEMENT_S3D := true
 BOARD_USE_TI_ENHANCED_DOMX := true
+
+
+# TI Enhancement Settings (Part 2)
+ifdef BOARD_USE_TI_ENHANCED_DOMX
+    BOARD_USE_TI_DUCATI_H264_PROFILE := true
+    COMMON_GLOBAL_CFLAGS += -DENHANCED_DOMX
+    ENHANCED_DOMX := true
+else
+    DOMX_PATH := hardware/ti/omap4xxx/domx
+endif
+
+ifdef OMAP_ENHANCEMENT
+    COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
+endif
 
 ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
 endif
-
+ifdef OMAP_ENHANCEMENT_S3D
+    COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_S3D
+endif
 
 # CodeAurora Optimizations: msm8960: Improve performance of memmove, bcopy, and memmove_words
 # added by twa_priv
@@ -193,8 +208,12 @@ WIFI_DRIVER_MODULE_NAME          := "wlcore_sdio"
 WIFI_FIRMWARE_LOADER             := ""
 endif
 
+BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
+
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
+
+
 
 
 
@@ -227,7 +246,7 @@ WITH_DEXPREOPT := true
 
 # Misc.
 BOARD_NEEDS_CUTILS_LOG := true
-BOARD_USES_SECURE_SERVICES := true
+#BOARD_USES_SECURE_SERVICES := f
 
 # Recovery
 BOARD_HAS_SDCARD_INTERNAL := true
@@ -235,7 +254,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
 
 # Common TI device independent definitions (such as DOMX_PATH...)
-include device/ti/common-open/BoardConfig.mk
 #include $(LOCAL_PATH)/device-vendor.mk
 
 
