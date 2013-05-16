@@ -34,18 +34,44 @@ from ota_from_target_files import *
 import g9_edify_generator as edify_generator
 
 __doc__ = ota_from_target_files.__doc__
+def AddUtilities(output_zip):
 
+
+    output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "busybox")
+    output_zip.write(os.path.join(UTILITIES_DIR, "abcbox"), "abcbox")
+    output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"), "make_ext4fs")
+    
+    output_zip.write(os.path.join(TARGET_DIR, "kernel"), "kernel")
+    output_zip.write(os.path.join(TARGET_DIR, "ramdisk.img"), "ramdisk.img")
+    
+    
+    
+    
+    #script.AppendExtra('if (!is_mounted("/mnt/rawfs")) then')
+    #script.AppendExtra('ui_print("mounting rawfs");')
+    #script.AppendExtra('assert(run_program("/tmp/utils/mount","-trawfs", "/dev/block/mmcblk0p1", "/mnt/rawfs"));')
+    #script.AppendExtra('endif;')
+    
+    #script.AppendExtra('ui_print("*****        FLASHING BOOT IMAGE        *****");')
+    #script.AppendExtra('package_extract_file("kernel", "/tmp/kernel");')
+    #script.AppendExtra('package_extract_file("ramdisk.img", "/tmp/ramdisk.img");')
+    #script.AppendExtra('assert(run_program("/tmp/utils/kd_flasher","-i", "/tmp/ramdisk.img", "-k" , "/tmp/kernel" ));')
+    #script.AppendExtra('ui_print("*****               DONE                *****");')
+    #script.AppendExtra('ui_print("");')
+    #script.AppendExtra('ui_print("*****        INSTALLING SYSTEM          *****");')
+    
+    
 def WriteFullOTAPackage(input_zip, output_zip):
   # TODO: how to determine this?  We don't know what version it will
   # be installed on top of.  For now, we expect the API just won't
   # change very often.
-  OPTIONS.verbose 
+  OPTIONS.verbose = True
   
   script = edify_generator.EdifyGenerator(3, OPTIONS.info_dict)
 
   metadata = {"post-build": GetBuildProp("ro.build.fingerprint",
                                          OPTIONS.info_dict),
-              "pre-device": GetBuildProp("ro.product.device",
+              "pre-device": GetBuildProp("ro.build.product",
                                          OPTIONS.info_dict),
               "post-timestamp": GetBuildProp("ro.build.date.utc",
                                              OPTIONS.info_dict),
@@ -53,11 +79,10 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   
   AddUtilities(output_zip)
-  script.UnpackPackageTools(script,"busybox")
-  script.UnpackPackageTools(script,"abcbox")
-  script.UnpackPackageTools(script,"make_ext4fs")
+  script.UnpackPackageTools("busybox")
+  script.UnpackPackageTools("abcbox")
+  script.UnpackPackageTools("make_ext4fs")
   
-  AppendAssertions(script, input_zip)
   if OPTIONS.backuptool:
     script.Mount("/system")
     script.RunBackup("backup")
@@ -89,7 +114,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.ShowProgress(0.2, 10)
 
   script.ShowProgress(0.1, 0)
-  device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
     script.AppendExtra(OPTIONS.extra_script)
@@ -113,31 +137,3 @@ if __name__ == '__main__':
     print "   ERROR: %s" % (e,)
     print
     sys.exit(1)
-
-def AddUtilities(output_zip):
-
-
-    output_zip.write(os.path.join(UTILITIES_DIR, "busybox"), "busybox")
-    output_zip.write(os.path.join(UTILITIES_DIR, "abcbox"), "abcbox")
-    output_zip.write(os.path.join(UTILITIES_DIR, "make_ext4fs"), "make_ext4fs")
-    
-    output_zip.write(os.path.join(TARGET_DIR, "kernel"), "kernel")
-    output_zip.write(os.path.join(TARGET_DIR, "ramdisk.img"), "ramdisk.img")
-    
-    
-    
-    
-    script.AppendExtra('if (!is_mounted("/mnt/rawfs")) then')
-    script.AppendExtra('ui_print("mounting rawfs");')
-    script.AppendExtra('assert(run_program("/tmp/utils/mount","-trawfs", "/dev/block/mmcblk0p1", "/mnt/rawfs"));')
-    script.AppendExtra('endif;')
-    
-    script.AppendExtra('ui_print("*****        FLASHING BOOT IMAGE        *****");')
-    script.AppendExtra('package_extract_file("kernel", "/tmp/kernel");')
-    script.AppendExtra('package_extract_file("ramdisk.img", "/tmp/ramdisk.img");')
-    script.AppendExtra('assert(run_program("/tmp/utils/kd_flasher","-i", "/tmp/ramdisk.img", "-k" , "/tmp/kernel" ));')
-    script.AppendExtra('ui_print("*****               DONE                *****");')
-    script.AppendExtra('ui_print("");')
-    script.AppendExtra('ui_print("*****        INSTALLING SYSTEM          *****");')
-    
-    

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <project name="CyanogenMod/android_device_moto_wingray" path="device/moto/wingray" remote="github" />
+  <project name="CyanogenMod/android_device_moto_common" path="device/moto/common" remote="github" revision="jellybean" />
+  <project name="CyanogenMod/motorola-kernel-stingray" path="kernel/motorola/stingray" remote="github" revision="cm-10.1" />
+  <project name="CyanogenMod/android_device_samsung_n8013" path="device/samsung/n8013" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_smdk4412-common" path="device/samsung/smdk4412-common" remote="github" />
+  <project name="CyanogenMod/android_kernel_samsung_smdk4412" path="kernel/samsung/smdk4412" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_n80xx-common" path="device/samsung/n80xx-common" remote="github" />
+  <project name="CyanogenMod/android_packages_apps_SamsungServiceMode" path="packages/apps/SamsungServiceMode" remote="github" />
+  <project name="CyanogenMod/android_hardware_samsung" path="hardware/samsung" remote="github" />
+  <project name="CyanogenMod/android_device_asus_grouper" path="device/asus/grouper" remote="github" />
+  <project name="CyanogenMod/android_kernel_asus_grouper" path="kernel/asus/grouper" remote="github" />
+  <project name="CyanogenMod/android_device_htc_pyramid" path="device/htc/pyramid" remote="github" revision="jellybean" />
+  <project name="CyanogenMod/android_device_htc_msm8660-common" path="device/htc/msm8660-common" remote="github" revision="jellybean" />
+  <project name="CyanogenMod/android_kernel_htc_msm8660" path="kernel/htc/msm8660" remote="github" revision="jellybean" />
+  <project name="CyanogenMod/android_device_amazon_otter" path="device/amazon/otter" remote="github" />
+  <project name="CyanogenMod/android_device_amazon_otter-common" path="device/amazon/otter-common" remote="github" />
+  <project name="CyanogenMod/android_device_amazon_omap4-common" path="device/amazon/omap4-common" remote="github" />
+  <project name="CyanogenMod/android_kernel_amazon_otter-common" path="kernel/amazon/otter-common" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_p1" path="device/samsung/p1" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_p1-common" path="device/samsung/p1-common" remote="github" />
+  <project name="CyanogenMod/android_kernel_samsung_p1" path="kernel/samsung/p1" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_p5110" path="device/samsung/p5110" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_p5100" path="device/samsung/p5100" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_omap4-common" path="device/samsung/omap4-common" remote="github" />
+  <project name="CyanogenMod/android_kernel_samsung_espresso10" path="kernel/samsung/espresso10" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_i9100" path="device/samsung/i9100" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_galaxys2-common" path="device/samsung/galaxys2-common" remote="github" />
+  <project name="CyanogenMod/android_kernel_samsung_smdk4210" path="kernel/samsung/smdk4210" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_fascinatemtd" path="device/samsung/fascinatemtd" remote="github" />
+  <project name="CyanogenMod/android_device_samsung_aries-common" path="device/samsung/aries-common" remote="github" />
+  <project name="CyanogenMod/android_kernel_samsung_aries" path="kernel/samsung/aries" remote="github" />
+</manifest>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+    <remote name="omap-mirror"
+            fetch="git://git.omapzoom.org/"
+            review="http://review.omapzoom.org/" />
+
+    <remote name="TI-OpenLink"
+                fetch="git://github.com/TI-OpenLink" />
+    
+    <remote name="TeamWin"
+                fetch="git://github.com/TeamWin" 
+                review="http://review.teamw.in:29418/" />
+
+    <remote name="Quallenauge"
+            fetch="git://github.com" />
+
+	<remote name="Gitorious"
+		fetch="git://gitorious.org" />
+
+    <remote name="LinuxKernel"
+            fetch="git://git.kernel.org" />
+
+  	<remove-project name="CyanogenMod/android_hardware_ti_omap4xxx"/>
+  	<remove-project name="CyanogenMod/android_external_wpa_supplicant_8_ti"/>
+	<remove-project name="CyanogenMod/android_external_kernel-headers"/>
+	<remove-project name="CyanogenMod/android_bootable_recovery"/>
+
+    <!-- TeamWin Recovery Project repository -->
+    <project path="bootable/recovery" name="Team-Win-Recovery-Project/" remote="TeamWin" revision="twrp2.5" />
+
+    
+    <!-- Quallenauge kernel repository -->
+    <project path="kernel/archos/archos_g9" name="Quallenauge/kernel-archos" revision="trevd_expirimental"  remote="Quallenauge" />
+    <project path="android_injection" name="Quallenauge/android_injection" revision="cm10.1_linaro"  remote="Quallenauge" />
+    <project path="hardware/ti/wlan_os" name="Quallenauge/android_hardware_ti_wlan_os" revision="master"  remote="Quallenauge" />
+    <project path="device/archos/archos_g9" name="Quallenauge/cm10-archos-g9" revision="trevd_cleanup"  remote="Quallenauge" />
+    <project path="external/kernel-headers" name="Quallenauge/android_external_kernel-headers" revision="cm-10.1"  remote="Quallenauge" /> 
+    <!-- TI specific addons -->
+    <project path="external/bltsville" name="platform/external/bltsville" revision="master"  remote="omap-mirror">
+            <annotation name="vendor" value="ti"/>
+    </project>
+    <project path="external/crda" name="platform/external/crda" revision="jb-release"  remote="omap-mirror">
+            <annotation name="vendor" value="ti"/>
+    </project>
+    
+	
+<!--
+    <project path="external/ti-utils" name="ti-utils" revision="master"  remote="TI-OpenLink" /> 
+    <project path="vendor/ti/wl12xx_target_scripts" name="wl12xx_target_scripts" revision="r8-jb-mr1"  remote="TI-OpenLink" >
+        <annotation name="vendor" value="ti"/>
+    </project>
+        <project path="bionic" name="platform/bionic" revision="jb-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="frameworks/native" name="platform/frameworks/native" revision="jb-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+-->
+        <!--
+        <project path="device/ti/blaze_tablet" name="device/ti/blaze_tablet" revision="jb-release" remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="device/ti/blaze" name="device/ti/blaze" revision="jb-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        -->
+
+        <project path="device/ti/omap5sevm" name="device/ti/omap5sevm" revision="jb-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="device/ti/panda5" name="device/ti/panda5" revision="jb-release" remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="device/ti/proprietary-open" name="device/ti/proprietary-open" revision="p-jb-mr1-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+
+<!--
+        <project path="hardware/ti/domx" name="platform/hardware/ti/domx" revision="d-jb-mr1-release" remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+-->
+        <project path="hardware/ti/dvp" name="platform/hardware/ti/dvp" revision="master" remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="hardware/ti/arx" name="platform/hardware/ti/arx" revision="master" remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="device/ti/common-open" name="device/ti/common-open" revision="jb-release" remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="packages/apps/OMAPCamera" name="platform/packages/apps/OMAPCamera" revision="jb-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+        <project path="external/wpa_supplicant_8_ti" name="platform/external/wpa_supplicant_8_ti" revision="d-jb-mr1-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+<!--        <project path="external/wpa_supplicant_8" name="platform/external/wpa_supplicant_8" revision="d-jb-mr1-release"  remote="omap-mirror">
+                <annotation name="vendor" value="ti"/>
+        </project>
+-->
+
+<!--	<project path="hardware/ti/omap4xxx" name="platform/hardware/ti/omap4xxx" revision="d-jb-mr1-release" remote="omap-mirror"/> -->
+
+	<!-- Revision for tag RLS4AJ.2.2_JellyBean-->
+	<project path="hardware/ti/omap4xxx" name="platform/hardware/ti/omap4xxx" revision="b206f1cf697077d226f27be4bfb895557acaa362" remote="omap-mirror"/>
+	<project name="platform/hardware/ti/domx" path="hardware/ti/domx" revision="1307c3a722d05441f561cc26ea022b63578f4740" upstream="master">
+	    <annotation name="vendor" value="ti"/>
+	</project>
+
+
+<!--    <project path="external/libnfc-ti" name="platform/external/libnfc-ti" revision="jb-release" remote="omap-mirror"/> -->
+<!--	<project path="device/archos_ext" name="archos/archos-gpl-gen9/hardware" revision="master" remote="Gitorious"/> -->
+	<project path="hardware/linux-firmware" name="pub/scm/linux/kernel/git/firmware/linux-firmware" revision="master" remote="LinuxKernel" />
+</manifest>

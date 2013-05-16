@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+<remote  name="linaro-other"
+           fetch="git://git.linaro.org/" />
+    <remote  name="linaro"
+           fetch="git://android.git.linaro.org/" />
+   
+   
+    <remove-project name="CyanogenMod/android_external_jpeg" />
+    <remove-project name="CyanogenMod/android_bionic" />
+    <!-- <remove-project name="CyanogenMod/android_dalvik" />  -->
+    
+    <project path="external/jpeg" name="people/tomgall/libjpeg-turbo/libjpeg-turbo" revision="android" remote="linaro-other" />
+    <project path="bionic" name="platform/bionic.git" revision="linaro_android_4.2.2" remote="linaro" /> 
+    <project path="packages/inputmethods/hackerskeyboard" name="platform/packages/inputmethods/hackerskeyboard.git" revision="linaro-master" remote="linaro" />
+    
+      <project path="external/thirdparty-benchmarks" name="platform/external/thirdparty-benchmarks.git" revision="master" remote="linaro" />
+      <project path="external/linaro-android-tools" name="platform/external/linaro-android-tools.git" revision="master" remote="linaro"  />
+      <project path="hardware/linaro/common" name="hardware/linaro/common.git" revision="linaro_android_jb" remote="linaro" />
+      <project path="device/linaro/common" name="device/linaro/common.git" revision="linaro-jb" remote="linaro"  />
+     <!-- <project path="dalvik" name="platform/dalvik.git" revision="linaro_android_4.2.2" remote="linaro" /> -->
+    
+</manifest>

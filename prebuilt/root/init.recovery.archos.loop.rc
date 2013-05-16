@@ -18,7 +18,8 @@ on init
 on boot
     
     write /sys/class/leds/lcd-backlight/brightness 150 
-
+    write /sys/class/android_usb/android0/enable 1
+    start adb
 
 
 service sde_boot /sbin/reboot_into -s sde

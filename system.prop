@@ -11,10 +11,6 @@ ro.opengles.version=131072
 tv.hdmi.uicloning.enable=true
 ro.com.google.mcc_fallback=262
 enable.3d.bypass=0
-ro.crypto.state=unsupported
 ro.board.tsp_has_calibration=true
 ro.telephony.default_network=3
 qemu.hw.mainkeys=0
-
-# Only for debug reasons
-service.adb.root=1

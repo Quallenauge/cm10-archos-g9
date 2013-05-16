@@ -29,3 +29,11 @@ def load_module_from_file(module_name, filename):
     module = imp.load_module(module_name, f, filename, ('', 'U', 1))
     f.close()
     return module
+
+# map recovery.fstab's fs_types to mount/format "partition types"
+PARTITION_TYPES = { "rawfs": "EMMC",
+                    "ext2": "EMMC",
+                    "ext3": "EMMC",
+                    "ext4": "EMMC",
+                    "emmc": "EMMC",
+                    "vfat": "EMMC" }

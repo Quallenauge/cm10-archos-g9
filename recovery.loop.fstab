@@ -5,5 +5,3 @@
 /system			ext4		/dev/block/loop2
 /data			ext4		/dev/block/loop0
 /cache			ext4		/dev/block/loop1
-
-/boot           	vfat		/dev/null

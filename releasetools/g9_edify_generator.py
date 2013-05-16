@@ -27,7 +27,7 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
       destination file."""
       fndest = "/tmp/"+fn
       self.script.append('package_extract_file("%s", "/tmp/%s");' % (fn, fn))
-      SetPermissions(self,fndest,0,0,0755)
+      self.SetPermissions(fndest,0,0,0755)
 
     def UnpackPackageFile(self, src, dst):
       """Unpack a given file from the OTA package into the given
@@ -51,4 +51,14 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
         p = fstab[mount_point]
         self.script.append('unmount("%s");' %
 								(p.mount_point))
+        self.mounts.add(p.mount_point)
+        
+    def Mount(self,mount_point):
+      fstab = self.info.get("fstab", None)
+      if fstab:
+        p = fstab[mount_point]
+        self.script.append('if(!is_mounted("%s")) then' % p.mount_point)
+        self.Print("mounting %s" 
+                                % (p.mount_point))
+        self.script.append('assert(run_program("/tmp/utils/mount","-trawfs", "%s", "/mnt/rawfs"));' % p.mount_point)
         self.mounts.add(p.mount_point)
