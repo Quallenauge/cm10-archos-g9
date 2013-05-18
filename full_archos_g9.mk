@@ -163,7 +163,7 @@ PRODUCT_PACKAGES += \
 
 ## It all gets a bit experiemental here. See if we can enable voice and Sms/Mms
 PRODUCT_PACKAGES += \
-		PCKeyboard
+		PCKeyboard \
         Apollo \
         BasicSmsReceiver \
         Camera \
