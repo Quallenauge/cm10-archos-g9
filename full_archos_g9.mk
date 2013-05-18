@@ -67,7 +67,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
     $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
-    $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
+    #$(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
     $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so
     
 PRODUCT_COPY_FILES += \
@@ -130,6 +130,10 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/gps/config/SuplConfig.spl:system/etc/gps/config/SuplConfig.spl \
     $(PREBUILT_PATH)/system/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
+PRODUCT_PACKAGES := \
+        Superuser \
+        su 
+
 # Wifi
 PRODUCT_PACKAGES += \
         lib_driver_cmd_wl12xx \
@@ -140,14 +144,7 @@ PRODUCT_PACKAGES += \
         hostapd.conf \
         calibrator \
         make_ext4fs \
-	setup_fs \
 	com.android.future.usb.accessory
-	
-PRODUCT_PACKAGES += \
-	libtinyalsa \
-	tinyplay \
-	tinymix \
-	tinycap
 
 PRODUCT_PACKAGES += \
         libinvensense_mpl \
@@ -155,6 +152,7 @@ PRODUCT_PACKAGES += \
         libedid \
         audio_policy.default \
         libaudioutils
+#        hwcomposer.default 
 
 PRODUCT_PACKAGES += \
         LiveWallpapers \
@@ -165,15 +163,41 @@ PRODUCT_PACKAGES += \
 
 ## It all gets a bit experiemental here. See if we can enable voice and Sms/Mms
 PRODUCT_PACKAGES += \
+		PCKeyboard
+        Apollo \
         BasicSmsReceiver \
+        Camera \
+        CMWallpapers \
+        CellBroadcastReceiver \
+        Music \
         MusicFx \
+        DeskClock \
+        Development \
+        Galaxy4 \
+        Gallery2 \
+        HoloSpiralWallpaper \
+        Term \
+        ThemeChooser \
+        ThemeManager \
+        Trebuchet \
         SpareParts \
+        Phone \
+        Mms
         
+
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	libaudioutils \
-	libnetcmdiface \
-	PCKeyboard
+	libnetcmdiface
+
+PRODUCT_PACKAGES += \
+	dhcpcd.conf \
+	calibrator
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+	make_ext4fs \
+	setup_fs \
 
 # BlueZ test tools
 PRODUCT_PACKAGES += \
@@ -184,9 +208,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ti-wpan-fw
 
+## Camera
+#PRODUCT_PACKAGES += \
+#	camera.archos
+
 # SGX driver
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
+
+# Ducati binary (from TI)
+#DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
+#PRODUCT_PACKAGES += \
+#	ducati-m3.bin
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
@@ -205,8 +238,3 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_NAME := cm_archos_g9
 PRODUCT_DEVICE := archos_g9
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(LOCAL_PATH)/versions.mk )
-$(call inherit-product, $(LOCAL_PATH)/releasetools/otatools.mk )
-    
