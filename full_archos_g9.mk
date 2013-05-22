@@ -13,14 +13,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-##### This wants removing after testing in favour of the original one
-##### in system/core/rootdir
-PRODUCT_COPY_FILES := \
-    $(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc
 
+    
+
+##### init.usb.rc wants removing after testing in favour of the original one
+##### in system/core/rootdir
 
 #### Recovery files
 PRODUCT_COPY_FILES += \
+	$(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
     $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa80sboard.rc \
 
@@ -67,14 +68,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
     $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
-    #$(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
     $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so
+
+ 
     
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(PREBUILT_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
@@ -86,6 +87,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    #frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
  
 # All non-essential proprietary files for Archos G9 but are still kinda important
 PRODUCT_COPY_FILES += \
@@ -112,12 +115,25 @@ PRODUCT_COPY_FILES += \
 	 $(PREBUILT_PATH)/system/lib/libsuplhelperservicejni.so:system/lib/libsuplhelperservicejni.so \
 	 $(PREBUILT_PATH)/system/lib/libgps.so:system/lib/libgps.so
 
-#    $(PREBUILT_PATH)/system/lib/libedid.so:system/lib/libedid.so \
-
-
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
-     $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
+    $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin \
+    $(PREBUILT_PATH)/system/etc/firmware/TIInit_7.2.31.bts:system/etc/firmware/TIInit_7.2.31.bts \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-fw-2.bin:system/etc/firmware/ti-connectivity/wl1271-fw-2.bin \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-fw-ap.bin:system/etc/firmware/ti-connectivity/wl1271-fw-ap.bin \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-fw.bin:system/etc/firmware/ti-connectivity/wl1271-fw.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-nvs.bin:system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-3.bin:system/etc/firmware/ti-connectivity/wl127x-fw-3.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-5-mr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-mr.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-5-plt.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-plt.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-5-sr.bin:system/etc/firmware/ti-connectivity/wl127x-fw-5-sr.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-plt-3.bin:system/etc/firmware/ti-connectivity/wl127x-fw-plt-3.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-nvs.bin:system/etc/firmware/ti-connectivity/wl127x-nvs.bin \
+	$(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl12xx-nvs.bin:system/etc/firmware/ti-connectivity/wl12xx-nvs.bin \
+	hardware/ti/wlan/mac80211/ti-utils/ini_files/127x/TQS_S_2.6.ini:system/etc/wifi/TQS_S_2.6.ini
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
@@ -130,10 +146,6 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/gps/config/SuplConfig.spl:system/etc/gps/config/SuplConfig.spl \
     $(PREBUILT_PATH)/system/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
-PRODUCT_PACKAGES := \
-        Superuser \
-        su 
-
 # Wifi
 PRODUCT_PACKAGES += \
         lib_driver_cmd_wl12xx \
@@ -143,92 +155,60 @@ PRODUCT_PACKAGES += \
         wpa_supplicant.conf \
         hostapd.conf \
         calibrator \
-        make_ext4fs \
-	com.android.future.usb.accessory
+		com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
         libinvensense_mpl \
         parse_hdmi_edid \
         libedid \
         audio_policy.default \
-        libaudioutils
-#        hwcomposer.default 
-
+        audio.usb.default \
+		audio.a2dp.default \
+        libaudioutils \
+		com.android.future.usb.accessory
+		
 PRODUCT_PACKAGES += \
-        LiveWallpapers \
-        LiveWallpapersPicker \
-        VisualizationWallpapers \
-        librs_jni \
-	com.android.future.usb.accessory
-
-## It all gets a bit experiemental here. See if we can enable voice and Sms/Mms
-PRODUCT_PACKAGES += \
-		PCKeyboard \
-        Apollo \
-        BasicSmsReceiver \
-        Camera \
-        CMWallpapers \
-        CellBroadcastReceiver \
-        Music \
-        MusicFx \
-        DeskClock \
-        Development \
-        Galaxy4 \
-        Gallery2 \
-        HoloSpiralWallpaper \
-        Term \
-        ThemeChooser \
-        ThemeManager \
-        Trebuchet \
-        SpareParts \
-        Phone \
-        Mms
-        
-
-PRODUCT_PACKAGES += \
-	audio.a2dp.default \
-	libaudioutils \
-	libnetcmdiface
+	PCKeyboard
 
 PRODUCT_PACKAGES += \
 	dhcpcd.conf \
+	libnetcmdiface \
 	calibrator
+
+# bluetooth Packages
+PRODUCT_PACKAGES += \
+	libbt-vendor \
+	hciconfig \
+	hcitool \
+	uim-sysfs
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-	make_ext4fs \
 	setup_fs \
-
-# BlueZ test tools
-PRODUCT_PACKAGES += \
-	hciconfig \
-	hcitool
-
-# Bluetooth
-PRODUCT_PACKAGES += \
-	ti-wpan-fw
-
-## Camera
-#PRODUCT_PACKAGES += \
-#	camera.archos
-
+	
 # SGX driver
 PRODUCT_PACKAGES += \
-	ti_omap4_sgx_libs
-
-# Ducati binary (from TI)
-#DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
-#PRODUCT_PACKAGES += \
-#	ducati-m3.bin
+	ti_omap4_sgx_libs \
+	lights.omap4 \
+	G9Parts
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
-	hwui.render_dirty_regions=false
+	debug.hwui.render_dirty_regions=false \
+	persist.hwc.sw_vsync=1
+	
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
 
 PRODUCT_CHARACTERISTICS := tablet
+
+#adb has changed his security model since 4.2.2, don't use it (for now)
+ADDITIONAL_DEFAULT_PROPERTIES := ro.adb.secure=0
+# adb has root
+ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
+#
+ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp
 
 # Pick up overlay for features that depend on non-open-source files
 DEVICE_PACKAGE_OVERLAYS := \
