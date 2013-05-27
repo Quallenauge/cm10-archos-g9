@@ -14,14 +14,11 @@
 # limitations under the License.
 #
 
-    
-
 ##### init.usb.rc wants removing after testing in favour of the original one
 ##### in system/core/rootdir
 
 #### Recovery files
 PRODUCT_COPY_FILES += \
-	$(PREBUILT_PATH)/root/init.usb.rc:root/init.usb.rc \
     $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa101sboard.rc \
     $(PREBUILT_PATH)/root/init.recovery.archos.rc:root/init.recovery.archosa80sboard.rc \
 
@@ -101,9 +98,9 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/navd:system/bin/navd \
     $(PREBUILT_PATH)/system/bin/start_navd:system/bin/start_navd \
     $(PREBUILT_PATH)/system/bin/rfkill_chmod.sh:system/bin/rfkill_chmod.sh \
-    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.omap4.so \
-    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.omap4.so \
     $(PREBUILT_PATH)/system/lib/hw/gps.archos.so:system/lib/hw/gps.omap4.so \
+    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.omap4.so \
+    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.omap4.so \
     $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so 
 
 
@@ -137,6 +134,7 @@ PRODUCT_COPY_FILES += \
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
     $(PREBUILT_PATH)/system/etc/gps/cert/client_keystore.bks:system/etc/gps/cert/client_keystore.bks \
     $(PREBUILT_PATH)/system/etc/gps/config/GPSCConfigFile.cfg:system/etc/gps/config/GPSCConfigFile.cfg \
     $(PREBUILT_PATH)/system/etc/gps/config/GpsConfigFile.txt:system/etc/gps/config/GpsConfigFile.txt \
@@ -161,9 +159,6 @@ PRODUCT_PACKAGES += \
         libinvensense_mpl \
         parse_hdmi_edid \
         libedid \
-        audio_policy.default \
-        audio.usb.default \
-		audio.a2dp.default \
         libaudioutils \
 		com.android.future.usb.accessory
 		
@@ -190,7 +185,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs \
 	lights.omap4 \
-	G9Parts
+	audio.hdmi.omap4 \
+    audio.usb.default \
+	audio.a2dp.default \
+	#G9Parts
 
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
