@@ -205,3 +205,14 @@ endif
 ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
 endif
+
+
+# TI Enhancement Settings (Part 2)
+ifdef BOARD_USE_TI_ENHANCED_DOMX
+    BOARD_USE_TI_DUCATI_H264_PROFILE := true
+    COMMON_GLOBAL_CFLAGS += -DENHANCED_DOMX
+    ENHANCED_DOMX := true
+    DOMX_PATH := hardware/ti/domx
+else
+    DOMX_PATH := hardware/ti/omap4xxx/domx
+endif

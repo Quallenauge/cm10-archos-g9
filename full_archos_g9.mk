@@ -192,16 +192,18 @@ PRODUCT_PACKAGES += \
 	lights.omap4 \
 	G9Parts
 
-PRODUCT_PROPERTY_OVERRIDES := \
-	wifi.interface=wlan0 \
-	debug.hwui.render_dirty_regions=false \
-	persist.hwc.sw_vsync=1
-	
-
 PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=120 \
+    hwui.render_dirty_regions=false \
+    ro.opengles.version=131072 \
+    com.ti.omap_enhancement=true \
+    omap.enhancement=true \
+    ro.crypto.state=unencrypted \
+    persist.sys.usb.config=mtp,adb \
+    persist.sys.root_access=3 \
+    persist.hwc.sw_vsync=1 \
 	ro.sf.lcd_density=160
-
-PRODUCT_CHARACTERISTICS := tablet
 
 #adb has changed his security model since 4.2.2, don't use it (for now)
 ADDITIONAL_DEFAULT_PROPERTIES := ro.adb.secure=0
