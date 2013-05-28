@@ -157,6 +157,7 @@ BOARD_NEEDS_CUTILS_LOG := true
 BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
+TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_archos_g9
 
 # Common TI device independent definitions (such as DOMX_PATH...)
 #include $(LOCAL_PATH)/device-vendor.mk
