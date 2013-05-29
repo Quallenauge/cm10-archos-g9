@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-ifeq ($(TARGET_DEVICE),archos_g9)
+
 LOCAL_PATH := device/archos/archos_g9
 
 #$(warning "LocalPath: $(LOCAL_PATH)")
@@ -201,7 +201,6 @@ ifdef BOARD_USE_TI_ENHANCED_DOMX
 else
     DOMX_PATH := hardware/ti/omap4xxx/domx
 endif
+# TODO: Remove this soon-to-be obsolete property
 
 
-BUILDINFO_SH := device/archos/archos_g9/buildinfo.sh
-endif

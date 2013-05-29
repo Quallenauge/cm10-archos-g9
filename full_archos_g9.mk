@@ -91,7 +91,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/batteryd:system/bin/batteryd \
     $(PREBUILT_PATH)/system/bin/akmd8975:system/bin/akmd8975 \
-    $(PREBUILT_PATH)/system/bin/last_kmsg:system/bin/last_kmsg \
     $(PREBUILT_PATH)/system/bin/nand:system/bin/nand \
     $(PREBUILT_PATH)/system/bin/powerd:system/bin/powerd \
     $(PREBUILT_PATH)/system/bin/watchdog_daemon:system/bin/watchdog_daemon \
