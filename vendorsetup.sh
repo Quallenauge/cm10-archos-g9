@@ -23,5 +23,7 @@
 export LOCAL_PATH=device/archos/archos_g9
 export PREBUILT_PATH=$LOCAL_PATH/prebuilt
 
+#cp device/archos/archos_g9/archos_local_manifest.xml .repo/local_manifests/archos_local_manifest.xml
+
 add_lunch_combo cm_archos_g9-userdebug
 add_lunch_combo cm_archos_g9-eng

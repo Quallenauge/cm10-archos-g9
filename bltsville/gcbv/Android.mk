@@ -45,10 +45,10 @@ LOCAL_CFLAGS :=
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/mirror \
 	$(LOCAL_PATH)/mirror/include \
-	external/bltsville/bltsville/include \
-	external/bltsville/ocd/include
+	device/archos/archos_g9/bltsville/bltsville/include \
+	device/archos/archos_g9/bltsville/ocd/include
 
-VERSION_H := external/bltsville/gcbv/version.h
+VERSION_H := device/archos/archos_g9/bltsville/gcbv/version.h
 BV_VERSION := $(shell grep "VER_FILEVERSION_STR" $(VERSION_H) | sed "s,.*\"\([0-9.]*\)\\\0.*,\1,")
 
 LOCAL_SHARED_LIBRARIES := \

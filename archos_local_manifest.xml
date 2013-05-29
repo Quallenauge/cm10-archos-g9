@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+        <remote name="omap-mirror"
+                fetch="git://git.omapzoom.org/"
+                review="http://review.omapzoom.org/" />
+
+        <remote name="Quallenauge"
+                fetch="https://github.com" />
+                
+    <remote name="TeamWin"
+                fetch="git://github.com/TeamWin" 
+                review="http://review.teamw.in:29418/" />
+
+    <remote name="Gitorious"
+        fetch="git://gitorious.org" />
+
+        <remote name="LinuxKernel"
+                fetch="git://git.kernel.org" />
+
+    <remove-project name="CyanogenMod/android_hardware_ti_omap4xxx"/>
+    <!-- <remove-project name="CyanogenMod/android_external_wpa_supplicant_8_ti"/> -->
+    <remove-project name="CyanogenMod/android_external_kernel-headers"/>
+    <remove-project name="CyanogenMod/android_bootable_recovery"/>
+    
+    <project path="bootable/recovery" name="Team-Win-Recovery-Project/" remote="TeamWin" revision="twrp2.5" />
+
+    <!-- Quallenauge kernel repository -->
+    <project path="device/archos/archos_g9" name="Quallenauge/cm10-archos-g9" revision="trevd_cleanup"  remote="Quallenauge" />
+    <project path="kernel/archos/archos_g9" name="Quallenauge/kernel-archos" revision="trevd_expirimental"  remote="Quallenauge" />
+    <project path="external/kernel-headers" name="Quallenauge/android_external_kernel-headers" revision="cm-10.1"  remote="Quallenauge" /> 
+    <project path="external/crda" name="platform/external/crda" revision="jb-release"  remote="omap-mirror">
+        <annotation name="vendor" value="ti"/>
+    </project>
+    <project path="hardware/ti/dvp" name="platform/hardware/ti/dvp" revision="master" remote="omap-mirror">
+        <annotation name="vendor" value="ti"/>
+    </project>
+    <project path="hardware/ti/arx" name="platform/hardware/ti/arx" revision="master" remote="omap-mirror">
+        <annotation name="vendor" value="ti"/>
+    </project>
+    <project path="packages/apps/OMAPCamera" name="platform/packages/apps/OMAPCamera" revision="jb-release"  remote="omap-mirror">
+        <annotation name="vendor" value="ti"/>
+    </project>
+    <project path="hardware/ti/omap4xxx" name="platform/hardware/ti/omap4xxx" revision="b206f1cf697077d226f27be4bfb895557acaa362" remote="omap-mirror"/>
+    <project name="platform/hardware/ti/domx" path="hardware/ti/domx" revision="1307c3a722d05441f561cc26ea022b63578f4740" remote="omap-mirror" >
+        <annotation name="vendor" value="ti"/>
+    </project>
+</manifest>
