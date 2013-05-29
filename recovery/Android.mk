@@ -1,6 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),archos)
+ifeq ($(TARGET_DEVICE),archos_g9)
 
 # Edify extension functions for doing modem (radio) updates on Toro devices.
 

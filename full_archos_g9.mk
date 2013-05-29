@@ -180,10 +180,37 @@ PRODUCT_PACKAGES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	setup_fs \
-	
-# SGX driver
+
+# SGX Drivers
 PRODUCT_PACKAGES += \
-	ti_omap4_sgx_libs \
+	libglslcompiler_SGX540_120.so \
+	libglslcompiler_SGX544_112.so \
+	libIMGegl_SGX540_120.so \
+	libIMGegl_SGX544_112.so \
+	libpvr2d_SGX540_120.so \
+	libpvr2d_SGX544_112.so \
+	libpvrANDROID_WSEGL_SGX540_120.so \
+	libpvrANDROID_WSEGL_SGX544_112.so \
+	libPVRScopeServices_SGX540_120.so \
+	libPVRScopeServices_SGX544_112.so \
+	libsrv_init_SGX540_120.so \
+	libsrv_init_SGX544_112.so \
+	libsrv_um_SGX540_120.so \
+	libsrv_um_SGX544_112.so \
+	libusc_SGX540_120.so \
+	libusc_SGX544_112.so \
+	powervr.ini \
+	pvrsrvctl_SGX540_120 \
+	pvrsrvctl_SGX544_112 \
+	pvrsrinit \
+	gralloc.omap4430 \
+	gralloc.omap4460 \
+	gralloc.omap4370 
+	
+
+	
+# HAL 
+PRODUCT_PACKAGES += \
 	lights.omap4 \
 	audio.hdmi.omap4 \
     audio.usb.default \

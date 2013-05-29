@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+ifeq ($(TARGET_DEVICE),archos_g9)
 LOCAL_PATH := device/archos/archos_g9
 
 #$(warning "LocalPath: $(LOCAL_PATH)")
@@ -55,15 +55,6 @@ BOARD_CUSTOM_BOOTIMG_MK := device/archos/archos_g9/shbootimg.mk
 BOARD_KERNEL_BASE      := 0x80000000
 TARGET_KERNEL_CONFIG    := archos_g9_defconfig
 
-SGX_MODULES:
-	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
-	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean
-	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
-#	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=debug TARGET_SGX=540 PLATFORM_VERSION=4.0
-	# It seems that the default sgx deployment will overwrite the builded one
-	cp out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
-    
-TARGET_KERNEL_MODULES 		:= SGX_MODULES 
 TARGET_BOARD_PLATFORM        := omap4
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun/file"
 TARGET_BOOTLOADER_BOARD_NAME := archos
@@ -79,8 +70,7 @@ USE_OPENGL_RENDERER        := true
 
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
-BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true                                                                                                                                                                                                                                     
-# set if the target supports FBIO_WAITFORVSYNC                                                                                                                                                                                                                                 
+BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true                                                                                                                                                                                                                            
 TARGET_HAS_WAITFORVSYNC := true                                                                                                                                                                                                                                                
                                                                                                                                                                                                                                                                                
 # Camera                                                                                                                                                                                                                                                                       
@@ -214,3 +204,4 @@ endif
 
 
 BUILDINFO_SH := device/archos/archos_g9/buildinfo.sh
+endif

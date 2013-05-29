@@ -1,0 +1,207 @@
+#==========================================================================
+# SGX Binaries
+#==========================================================================
+
+sgx.tgz now contains two sets of binaries. One built for SGX540 and one built for SGX544.
+The SGXCORE and SGC_CORE_REV is appended to the end of each file. pvrsrvinit is now a
+wrapper which detects the current processor and loads the corresponding core specific
+pvrsrvinit.
+
+[DDK Version]
+    1.9@2166536
+[DDK commit ID]
+    084d3db SGX-KM: sgxfreq: Enable on3demand governor as default
+[Branch]
+    origin/1.9/2166536
+[Tag]
+    1.9IMG2166536_TI.0003
+[Kernel modules built against]
+    Kernel Version: 3.0.31 with CONFIG_MODVERSIONS=y and CONFIG_SCHED_TRACER=y
+[Patches added since last release]
+    New DDK version 1.9@2166536
+    084d3db SGX-KM: sgxfreq: Enable on3demand governor as default
+    c1e1f93 SGX-KM: on3demand: Added polling based on timeout
+    1baf19c Build: Compile OMAP4 kernel modules with arm-eabi toolchain
+    e166956 Build: Add production build option to build script
+    9efd5d3 SGX UM: Properly update vertex shader constants when recompiled
+    f6e71f1 Revert "Build: Add optional flag to disable uKernel logging"
+    a49e042 SGXKM: Inherit PVRSRV_HAP_GPU_PAGEABLE flag
+    f05da87 SGXUM: Creates a new PVRSRV_HAP MAPPING CTRL mask
+    0e6ac23 SGXKM: Creates a new PVRSRV_HAP MAPPING CTRL mask
+    5044cbb SGXKM: Divorce Sparse Mapping from GPU Pageable
+    4abdd37 SGX-KM: sgxfreq: Header for GPL license
+    7a1e61b gpu: thermal: adding cooling device for "case" management
+    1221aba SGX-KM: Add 'userspace' governor to sgxfreq
+    7cc1319 SGX-KM: Add on3demand governor to sgxfreq
+    c3283ff SGX-KM: Allow sgxfreq active notification when prev state was active
+    7275e62 SGX-KM: Add idle and active time caluclation to sgxfreq
+    e15265c SGX-KM: Add frame_done interface to sgxfreq
+    a021f10 SGX-KM: Add activeidle governor to sgxfreq
+    bbdceee SGX-KM: Add active/idle notification to sgxfreq
+    4e1e8d9 SGX-UM: Rework SGX idle notification
+    fce3459 SGX-KM: Rework SGX idle notification
+    17cdf8c SGX-KM: Add onoff governor to sgxfreq
+    403caa1 SGX-KM: Add cooling device interface to sgxfreq
+    1d785b8 SGX-KM: Add sgxfreq subsystem for DVFS control
+    14de6d8 Build: Add optional flag to disable uKernel logging
+    374bea1 SGX UM: Set ro.product.processor before loading modules
+    91d286d SGX UM: Pvrsrvinit fix typo in remount command
+    3d08869 SGX UM: Remove BRN32044 for omap5
+    086f52b OMAP5: WA: Race condition when SGX is powered down
+    1a904c2 SGX KM: ShrinkPagePool statistics changed to PVR_DBG_MESSAGE
+    fbf2890 SGX KM: Fix num_handle calculation for ion handles
+    322af97 BUILD: fix usage and help
+    50440d3 BUILD: Add install option "adb"
+    ee66bfb pvr-km: gc: Add page offset for ion allocated buffers
+    be4fe11 pvr-km: gc: Improve gc map/unmap logging
+    51da16d gralloc: Map NV12 buffers with the GC MMU
+    210b590 SGX-KM: Enable APM for OMAP5
+    31e2f05 SGX-UM: Enable APM for OMAP5
+    a98b81b SGX-UM: Don't load omaplfb module when in-kernel driver is present
+    b20f5c6 SGX-KM: Support in-kernel omaplfb
+    0955f19 SGXKM: Multi-plane support for  deviceclass i-face
+    11f6682 build: remove omaplfb from install step
+    9ecd6e0 pvr-um: use arm-linux-androideabi- and fix JB debug build
+    abef31d PVR-UM: Make pvrsrvinit wrapper compatible with Jellybean
+    5b4e4f0 Revert "SGXUM: Implements Gralloc late CPU mapping"
+    5f25289 SGX-UM: build - Remove target platform based configuration
+    9d5ac31 OMAP5: BUILD: Remove unused variable
+    5365b64 readme: Correct DDK version
+    8095cc6 SGX-UM: Add support for hardware specific powervr.ini files
+    7e13d26 PVR-UM: Add support to DDK for powervr.ini files
+    e545f59 SGX-UM: Added 16 bit depth EGL configs
+    27da0ae SGX UM: Srvinit block until services ready
+    ba35538 SGX UM: HAL block OpenPVRServices until services initialized
+    43f8c1f SGX UM: Fix calculation of chroma plane in blit_internal
+    f6a6944 SGX KM: Dump dsscomp info during HW recovery
+    fc6d85b SGXKM: Adds support for 1D buffer allocation
+    d8d061b SGXKM: Do not perform explicit invalidate on mmap
+    3ac6e1f SGXUM: Implements Gralloc late CPU mapping
+    b621744 SGXUM: Gralloc allow for late or no GPU mapping
+    dde30cf SGXUM: Add allocation of images from system heap
+    552c0f5 SGXUM: Adds A8/U8/Y8 color format to WSEGL
+    f1c7822 SGXKM: Increase XPROC_WORKAROUND to 500
+    65f61bf SGXKM: Fix cc-check.sh file permissions
+    0dfe392 SGXKM: Make the DMM offset optional
+    946eb30 gralloc: add support for GRALLOC_USAGE_EXCLUSIVE_DISP
+    5cf7248 gralloc: publicly define omap specific usage flags
+    afcb9bd SGX-KM: Block DPLL cascading when SGX clock is enabled
+    616ff0b SGX-KM: Hold wake lock during hardware recovery
+    872b4c0 SGXKM: Fix NULL handle warning when blitting GC320
+    39de55c SGXKM: Allow for late or no GPU mapping
+    d229a7b SGXKM: Allow for SW access to a tiler buffer
+    7024790 SGXUM: Adds YUV plane offsets for MM
+    d202649 SGXKM: SGX Tiler non-page-aligned support
+    2b2ac18 SGXUM: Implements GPU Common Buffer Interface
+    86cd052 SGXUM: Multi-buffer manage bridge
+    d272c49 SGXKM: Multi-buffer manage bridge
+    4d8facf SGXKM: Implements Heap Alloc Failure Report
+    6d4253a SGXUM: Add support for GPU unmap/remap
+    64f4805 SGXKM: Add support for GPU unmap/remap
+    5425356 SGX-KM: Use CONFIG_DRM_OMAP_DMM_TILER for kernel 3.4
+    853be19 SGX-KM: Use pud_offset to get pmd_offset
+    5ec5d70 PVR-KM: Prevent compilation of dc_omapfb3_linux
+    1bbe8a2 SGX-KM: Remove hardcoding of values in egl.cfg
+    83b8af6 pvr-km: kfree phys info at unmap instead of map
+    f347fb9 pvr-km: add a struct size to the physical descriptor
+    6ccff8f gralloc: Set flag to enable GC MMU mapping in PVR services
+    0cfaa6d PVR-KM: Add function to obtain BV descriptor through 3PDC interface
+    c8f4c5f PVR-KM: Map buffers to GC core MMU on allocation time with Bltsville
+    65b2b84 SGXKM: Prevent mapping of export with zero ref
+    f4cc0a2 OMAP4-SGX-UM: Allow for tiler buffer SW access
+    5c97ded OMAP4-SGX-UM: Gralloc SW access and caching flags
+    bbf5424 OMAP4-SGX-UM: Gralloc HAL_PIXEL_FORMAT_NV12 format
+    ec6cc69 SGX-KM: Make PVRSRVExportFDToIONHandles generic and register it with ion
+    8c1255d PVR-KM: OMAP5: Use shared device for Tiler 2D Mappings
+    2391ac8 PVR-KM: OMAP5: Hardcode core version value
+    7d87962 SGX-KM: OMAP5: HACK: Set the size of the SGX registers
+    9f40224 SGX-UM: add detection of OMAP5432 in pvrsrvinit
+    f75d48b SGX-UM: build: Add panda5 and omap5sevm to product list
+    c23eff9 SGX-KM: BUILD: Add OMAP5 support
+    5cc4ade SGX-UM: BUILD: Consolidate build into a single Makefile
+    2c6a2f6 SGX-KM: (build) Remove Android product and version dependency
+    6f54fe8 Build: Don't install egl.cfg anymore
+    a49c59c SGX-KM: egl.cfg sysfs entry
+    c759928 SGX-KM: Enable DPF, TRACE and ASSERT
+    1628094 build-km: Enable blaze and blaze_tablet for ICS environment
+    05f00eb build: Enable blaze and blaze_tablet for ICS environment
+    542e279 SGX-KM: Add ability to build multiple sets of GFX kernel modules
+    69d3661 build: Set correct load directory for kernel modules.
+    2dfe14b KM: add support for sgx544sc
+    58f317a SGX-UM: Add ability to build multiple sets of GFX binaries
+    04e5deb SGX-KM: Use platform data for OPP symbols.
+    5eed373 SGX-UM: Enable building binaries for specific SGX
+    0801be2 readme: Add README
+    649d010 build: Add build_DDK.sh
+    fe34640 Create gitignore file
+    519ca9a IMG DDK 1.9@2166536 for Android
+    de46d4e IMG DDK 1.9RC2@2139099 for Android
+    7978e98 IMG DDK 1.9@2130229 for Android
+    9f9a103 IMG DDK 1.9@2120756 for Android
+    e35c780 IMG DDK 1.9@2116380 for Android
+    62cc4a1 IMG DDK 1.9RC956766 for Android
+    e38619c IMG DDK 1.9ED956766 for Android
+    6a92688 IMG DDK 1.9@950428 for Android
+    d78e0ed Merge "IMG DDK 1.9@940848" into img_ddk_1.9
+    1ebf198 IMG DDK 1.9@940848
+    ae62bbf IMG DDK 1.9@905526 for Android
+    7c3819b IMG DDK 1.9@875649 for Android
+    a4b253a IMG DDK 1.9@807970 for Android
+    6d190d4 IMG DDK 1.9@796078 for Android
+    98986f5 Initial
+
+#==========================================================================
+#   Cloning instructions
+#==========================================================================
+# git clone ssh://<your_AID>@gerrit.ext.ti.com:29418/img-ddk-linux-android
+# cd img-ddk-linux-android
+# git checkout -b <local_branch_name> remotes/origin/1.9/2166536
+# git reset --hard 1.9IMG2166536_TI.0003
+
+#===========================================================================
+#   Build and Install Instructions
+#===========================================================================
+DDK:
+- Building DDK
+Go through README in ddk source tree.
+
+Build for 4430/4460
+# ./build_DDK.sh -g 540 --build release
+
+Build for 4470
+# ./build_DDK.sh -g 544sc --build release
+
+- Installing DDK
+# export DISCIMAGE=<PATH TO ANDROID ROOT DIRECTORY>
+# ./build_DDK.sh -g 540 --install release
+# ./build_DDK.sh -g 544sc --install release
+
+#===========================================================================
+#   Building SGX Kernel Modules
+#===========================================================================
+SGX kernel modules source is located in sgx_src/eurasia_km.tgz
+
+Make sure kernel is built before building modules
+
+#tar -xvf ANDROID_ROOT/device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz
+
+# cd ANDROID_ROOT/device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/
+# export KERNELDIR=path_to_kernel
+
+To build for OMAP4460/OMAP4430 (SGX 540):
+# make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
+
+To build for OMAP4470 (SGX 544 single core):
+# make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=544sc PLATFORM_VERSION=4.0
+
+Once the .ko's are built, install them onto device (/system/lib/modules)
+
+For 4460:
+# cd ANDROID_ROOT/device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/binary2_540_120_omap4430_android_release/target/
+# adb push pvrsrvkm_sgx540_120.ko /system/lib/modules/
+
+For 4470
+# cd ANDROID_ROOT/device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/binary2_544_120_omap4430_android_release/target/
+# adb push pvrsrvkm_sgx544_112.ko /system/lib/modules/
+
+Reboot device.

@@ -1,0 +1,5 @@
+0x8e38eb1f	gpsIONClient	/media/2TB/share/ics/1.9ddk/img-ddk-linux-android/eurasia_km/eurasiacon/binary2_540_120_omap4430_android_debug/target/kbuild/pvrsrvkm_sgx540_120	EXPORT_SYMBOL
+0xedbf99c9	PVRSRVExportFDToIONHandle	/media/2TB/share/ics/1.9ddk/img-ddk-linux-android/eurasia_km/eurasiacon/binary2_540_120_omap4430_android_debug/target/kbuild/pvrsrvkm_sgx540_120	EXPORT_SYMBOL
+0xe328af64	PVRGetBufferClassJTable	/media/2TB/share/ics/1.9ddk/img-ddk-linux-android/eurasia_km/eurasiacon/binary2_540_120_omap4430_android_debug/target/kbuild/pvrsrvkm_sgx540_120	EXPORT_SYMBOL
+0x8798b6ed	PVRSRVExportFDToIONHandles	/media/2TB/share/ics/1.9ddk/img-ddk-linux-android/eurasia_km/eurasiacon/binary2_540_120_omap4430_android_debug/target/kbuild/pvrsrvkm_sgx540_120	EXPORT_SYMBOL
+0xe0297a45	PVRGetDisplayClassJTable	/media/2TB/share/ics/1.9ddk/img-ddk-linux-android/eurasia_km/eurasiacon/binary2_540_120_omap4430_android_debug/target/kbuild/pvrsrvkm_sgx540_120	EXPORT_SYMBOL
