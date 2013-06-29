@@ -160,11 +160,13 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/bin/navd:system/bin/navd \
     $(PREBUILT_PATH)/system/bin/start_navd:system/bin/start_navd \
     $(PREBUILT_PATH)/system/bin/rfkill_chmod.sh:system/bin/rfkill_chmod.sh \
-    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
-    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/gps.archos.so:system/lib/hw/gps.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/lights.archos.so:system/lib/hw/lights.archos.so \
-    $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so 
+    $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so
+
+# Not needed anymore
+#    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
+#    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so 
 
     
 #    $(PREBUILT_PATH)/system/lib/hw/camera.omap4.so:system/lib/hw/camera.omap4.so \
@@ -239,9 +241,10 @@ PRODUCT_PACKAGES += \
         libinvensense_mpl \
         parse_hdmi_edid \
         libedid \
-        audio_policy.default \
+        omx_tests \
         libaudioutils
 #        hwcomposer.default 
+#        audio_policy.default #
 
 PRODUCT_PACKAGES += \
         LiveWallpapers \
@@ -303,6 +306,10 @@ PRODUCT_PACKAGES += \
 # SGX driver
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
+
+# Omap reference audio driver
+PRODUCT_PACKAGES += \
+	audio.primary.omap4
 
 # Ducati binary (from TI)
 #DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz

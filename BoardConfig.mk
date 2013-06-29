@@ -75,7 +75,7 @@ TIWLAN_OPENSOURCE_MODULES:
 	echo "Remove kernel builded (and oputdated modules)..."
 	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
 	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
-	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
+#	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
 	mv hardware/ti/wlan_os/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan_os/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan_os/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
@@ -84,7 +84,8 @@ TIWLAN_OPENSOURCE_MODULES:
 	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 
 	cd hardware/ti/wlan_os/ && pwd && git reset --hard && git clean -fd && bash scripts/driver-select bt
-	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8
+	echo "make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8"
+	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m CONFIG_BT=m -j8
 	if [ ! -d ${KERNEL_MODULES_OUT}/bluetooth ]; then mkdir -p ${KERNEL_MODULES_OUT}/bluetooth; fi
 	mv hardware/ti/wlan_os/net/bluetooth/bluetooth.ko $(KERNEL_MODULES_OUT)/bluetooth/
 	mv hardware/ti/wlan_os/net/bluetooth/rfcomm/rfcomm.ko $(KERNEL_MODULES_OUT)/bluetooth/
@@ -164,7 +165,7 @@ TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Audio library
-COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+#COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 
 #ENABLE_WEBGL := true
 
