@@ -1,0 +1,9 @@
+/*! \page tiarx_ver Version
+ 
+  This version of the TIARX SDK was built on top of <a href=http://omappedia.org/wiki/4AI.1.7_OMAP4_Icecream_Sandwich_Release_Notes>TI's 4AI.1.7 Android Release</a> which is based on IcecreamSandwich 4.0.4(MR1.1)
+
+  \version VERSION
+  \date DATE
+
+*/
+

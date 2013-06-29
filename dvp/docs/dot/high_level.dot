@@ -1,0 +1,51 @@
+digraph high_level_components {
+    node [shape=box color=red style=filled];
+
+    subgraph cluster_cpu {
+        label="CPU";
+        style=filled;
+        color=grey;
+        APP [label="Application"];
+        DVP [shape=record color=black fillcolor=red label="{<f0>DVP|<f1>KGB}"];
+        KGM_CPU [label="KGM CPU"];
+        KGM_OCL [label="KGM OpenCL"];
+        NEON [shape=record color=black fillcolor=grey label="NEON|SMP"];
+    }
+
+    subgraph cluster_ipu {
+        label="IPU";
+        style=filled;
+        color=grey;
+        KGM_EVE [label="KGM EVE"];
+        KGM_SIMCOP [label="KGM SIMCOP"];
+    }
+
+    subgraph cluster_dsp {
+        label="DSP";
+        style=filled;
+        color=grey;
+        KGM_DSP [label="KGM DSP"];
+    }
+
+    subgraph cluster_gpu {
+        label="GPU";
+        style=filled;
+        color=grey;
+        OPENCL [label="OPENCL"];
+    }
+
+    subgraph cluster_cloud {
+        label="Cloud";
+        style=filled;
+        color=grey;
+        KGM_CLOUD [label="KGM Cloud"];
+    }
+
+    APP -> DVP:f0;
+    DVP:f1 -> KGM_CPU -> NEON;
+    DVP:f1 -> KGM_OCL -> OPENCL;
+    DVP:f1 -> KGM_SIMCOP;
+    DVP:f1 -> KGM_EVE;
+    DVP:f1 -> KGM_DSP;
+    DVP:f1 -> KGM_CLOUD;
+}

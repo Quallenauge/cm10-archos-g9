@@ -1,0 +1,84 @@
+/*!
+\page page_arch_overview Architecture Overview
+
+\section high_level_diagram High Level Diagram
+
+\dotfile high_level.dot
+
+\section sec_distribution Distribution
+
+DVP uses an RPMSG-based driver called OMAPRPC to distribute work across the OMAP4
+system.
+
+\section manager_prioritization Manager Prioritization
+
+DVP internally prioritizes some hardware blocks over others due to implicit
+performance advantages due to hardware designs. If multiple Managers support
+the same kernel, DVP will internally determine how to prioritize whose kernel
+is called. DVP will use the Load Balancing information as a second level of
+decision making.
+
+Currently the prioritization for OMAP4 is:
+-# sIMCOP
+-# DSP
+-# CPU
+
+This means if there is a Kernel "A" implemented on all Managers, it will
+prefer to execute the kernel on the highest priority Manager first working its
+ way down the priority list only when the Core that the Manager works on is
+exhausted of resources.
+
+\section load_balancing Load Balancing
+
+DVP understands that real-time contraints can be expected in production
+devices and therefore has an Estimated Load table, whose input helps control where the
+machine vision kernels execute. Load Balancing is <b>predictive</b> only and does
+not use any run-time checking to compute load. This is done because not all
+Cores are capable of run-time detection. For example, the SIMCOP is really an
+accelerator and is more accurately thought of as serially accessed in bursts
+of 100% utilization since no two tasks can be present concurrently (or at
+least aren't in this design).
+
+\section multi_dvp Multiple DVP Instances
+
+DVP can execute multiple Graphs in parallel within the same process or across
+multiple processes. The Estimated Load Table is in a semaphore protected
+piece of shared memory so that multiple processes can utilize the DVP system
+at once. Each process gets its own instance of the Managers, but there is
+only one Estimated Load Table.
+
+\section nodes Nodes
+
+A node (\ref DVP_KernelNode_t) is the combination of the Kernel enumeration, the parameters to be
+given to the kernel and some needed overhead.
+
+\section sections Sections
+
+A section (\ref DVP_KernelGraphSection_t) is a series of nodes collected into a logical set by the client.
+At the end of a section a callback is issued to the client.
+
+\section graphs Graphs
+
+A graph (\ref DVP_KernelGraph_t), in this context, represents one or more sets of sections which are
+executed in series or parallel. The sections are arranged in a specific execution order and if
+this order is the same as another section's, parallelism is possible. In this
+case, the order is set by the client.
+
+\section callbacks Section Completion Callbacks
+
+After each section completes execution, a callback is issued to the client to
+notify them of completion. This callback has several features.
+
+- The Callback is internally semaphore protected so that the client does not
+need to implement a protection mechanism.
+- The Callback is intended to allow the client to do any necessary operations
+between sections of a DVP Graph. These could be:
+<ul>
+	<li>Private Algorithms performed on the output of the previous section
+	<li>Logical operations to determine if future sections need to run. If not,
+	future sections can be marked as "skip" so they will not be executed. The Client
+	would be responsible for clearing the "skip" flag before the next Graph execution.
+</ul>
+
+*/
+

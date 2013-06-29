@@ -45,8 +45,8 @@ LOCAL_CFLAGS :=
 LOCAL_C_INCLUDES := \
 	$(LOCAL_PATH)/mirror \
 	$(LOCAL_PATH)/mirror/include \
-	device/archos/archos_g9/bltsville/bltsville/include \
-	device/archos/archos_g9/bltsville/ocd/include
+	$(LOCAL_PATH)/../bltsville/include \
+	$(LOCAL_PATH)/../ocd/include
 
 VERSION_H := device/archos/archos_g9/bltsville/gcbv/version.h
 BV_VERSION := $(shell grep "VER_FILEVERSION_STR" $(VERSION_H) | sed "s,.*\"\([0-9.]*\)\\\0.*,\1,")

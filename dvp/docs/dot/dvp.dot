@@ -1,0 +1,189 @@
+digraph dvp_components {
+	//rankdir=LR;
+	node [color=red shape="box" style=filled];
+	
+	subgraph cluster_mpu {
+		label="Dual Core Cortex A9 (MPU)";
+		color=grey;
+		style=filled;
+		
+		subgraph cluster_user {
+			color=white;
+			style=filled;
+			label="Client Application";
+			CLIENT [color=blue label="User Defined Engine"];
+		}
+		subgraph cluster_engines {
+			color=white;
+			style=filled;
+			label="Vision Services";
+			VISIONENGINE [label="VisionEngine"];
+			VISIONCAM [label="VisionCam"];
+			VISIONENGINE -> VISIONCAM;
+		}
+		CLIENT -> VISIONENGINE;
+		subgraph cluster_dvp {
+			color=white;
+			style=filled;
+			label="Distributed Vision Processing API";
+			DVP_API [shape=record color=black fillcolor=red label="{DVP API|{<f0>Graphs|<f1>Images|<f2>Buffers|<f3>Display}}"];
+			DVP_KGB [label="Kernel Graph Boss"];
+			DVP_KGMP_DSP [shape=record color=black fillcolor=red label="{Kernel Graph Manager\n for DSP (Proxy)|RPC}"];
+			DVP_KGMP_SIMCOP [shape=record color=black fillcolor=red label="{Kernel Graph Manager\n for SIMCOP (Proxy)|RPC}"];
+			DVP_KGMP_EVE [shape=record color=black fillcolor=red label="{Kernel Graph Manager\n for EVE (Proxy)|RPC}"];
+			DVP_KGM_CPU [label="Kernel Graph Manager\n on CPU"];
+			DVP_KGMP_CLOUD [label="Kernel Graph Manager\n for Cloud (Proxy)"];
+			DVP_KGM_OCL [label="Kernel Graph Manager\n for OpenCL"];
+			DVP_MEM [label="Memory Subsystem"];
+			
+			DVP_API:f0 -> DVP_KGB;
+			DVP_API:f0 -> DVP_MEM;
+			DVP_API:f1 -> DVP_MEM;
+			DVP_API:f2 -> DVP_MEM;
+			DVP_KGB -> DVP_KGMP_DSP;	
+			DVP_KGB -> DVP_KGMP_SIMCOP;
+			DVP_KGB -> DVP_KGMP_EVE;
+			DVP_KGB -> DVP_KGM_CPU;
+			DVP_KGB -> DVP_KGMP_CLOUD;
+			DVP_KGB -> DVP_KGM_OCL;
+		}
+		subgraph cluster_sosal {
+			color=white;
+			style=filled;
+			label="Simple Operating System Abstraction";
+			SOSAL [shape=record color=black fillcolor=red label="{<f0>allocator|<f1>bitfield|<f2>threads}|{<f3>queue|<f4>uinput|<f5>locks}|{list|hash|heap}|{ring|threadpool|image}"];
+		}
+		VISIONENGINE -> DVP_API;
+		VISIONENGINE -> SOSAL:f2;
+		VISIONENGINE -> SOSAL:f3;
+		DVP_MEM -> SOSAL:f0;
+		subgraph cluster_openmax {
+			color=white;
+			style=filled;
+			label="OpenMAX";
+			OMX_CAMERA_PROXY [label="OpenMAX Camera Proxy"];
+		}
+		VISIONCAM -> OMX_CAMERA_PROXY;
+		subgraph cluster_opencl {
+			color=white;
+			style=filled;
+			label="OpenCL";
+			OPENCL [color=green label="OpenCL Kernels\n for Vision"];
+		}
+		subgraph cluster_kernel {
+			label="Linux Kernel";
+			color=yellow;
+			style=filled;
+			V4L2 [shape=record color=black fillcolor=red label="{{<f0>UVC|<f1>OVERLAY}|V4L2}"];
+			OMX_RPC [label="OpenMAX RPC Driver"];
+			OMAPRPC_CPU [label="OMAPRPC Kernel Driver"];		
+			SGX_DRV [label="PowerVR Driver"];
+			NETWORK [label="Networking Stack"];
+			FILESYS [label="File Systems"];
+			ION [label="ION"];
+			UINPUT_DRV [label="uinput"];
+		}
+		SOSAL:f0 -> ION;
+		SOSAL:f4 -> UINPUT_DRV;
+		VISIONCAM -> V4L2:f0;
+		VISIONCAM -> FILESYS;
+		VISIONCAM -> NETWORK;
+		DVP_API:f3 -> V4L2:f1;
+		KERNELS_CPU [shape=record color=black fillcolor=green style=filled label="YUV | IMGFILTER | VLIB | IMGLIB"];
+		
+		DVP_KGM_CPU -> KERNELS_CPU;
+		DVP_KGMP_DSP -> OMAPRPC_CPU;
+		DVP_KGMP_SIMCOP -> OMAPRPC_CPU;
+		DVP_KGMP_EVE -> OMAPRPC_CPU;
+		DVP_KGMP_CLOUD -> NETWORK;
+		DVP_KGM_OCL -> OPENCL -> SGX_DRV;
+		OMX_CAMERA_PROXY -> OMX_RPC;
+	}
+	
+	subgraph cluster_cloud {
+		label="Cloud Computation";
+		color=grey;
+		style=filled;
+		KGM_CLOUD [label="Kernel Graph Manager Cloud"];
+		FLAMES [label="libFlame on Shannon"];
+		
+		KGM_CLOUD -> FLAMES;
+	}
+	
+	NETWORK -> KGM_CLOUD [label="sockets"];
+	
+	subgraph cluster_ipu {
+		color=grey;
+		style=filled;
+		label="Dual Core Cortex M3 (IPU)";
+		OMAPRPC_IPU [label="OMAPRPC Service Mgr Task"];
+		OMAPRPC_EVE [label="OMAPRPC Service Mgr Task"];
+		KGM_SIMCOP [label="Kernel Graph Manager \nfor SIMCOP"];
+		KGM_EVE [label="Kernel Graph Manager \nfor EVE"];
+		OMX_MGRTSK [label="OMX Service Mgr Task"];
+		OMXCAMERA [label="OMX Camera"];
+		VRUN [color=green label="VRUN"];
+		GRABP [label="GraBP"];
+		IPIPE [label="IPipe"];
+		
+		OMAPRPC_IPU -> KGM_SIMCOP -> VRUN;
+		OMAPRPC_EVE -> KGM_EVE -> GRABP;
+		OMX_MGRTSK -> OMXCAMERA -> IPIPE;
+	}
+	OMAPRPC_CPU -> OMAPRPC_IPU [label="rpmsg"];
+	OMAPRPC_CPU -> OMAPRPC_EVE [label="rpmsg"];
+	OMX_RPC -> OMX_MGRTSK [label="rpmsg"];
+	
+	subgraph cluster_dsp {
+		color=grey;
+		style=filled;
+		label="C64T (DSP)";
+		OMAPRPC_DSP [label="OMAPRPC Service Mgr Task"];
+		KGM_DSP [label="Kernel Graph Manager \non DSP"];
+		EDMA [label="Enhanced DMA Lib"];
+		
+		KERNELS_DSP [shape=record color=black fillcolor=green style=filled label="VLIB|IMGLIB|RVM|TISMO"];
+		
+		OMAPRPC_DSP -> KGM_DSP -> EDMA;
+		KGM_DSP -> KERNELS_DSP;
+	}
+	OMAPRPC_CPU -> OMAPRPC_DSP [label="rpmsg"];
+	
+	subgraph cluster_gpu {
+		color=grey;
+		style=filled;
+		label="GPU"
+		SGX [label="OpenCL Runtime"]; 
+	}
+	SGX_DRV -> SGX [label="pvr"];
+	
+	subgraph cluster_simcop {
+		color=grey;
+		style=filled;
+		label="SIMCOP";
+		IMX0 [label="4 MAC iMX"];
+		IMX1 [label="4 MAC iMX"];
+	}
+	
+	VRUN -> IMX0;
+	VRUN -> IMX1;
+	
+	subgraph cluster_eve {
+		color=grey;
+		style=filled;
+		label="Embedded Vision Engine"
+		EVE0 [label="EVE"];
+		EVE1 [label="EVE"];
+	}
+	GRABP -> EVE0;
+	GRABP -> EVE1;
+	
+	subgraph cluster_iss {
+		color=grey;
+		style=filled;
+		label="Imaging Subsystem";
+		SENSOR [label="Raw Sensors"];
+	}
+	IPIPE -> SENSOR;
+
+}

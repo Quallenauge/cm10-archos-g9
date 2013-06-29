@@ -1,0 +1,14 @@
+/*! \page page_version DVP Android NDK
+
+
+  This NDK package includes the public API, documentation, and examples for Texas Instruments
+  Distributed Vision Processing (DVP) framework which were compiled against the
+  Google Android NDK.
+
+  \version VERSION
+  \date DATE
+
+  \todo How to link against the DVP NDK
+
+*/
+

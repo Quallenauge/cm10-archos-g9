@@ -1,0 +1,33 @@
+/*!
+\page page_depend Software Dependencies
+
+
+DVP depends on multiple system components to acheive it's features. Here's a
+high level overview of it's component dependencies.
+
+\dotfile dep_android.dot
+
+\section sec_ipc OMAPRPC driver
+
+DVP on all OMAP4-based platforms depends on the OMAPRPC driver for all remote
+procedure calls. OMAPRPC is a RPMSG driver specifically designed to do function
+calls.
+
+\section sec_ion ION Memory Allocator
+
+DVP would like to have ION caching support for ARM side access to buffers.
+
+\section sec_anativewindow ANativeWindow
+
+DVP uses ANativeWindow's for Camera capture buffers in some applications.
+
+\section sec_omxcamera OpenMAX Camera
+
+OMX-CAMERA was patched as needed to match Ducati OMX Camera features which we are not introduced on the mainline yet.
+
+\section sec_android Miscellaneous
+
+-# init.rc - Adding system daemons and shared memory service as needed.
+-# ueventd.rc - Adding dvp_kgm_xxxx endpoints with a+rw permissions.
+
+*/

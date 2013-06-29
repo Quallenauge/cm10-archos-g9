@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 Texas Instruments, Inc. All rights reserved -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.ti.arx.ARCowboid">
+    <application android:label="@string/app_name">
+        <activity android:name="com.ti.arx.ARCowboid.ARCowboidActivity"
+                  android:label="@string/app_name"
+                  android:screenOrientation="landscape" 
+                  android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest> 

@@ -1,0 +1,185 @@
+/*! \page tiarx_guide Programming Guide
+
+<b>To create an instance of the ARccelerator class:</b>
+	<ol>
+    	<li>  Implement a listener, for example:
+		@code
+class PropListener : public ARXPropertyListener
+{
+public:
+    PropListener() {}
+    void onPropertyChanged(uint32_t property, int32_t value) {        
+        if (property == PROP_ENGINE_STATE && value == ENGINE_STATE_DEAD) {
+            //destroy your arx instance
+        }
+        //do other stuff with property changes
+    }
+};
+		@endcode
+
+    	<li> Create the ARAccelerator instance
+		@code
+PropListener *listener = new PropListener();
+ARAccelerator *arx = ARAccelerator::create(propListener);
+		@endcode
+	</ol>
+	
+<b>To change the camera used by ARX</b>
+	<ul>
+		<li> Use the setProperty method of ARX with property PROP_CAM_ID, ex:
+		@code
+		arx->setProperty(PROP_CAM_ID, 0);
+		@endcode
+		or
+		@code
+		arx->setProperty(PROP_CAM_ID, 1);
+		@endcode
+	</ul>
+
+<b>To change the camera FPS</b>
+	<ul>
+		<li> Use the setProperty method of ARX with property PROP_CAM_FPS, for example:
+		@code
+arx->setProperty(PROP_CAM_FPS, 30);
+		@endcode
+	</ul>
+
+<b>You can similarly obtain the currently used camera index or fps, for example</b>
+	<ul>
+		<li> Use the getProperty method of ARX to get property PROP_CAM_ID or PROP_CAM_FPS:
+		@code
+int32_t value;
+arx->getProperty(PROP_CAM_ID, &value);
+		@endcode
+		or
+		@code
+int32_t value;
+arx->setProperty(PROP_CAM_FPS, &value);
+		@endcode
+	</ul>
+	
+<b> To enable and obtain face detect information:</b>
+	<ol>
+		<li>implement a Flat buffer listener, for example:
+		@code
+class FaceDetectListener : public ARXFlatBufferListener
+{
+public:
+    FaceDetectListener() {}
+
+    void onBufferChanged(ARXFlatBuffer *pBuffer)
+    {
+        ARXFaceDetectInfo *pFD = reinterpret_cast<ARXFaceDetectInfo *>(pBuffer->data());
+		//do useful stuff with the face detect info pFD
+		
+		//The release doesn't have to be done in the callback. A reference to this buffer can be saved
+		//and release can be called from any other thread
+		pBuffer->release();
+    }
+};
+		@endcode
+		<li>Obtain the buffer manager corresponding to face detect by using the buffer Id BUFF_FACEDETECT, for example:
+		@code
+ARXFlatBufferMgr *mgr = arx->getFlatBufferMgr(BUFF_FACEDETECT);
+		@endcode
+		<li>Register a listener with the buffer manager
+		@code
+FaceDetectListener *listener = new FaceDetectListener();
+mgr->registerClient(listener);
+		@endcode
+	</ol>
+	
+<b> To enable and obtain any image data (like sobel, canny2D, secondary camera output, etc)</b>
+	<ol>
+		<li>implement an Image buffer listener, for example:
+		@code
+class ImageListener : public ARXImageBufferListener
+{
+public:
+    ImageListener() {}
+
+    void onBufferChanged(ARXImageBuffer *pImage)
+    {
+        //The release doesn't have to be done in the callback. A reference to this buffer can be saved
+		//and release can be called from any other thread
+        pImage->release();
+    }
+};
+		@endcode
+		<li>Obtain the buffer manager corresponding to the required feature, for example BUFF_SOBEL_3X3, for example:
+		@code
+ARXImageBufferMgr *mgr = arx->getImageBufferMgr(BUFF_SOBEL_3X3);
+		@endcode
+		or
+		@code
+ARXImageBufferMgr *mgr = arx->getImageBufferMgr(BUFF_CAMOUT2);
+		@endcode
+		or
+		@code
+ARXImageBufferMgr *mgr = arx->getImageBufferMgr(BUFF_HARRIS_SCORE);
+		@endcode
+		<li>Register a listener with the buffer manager
+		@code
+ImageListener *listener = new ImageListener();
+mgr->registerClient(listener);
+		@endcode
+	</ol>
+	
+<b> To configure the main or secondary camera output</b>
+	<ol>
+		<li>Obtain the secondary camera output manager (BUFF_CAMOUT2), for example:
+		@code
+ARXImageBufferMgr *mgr = arx->getImageBufferMgr(BUFF_CAMOUT);
+		@endcode
+		or
+		@code
+ARXImageBufferMgr *mgr = arx->getImageBufferMgr(BUFF_CAMOUT2);
+		@endcode
+		<li>Configure size, for example QVGA:
+		@code
+mgr->setSize(320, 240);
+		@endcode
+		<li> Note that some operators (like BUFF_SOBEL_3x3) require the width to be a multiple of 16.
+	</ol>
+	
+<b> Here's an example that synchronizes camera preview with a face detect overlay </b>
+	<ol> 
+		<li>Bind a Surface to the main camera output buffer manager
+		@code
+ARXImageBufferMgr *mgr = arx->getImageBufferMgr(BUFF_CAMOUT);
+Surface *surface = get_surface(JNIEnv *env, jobject thiz, jobject jSurface);
+mgr->bindSurface(surface);
+//Ask ARX to not display anything until the client tells it to
+mgr->hold(true);
+		@endcode
+		<li>Implement a face detect listener like this:
+		@code
+class FaceDetectListener : public ARXFlatBufferListener
+{
+public:
+    FaceDetectListener(ARAccelerator *arx) { mArx = arx; }
+
+    void onBufferChanged(ARXFlatBuffer *pBuffer)
+    {
+        ARXFaceDetectInfo *pFD = reinterpret_cast<ARXFaceDetectInfo *>(pBuffer->data());
+		//do useful stuff with the face detect info pFD
+		
+		//draw face boxes on some transparent overlay that sits on top of the high res preview
+		
+		//then tell ARX to render the high res camera preview, which is being held
+		ARXImageBufferMgr *mgr = mArx->getImageBufferMgr(BUFF_CAMOUT);
+		mgr->render(pBuffer->timestamp());		
+
+		pBuffer->release();
+    }
+private:
+	ARAccelerator *mArx;
+};
+		@endcode
+		<li>Register listener:
+		@code
+FaceDetectListener *listener = new FaceDetectListener(arx);	
+mgr->registerClient(listener);
+		@endcode
+	</ol>
+*/

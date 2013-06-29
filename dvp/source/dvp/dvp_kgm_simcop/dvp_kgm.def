@@ -1,0 +1,13 @@
+LIBRARY "dvp_kgm_simcop.dll"
+EXPORTS
+	DVP_KernelGraphManagerInit
+	DVP_GetSupportedKernels
+	DVP_GetSupportedLocalCalls
+	DVP_GetSupportedRemoteCalls
+	DVP_GetSupportedRemoteCore
+	DVP_KernelGraphManager
+	DVP_KernelGraphManagerDeinit
+	DVP_GetMaximumLoad
+	DVP_KernelGraphManagerRestart
+	DVP_KernelGraphManagerVerify
+

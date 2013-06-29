@@ -1,0 +1,63 @@
+msc {
+    hscale=2;
+
+    a [label="DVP API"], b [label="DVP Boss"], c [label="DVP KGM DSP Proxy"], d [label="OMAPRPC"], e [label="rpmsg"], f [label="ServiceMgr"], g [label="OMAP RPC Task"], h [label="DVP_KGM_DSP"], i [label="VLIB"];
+
+    ... [label="Boot-time"];
+    f <= g [label="createChanel()"];
+    d <= f [label="probe(omaprpc)"];
+    d => g [label="request name"];
+    d <= g [label="dvp_kgm_dsp"];
+    d <= d [label="mknod dvp_kgm_dsp"];
+    ---;
+    ... [label="Use case Initializes"];
+    a => b [label="Boss Initialize"];
+    b => c [label="Manager Load and Initialize"];
+    c => d [label="open(/dev/dvp_kgm_dsp)"];
+    d => g [label="msg(connect)"];
+    d <= g [label="msg(connected)"];
+    c <= d [label="return"];
+    c => d [label="call(Initialize)"];
+    d => g [label="msg(function 0)"];
+    g => h [label="DVP_KGM_DSP Initialize"];
+    g <= h [label="return"];
+    d <= g [label="msg(function 0 status)"];
+    c <= d [label="return"];
+    b <= c [label="Manager Initialized"];
+    a <= b [label="Boss Initialized"];
+    ---;
+    ... [label="Use case processing"];
+    a => b [label="Process Graph"];
+    b => c [label="Process Nodes[x..z]"];
+    c => d [label="call(Process, nodes[x..z])"];
+    d => g [label="msg(function 1, params)"];
+    g => h [label="DVP_KGM_DSP Process(Nodes[x..z])"];
+    h => i [label="KernelX()"];
+    h <= i [label="return"];
+    h => i [label="KernelY()"];
+    h <= i [label="return"];
+    h => i [label="KernelZ()"];
+    h <= i [label="return"];
+    g <= h [label="return"];
+    d <= g [label="msg(function 1, status)"];
+    c <= d [label="return"];
+    b <= c [label="3 Nodes Completed"];
+    b >> b [label="Graph runs to completion"];
+    ---;
+    ... [label="Use case teardown"];
+    a => b [label="Boss Deinitialize"];
+    b => c [label="Manager Deinitialize"];
+    c => d [label="call(Deinitialize)"];
+    d => g [label="msg(function 2)"];
+    g => h [label="DVP_KGM_DSP Deinitialize"];
+    g <= h [label="return"];
+    d <= g [label="msg(function 2 status)"];
+    c <= d [label="return from call()"];
+    c => d [label="close()"];
+    d => g [label="msg(disconnect)"];
+    d <= g [label="msg(disconnected)"];
+    c <= d [label="return"];
+    b <= c [label="Manager Deinitialized and Unloaded"];
+    a <= b [label="return"];
+
+}

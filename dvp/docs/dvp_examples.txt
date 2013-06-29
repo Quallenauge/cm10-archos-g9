@@ -1,0 +1,200 @@
+/*!
+\page page_examples Examples
+
+\section sec_examples Simple Example
+
+In this example, we have Kernels A,B,C,D,E,F,G,H which have Nodes a,b,c,d,e,f,
+g,h respectively. In an unoptimized graph, Nodes a through h can be called
+in series (in a single Section). The Graph is then:
+
+\dot
+	digraph graph1 {
+		label="Series of Kernel Nodes";
+		rankdir=LR;
+		node [shape=box];
+		subgraph cluster_graph_1 {
+			label="Graph";
+			subgraph order_0 {
+				subgraph cluster_section_0 {
+					label="Section 0";
+					a -> b -> c -> d -> e -> f -> g -> h;
+				}
+			}
+		}
+	}
+\enddot
+
+In an optimized version the programmer may have discovered that some nodes
+are not dependent on previous nodes and can be reordered and made parallel to
+gain performance. In this example, 'b', 'd' and 'e' depend on 'a', 'c' on 'b'
+, 'f' on 'e', 'g' on 'c' and 'f' and 'h' on 'g'. There are now 5 Sections, 'a'
+, 'bc', 'd', 'ef', and 'gh'. and three Orders: 'a' has 0, 'bc','d', and 'ef'
+have order 1, and 'gh' has order 2.
+
+\dot
+	digraph graph2 {
+		label="Series of Parallel Kernel Nodes grouped in Sections/Orders";
+		rankdir=LR;
+		node [shape=box];
+		subgraph cluster_graph_0 {
+			label="Graph"
+			subgraph order_0 {
+				label="Order 0";
+				subgraph cluster_section0 {
+					label="Section 0";
+					a;
+				}
+			}
+			subgraph order_1 {
+				label="Order 1"
+				subgraph cluster_section1 {
+					label="Section 1";
+					b -> c;
+				}
+				subgraph cluster_section2 {
+					label="Section 2";
+					d;
+				}
+				subgraph cluster_section3 {
+					label="Section 3";
+					e -> f;
+				}
+			}
+			subgraph order2 {
+				label="Order 2"
+				subgraph cluster_section4 {
+					label="Section 4"
+					g -> h;
+				}
+			}
+			a -> b;
+			a -> d;
+			a -> e;
+			c -> g;
+			f -> g;
+		}
+	}
+
+\enddot
+
+In this example 'b', 'd', and 'e' depend on 'a' but not on each other. This Graph will
+execute section 0 ('a') first and wait until completion, then will concurrently launch
+sections 1, 2 and 3 ('bc
+', 'd', 'ef') (potentially in parallel on an SMP/HMP system), then when those have
+completed, it will launch section 4 ('gh') and wait for completion.
+
+
+In this example, assuming Nodes 'a' through 'f':
+
+\dot
+	digraph graph3 {
+		label="Two Sections in series with a client callback";
+		rankdir=LR;
+		node [shape=box];
+		subgraph cluster_user {
+			label="Client";
+			Callback;
+		}
+		subgraph cluster_graph3 {
+			label="Graph";
+			subgraph order0 {
+				subgraph cluster_section0 {
+					label="Section 0";
+					a -> b -> c;
+				}
+			}
+			subgraph order1 {
+				subgraph cluster_section1 {
+					label="Section 1";
+					d -> e -> f;
+				}
+			}
+			c -> d;
+		}
+		c -> Callback;
+		f -> Callback;
+	}
+\enddot
+
+\section sample_implementations Sample Implementations
+
+The following examples show how to use DVP public APIs.  They are
+listed in increasing order of complexity.
+
+- \subpage dvp_simple - A simple DVP graph setup demonstrating the power of
+DVP to execute functions in serial or in parallel on different cores.
+- \subpage dvp_demo - Takes QQVGA camera frames from the VisionCam, processes
+a large kernel graph through DVP, and finally displays on the screen (Note: Not
+supported on Android ICS).
+
+*/
+//-----------------------------------------------------------------------------
+/*!
+
+
+\page dvp_simple dvp_simple
+
+The dvp_simple test is an example of parallel and serial graph execution.
+It does not use any camera or display, or input or output image files.
+In fact, the input buffers are not initialized to any image data or patterns.
+The test is intetended to demonstrate dvp graph construction, and test proper
+execution and control flow.  This page lists the \ref simple_process of the test, followed
+by the \ref simple_graph, \ref simple_usage, and the \ref simple_code.
+
+File Reference: dvp_simple.c
+
+\section simple_process Execution Flow
+- An array of 11 structures of type DVP_Image_t are initialized therein.
+- Images are allocated for each of these based on the parameters initialized (DVP_Image_Alloc()).
+- An array of 9 nodes of type DVP_KernelNode_t are allocated.
+- An array of 4 sections of type DVP_KernelGraphSection_t are initialized with
+  the starting node and number of each node for each section.
+- A graph of type DVP_KernelGraph_t is initialized with this array of sections,
+  including order information to specify that the first three sections execute first
+  in parallel, and the fourth section executes sequentially afterwards.
+- Each node structure is configured with the kernel, input/output buffers, core affinity,
+  and any configuration information that is specific to the kernel assigned.
+	- In this example, the affinity of the three parallel sections are all different, so that
+	they can truly execute in parallel on different cores.
+	- In this example, each of the kernels use the simple transform data type, so there is no
+	kernel specific parameters other than the input and output buffer.
+- For load managment, the core capacity is queried (DVP_GetCoreCapacity()) and set (
+  DVP_GetCoreCapacity())for each core.
+- The graph is executed by calling DVP_KernelGraphs(), passing the graph and callback
+  that will be called after each section completes.  This is done in a loop until the full number
+  of frames is completed.
+- After the graph execution has completed for the full number of iterations, the built-in
+  performance profiling instrumentation can be printed to the debug traces using
+  DVP_PrintPerformanceGraph(), assuming that the DVP_DEBUG and DVP_ZONE_MASK bit, DVP_ZONE_PERF,
+  environment variables were set when this was built (see \ref page_debug).
+- Finally, when the test is completed, all the memory and structures are freed, and the graph resources
+  are torn down by calling DVP_KernelGraph_Deinit().
+
+\section simple_graph Graph Diagram
+The following figure depicts the graph construction for this test.
+\image html dvp_simple_graph.jpg
+\image latex dvp_simple_graph.jpg
+
+\section simple_usage Usage
+\a dvp_simple [OPTIONS]\n\n
+OPTIONS (defaults are used when option is not supplied):
+- \b -w, --width: Image Width [default: 320]
+- \b -h, --height: Image Height [default: 240]
+- \b -t, --type: Memory Type (see enum \ref DVP_MemType_e ) [default: DVP_MTYPE_DEFAULT]
+- \b -c, --capacity: Limit MHz for each core to this capacity [default: 100]
+- \b -i, --iterations: The number of times this graph is executed [default: 1]
+
+\section simple_code Source
+\include dvp_simple.c
+
+
+\page dvp_demo dvp_demo
+
+dvp_demo is an example of more complex video memory usage and camera capture. It
+also has a basic (but large) graph of parallel and serial nodes.
+
+\include dvp_demo.cpp
+
+*/
+
+

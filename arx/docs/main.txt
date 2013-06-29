@@ -1,0 +1,75 @@
+/*! \mainpage
+
+<h2>Overview</h2>
+
+The Texas Instruments Augmented Reality Accelerator (TIARX) is a framework optimized 
+for the OMAP platform, which provides commonly used computer vision processing used in 
+the development of augmented reality engines and applications.
+
+The TIARX framework provides an API accesible at the user level with no system privileges needed.
+Underneath, it uses TI's Distributed Vision Processing (DVP) And VisionCam frameworks as described
+by the diagram below:
+
+\dot
+digraph example {
+  node [shape=box style="rounded,filled" color=grey65];
+  arx [ label="ARAccelerator" URL="\ref ARAccelerator.h" ];
+  arxdaemon [ label="ARXDaemon" ];
+  cam [ label="VisionCam" ];
+  app [ label="Java AR App" ];
+  appnative [ label="3rd Party AR Engine" ];
+  imgsys [ label="Imaging/Video Subsystem"];
+  isp [ label="Camera ISP"];
+  dvp [ label="Distributed Vision Processing (DVP)" ];
+  imx [ label="Imaging Accelerator" ];
+  dsp [ label="DSP" ];
+  omx [ label="OMX Camera"];
+  cpu [ label="Main CPUs"];
+
+  subgraph clusteruser {
+    label="User privileges - Native";
+    labeljust="l";
+    style=filled;
+    color=gold2;
+    arx;
+    appnative -> arx;
+    arx->appnative;
+  }
+
+  subgraph clusterdaemon {
+    label="System privileges";
+    labeljust="l";
+    color=lightgrey;
+    style=filled;
+    cam;
+    dvp;
+    arxdaemon->dvp;
+    arxdaemon->cam;
+    cam->omx;
+  }
+
+  subgraph clusterremote {
+    label="OMAP Cores";
+    labeljust="l";
+    arxdaemon;
+    color=black;
+    style="dashed";
+    imgsys;
+    dsp;
+    cpu;
+    imgsys->isp;
+    imgsys->imx;
+  }
+
+  app -> appnative;
+  arx -> arxdaemon;
+  arxdaemon->arx;
+  dvp->imgsys;
+  dvp->dsp;
+  dvp->cpu;
+  omx->imgsys;
+}
+\enddot
+
+*/
+

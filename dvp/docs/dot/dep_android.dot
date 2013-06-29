@@ -1,0 +1,86 @@
+digraph {
+    label="High Level Android System Dependencies";
+    node [color=red shape="box" style=filled];
+
+    subgraph cluster_omap4 {
+        label="OMAP4";
+
+        subgraph cluster_cpu {
+
+            rankdir=TB;
+            label="Dual Cortex A9";
+
+            subgraph cluster_android {
+                label="Android - Native";
+
+                DVP [label="Distributed\nVision\nProcessing\n(DVP)"];
+                SOSAL [label="Simple Operating\nSystem Abstraction\n(SOSAL)"];
+                VISIONCAM [label="VisionCam"];
+                VISIONENGINE [label="VisionEngine"];
+                OMXCAMERA [color=grey label="OpenMAX Camera\nProxy"];
+                GRALLOC [color=yellow label="GRALLOC"];
+                ANW [color=yellow label="ANativeWindow"];
+
+                VISIONCAM -> OMXCAMERA;
+                VISIONENGINE -> VISIONCAM;
+                VISIONENGINE -> DVP;
+                VISIONENGINE -> SOSAL;
+                DVP -> ANW -> GRALLOC;
+                DVP -> SOSAL;
+                OMXCAMERA -> GRALLOC;
+            }
+            subgraph cluster_kernel {
+                label="Kernel";
+
+                OMAPRPC [label="OMAP RPC"];
+                ION [color=grey label="ION"];
+                RPMSG [color=grey label="rpmsg"];
+                REMOTEPROC [color=grey label="remoteproc"];
+                PVR [color=grey label="PVR"];
+                ASHMEM [color=yellow label="ashmem"];
+                OMXRPC [color=grey label="OMX-RPC"];
+
+                OMAPRPC -> RPMSG;
+                OMAPRPC -> ION;
+                OMAPRPC -> PVR;
+                OMAPRPC -> REMOTEPROC;
+                PVR -> ION;
+                OMXRPC -> RPMSG;
+                OMXRPC -> ION;
+                OMXRPC -> PVR;
+                OMXRPC -> REMOTEPROC;
+            }
+            SOSAL -> ION [label="/dev/ion"];
+            SOSAL -> GRALLOC [label="hw_module"];
+            SOSAL -> ASHMEM [label="/dev/ashmem"];
+            DVP -> OMAPRPC [label="/dev/dvp_kgm_xxxxx"];
+            GRALLOC -> PVR [label="/dev/pvrsrvkm"];
+            OMXCAMERA -> OMXRPC [label="/dev/rpmsg-omx1"];
+        }
+        subgraph cluster_ipu {
+            label="Dual Cortex M3";
+
+            SRVMGR_IPU [color=grey label="ServiceMgr"];
+            OMAPRPC2 [label="OMAP RPC Task"];
+            OMXRPC2 [color=grey label="OMX RPC Task"];
+            DVP2 [label="DVP KGM SIMCOP"];
+            OMXCAMERA2 [color=grey label="OpenMAX Camera"];
+
+            DVP2 -> OMAPRPC2 -> SRVMGR_IPU;
+            OMXCAMERA2 -> OMXRPC2 -> SRVMGR_IPU;
+        }
+         subgraph cluster_dsp {
+            label="c64T Tesla";
+
+            SRVMGR_DSP [color=grey label="ServiceMgr"];
+            OMAPRPC3 [label="OMAP RPC Task"];
+            DVP3 [label="DVP KGM DSP"];
+
+            DVP3 -> OMAPRPC3 -> SRVMGR_DSP;
+        }
+
+        RPMSG -> SRVMGR_IPU [dirType="both" style="dotted" label="(simplified)"];
+        RPMSG -> SRVMGR_DSP [dirType="both" style="dotted" label="(simplified)"];
+    }
+}
+

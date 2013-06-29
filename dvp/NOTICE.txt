@@ -1,0 +1,3 @@
+This project contains no 3rd party source code. All code is the product of
+Texas Instruments, Inc and is licensed under the licenses provided in the
+header of each file. 

@@ -13,5 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+ifeq ($(TARGET_DEVICE),archos_g9)
 
 include $(call all-subdir-makefiles)
+
+endif #ifeq ($(TARGET_DEVICE),archos_g9)

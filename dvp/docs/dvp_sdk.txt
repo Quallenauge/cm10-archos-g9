@@ -1,0 +1,12 @@
+/*! \page page_version DVP SDK
+
+
+  This SDK includes public API, documentation, and examples on Texas Instruments
+  Distributed Vision Processing (DVP) framework.
+
+
+  \version VERSION
+  \date DATE
+
+*/
+

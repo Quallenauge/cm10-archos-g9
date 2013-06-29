@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 LOCAL_PATH:= $(call my-dir)
+
+ifeq ($(TARGET_DEVICE),archos_g9)
+
 # abcbox archos binary
 include $(CLEAR_VARS)
 LOCAL_MODULE := abcbox
@@ -86,5 +89,5 @@ LOCAL_MODULE_OWNER := archos
 LOCAL_MODULE_STEM := kd_flasher
 include $(BUILD_PREBUILT)
 
-
+endif
 

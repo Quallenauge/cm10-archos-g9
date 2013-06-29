@@ -1,0 +1,12 @@
+/*!
+\page page_datapath Data Paths
+
+This page documents how data flows around the system during DVP execution.
+
+\section sec_zero Zero Copy
+
+Insofar as possible, DVP is a zero-copy system. All memory is sourced and
+shared, by translated pointer across cores.
+
+*/
+

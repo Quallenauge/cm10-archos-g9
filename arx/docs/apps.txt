@@ -1,0 +1,35 @@
+/*! \page applications Sample Apps
+
+- \subpage ARCowboid "ARCowboid"
+
+\page ARCowboid
+<h2>Overview</h2>
+
+ARCowboid is an augmented reality application created using TIARX. TIARX provides an estimate the current camera pose computed by the CameraPoseEngine which internally relies on libARTI for feature tracking.
+
+The camera pose obtained by TIARX is used to control a virtual camera in a simple openGL scene which draws Android on top of the camera stream. As the camera is moved, the Textured cube object will move accordingly.
+
+File Reference: ARCowboidActivity.java
+
+*/
+
+/*! \page applications Sample Apps
+- \subpage ARXStreams "ARXStreams"
+
+\page ARXStreams
+<h2>Overview</h2>
+
+ARXStreams is a basic application showing 3 simultaenous streams - A high res camera preview, a low res camera preview and a Sobel 3X3 post processed image stream.
+
+Each stream uses different means of getting the data displayed, 
+1. The high resolution preview uses a SurfaceView which can be registered with the ARX API.
+2. The lower resolution image uses a SurfaceTexture and its displayed through a TextureView.
+3. The third uses a Bitmap which is manually filled when receiving a callback from the ARX framework. This bitmap feed an ImageView for display into the screen.
+
+File Reference: ARXStreamsActivity.java
+
+*/
+
+
+
+

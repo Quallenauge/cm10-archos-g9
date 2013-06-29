@@ -1,0 +1,149 @@
+/*!
+
+\page dvp_how_to_guide How-to Guide: Performing Commonly Used Tasks using DVP
+
+This section is intended to show developers how to implement common tasks and
+frequently used operations using DVP. The following declarations are used
+across the next sections. For simplicity, the error checking pieces of the code are left out.
+
+\code
+	// declaration
+	DVP_Handle hDVP = 0;
+	DVP_Image_t images[2];
+	DVP_KernelNode_t *pNodes = NULL;
+	DVP_KernelGraph_t *graph = NULL;
+	DVP_U32 numNodes = 1;
+	DVP_Transform_t *io = NULL;
+\endcode
+
+\section howto_init How to Initialize the System
+
+This is how to initialize the DVP system.
+
+\code
+    // get the handle (will implicitly load .so/.dll and initialize RPC).
+    hDVP = DVP_KernelGraph_Init();
+\endcode
+
+\section howto_allocate_images How To Allocate Images
+
+This is how to initialize the image memory structure and allocate the images.
+
+\code
+	// initialize the images
+	DVP_Image_Init(&images[0], width, height, FOURCC_UYVY);
+	DVP_Image_Init(&images[1], width, height, FOURCC_RGBP);
+
+	// allocate the images
+	DVP_Image_Alloc(hDVP, &images[0], DVP_MTYPE_DEFAULT);
+	DVP_Image_Alloc(hDVP, &images[1], DVP_MTYPE_DEFAULT);
+\endcode
+
+\section howto_define_a_node How To Define A Node
+
+The following shows one possible approach towards creating a node.
+In this example, we perform a color conversion from UYVY to RGBp.
+
+\code
+    // create the nodes (will implicitly map to other cores)
+    pNodes = DVP_KernelNode_Alloc(hDVP, numNodes);
+
+	// define the kernel to be invoked by this node
+    pNodes[0].header.kernel = DVP_KN_UYVY_TO_RGBp;
+    // assign the image metadata to the node
+    // (only the metadata is copied, not the images themselves)
+    io = dvp_knode_to(&pNodes[0],DVP_Transform_t);
+    DVP_Image_Dup(&io->input, &images[0]);
+    DVP_Image_Dup(&io->output, &images[1]);
+\endcode
+
+\section howto_assign_core_affinity How To Assign Core Affinity
+
+The core affinity may be defined per node. Once a
+node is declared and defined, the affinity attribute of it's header
+(\ref DVP_KernelNodeHeader_t::affinity) can be used to indicate which core the
+node should execute on.
+
+\code
+    pNodes[0].header.affinity = DVP_CORE_CPU;
+\endcode
+
+\section howto_create_a_graph How To Create A Kernel Graph
+
+This is how to allocate a graph and set the nodes to be executed in the graph.
+
+\code
+	// create the graph with 1 section
+	graph = DVP_KernelGraph_Alloc(hDVP, 1);
+
+	// initialize the zero-th section to the single node
+	DVP_KernelGraphSection_Init(hDVP, graph, 0, pNodes, numNodes);
+\endcode
+
+\section howto_process_graph How To Process a Graph without callbacks.
+
+\code
+	// process the graph
+	DVP_KernelGraph_Process(hDVP, graph, NULL, NULL);
+\endcode
+
+\section howto_process_graph How To Process a Graph with a Section Callback
+
+This requires a pre-defined callback function with conforms to \ref
+DVP_SectionComplete_f.
+
+\code
+static void dvp_section_complete(void *cookie, DVP_KernelGraph_t *graph, DVP_U32 sectionIndex, DVP_U32 nne)
+{
+	// do work.
+}
+\endcode
+
+Then during the process call this function will be called after every section
+completes.
+
+\code
+	...
+	// process the graph
+	DVP_KernelGraph_Process(hDVP, graph, cookie, dvp_section_complete);
+\endcode
+
+\section howto_query_remote_cores How To Query State of Remote Cores
+
+Following snippet shows how to determine which one of the remote cores are
+enabled.
+
+\code
+    DVP_U32 c = 0;
+    DVP_U32 numCoresEnabled = 0;
+    DVP_CoreInfo_t cores;
+	// Initialize our sample Kernel Graph
+    DVP_Handle dvp = DVP_KernelGraph_Init();
+    memset(cores, 0, sizeof(cores));
+	// query the system
+    DVP_QuerySystem(dvp, cores);
+    for (c = 0; c < DVP_CORE_MAX; c++)
+    {
+        if (cores[c].enabled)
+        {
+            status = STATUS_SUCCESS;
+            numCoresEnabled++;
+        }
+    }
+    DVP_PRINT(DVP_ZONE_ALWAYS, "%u cores enabled!\n",  numCoresEnabled);
+    DVP_KernelGraph_Deinit(dvp);
+\endcode
+
+\section howto_minimize_ipc_latency How To Minimize IPC Latency
+
+\todo Add comments on multi-node transactions and setting appropriate cache
+operations.
+
+\code
+	images[X].skipCacheOpFlush = DVP_TRUE;
+	or
+	images[X].skipCacheOpInval = DVP_TRUE;
+\endcode
+
+
+*/

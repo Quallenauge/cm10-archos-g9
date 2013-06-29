@@ -1,0 +1,16 @@
+/*!
+\page page_releasenotes Release Notes
+
+\section sec_r204 RLS_2.04
+Current Release
+
+\subsection sec_r204_limit Limitations
+
+No known limitations.
+
+\subsection sec_r204_ki Known Issues
+
+No known issues.
+
+*/
+

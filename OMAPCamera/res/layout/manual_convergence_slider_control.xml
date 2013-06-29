@@ -1,0 +1,35 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:camera="http://schemas.android.com/apk/res/com.ti.omap4.android.camera"
+        android:id="@+id/panel"
+        android:orientation="vertical"
+        android:layout_width="540px"
+        android:layout_height="230px"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
+        android:gravity="center"
+        android:visibility="gone">
+    <TextView
+        android:id="@+id/convergence_caption"
+        android:text="@string/settings_manual_convergence_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:paddingTop="0px"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/convergence_seek"
+        android:layout_width="fill_parent"
+        android:paddingBottom="3px"
+        android:layout_height="wrap_content"
+        android:max="64"
+        android:gravity="center_horizontal"
+        android:progress="64" />
+    <Button
+        android:text="@string/settings_manual_convergence_button_ok"
+        android:id="@+id/buttonOK"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+</LinearLayout>

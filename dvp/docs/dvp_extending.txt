@@ -1,0 +1,66 @@
+/*! \page page_extending_dvp Extending DVP
+
+It is relatively straight forward to extend DVP to provide private
+implementations of some kernels. The Kernel Enum list has a definition for a
+"user" enum base which can be used to create custom kernel enums. These must
+simply not conflict with existing enums in the system. The DVP Boss will scan all
+Managers for exported kernel enums and will execute the kernels on those
+Managers given the prioritization of the Managers. If no Manager supports a
+kernel except the new extended Manager, then prioritization is not an issue.
+Prioritization is only considered when two or more Managers contain a kernel
+enum.
+
+\todo creating your own dvp_kl_header.h, library range. etc.
+
+\section extending_kl Adding your own Kernel Library
+
+In the \ref dvp_types.h there is a \ref DVP_KernelLibrary_e definition
+which lists all the observed Kernel Libraries. Use the \ref
+DVP_KL_EXTERNAL_LIBRARIES enum to start counting your library sets.
+
+\code
+enum my_kernel_libraries_e {
+	MY_KL_SET = DVL_KL_EXTERNAL_LIBRARIES,
+};
+
+typdef enum _my_kernels_e {
+	MY_KN_BASE = DVP_LIBRARY_BASE(ML_KL_SET),
+	MY_KN_ONE, /*!< My First Kernel Algorithm */
+} MyKernels_e;
+
+\endcode
+
+You probably do not want to add features to the \ref DVP_KernelFeature_e
+list unless you are going to contribute it back to DVP in reference "C"
+code.
+
+\section extending_implement Implementing your own KGM
+
+Your KGM simply needs to:
+
+\code
+// In "C"
+#include <dvp_kgm.h>
+
+// In Makefile
+LOCAL_C_INCLUDES += $(DVP_ROOT)/source/dvp/dvp_kgraph/include
+\endcode
+
+And implement the KGM interface. See the \ref dvp_kgm_cpu.c file for a
+reference.
+
+\section extending_compiling Compiling your KGM
+
+Build your KGM as either part of or separately from DVP.
+
+\section extending_loading Loading
+
+On HLOS platforms with scandir() and fnmatch() implemented, the DVP Boss will
+dynamically load any shared object with the appropriate name ("<system path>/
+dvp_kgm_XXXX.so"). While this might seem dangerous from a security point of
+view, the Boss will specifically load only from the system library paths,
+which must themselves be compromised in order to breach security. On Android,
+this is the /system/lib path which is locked to R/W access from Users.
+
+*/
+

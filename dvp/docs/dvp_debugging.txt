@@ -1,0 +1,37 @@
+
+/*! \page page_debug Debugging Code
+
+DVP uses a "ZONE" flag concept to break up the large amount of debugging output
+that can occur in a standard set of transactions. \ref DVP_ZONE_MASK is the
+bitfield of all zone bits which can be enabled or disabled. There is a hard
+limit if the architecture bit depth for the number of zones supported in DVP.
+
+See \ref group_debugging
+
+To enable specific zones during a build, make sure the \ref DVP_DEBUG and \ref
+DVP_ZONE_MASK (as well as \ref SOSAL_DEBUG and \ref SOSAL_ZONE_MASK) are set
+correctly.
+
+In Linux environments:
+
+\code
+ $ export DVP_DEBUG=1
+ $ export DVP_ZONE_MASK=0x2103
+ $ export SOSAL_DEBUG=1
+ $ export SOSAL_ZONE_MASK=0x3
+ $ make clean
+ $ make
+\endcode
+
+In Android Environments:
+
+\code
+ $ export DVP_DEBUG=1
+ $ export DVP_ZONE_MASK=0x2103
+ $ export SOSAL_DEBUG=1
+ $ export SOSAL_ZONE_MASK=0x3
+ $ dvp.sh clean mm
+\endcode
+
+ */
+

@@ -1,0 +1,15 @@
+/*! \page kernel_page Supported Kernels
+
+\section kernel_enums Kernel Descriptions
+When configuring a kernel node of type DVP_KernelNode_t, the data type used to reference the DVP_KernelNode_t::data object needs to coorespond to the DVP_KernelNode_t::header.kernel enumeration chosen.\n
+The \ref DVP_KernelNode_e enumeration lists the following information for each kernel:
+- Brief descriptions of each supported DVP kernel (function)
+- The cooresponding data type to cast the DVP_KernelNode_t::data object
+- The cores currently supported\n
+
+This list can be extended to support custom kernels as directed in \ref
+page_extending_dvp.
+
+*/
+
+

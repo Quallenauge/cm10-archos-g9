@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- General strings -->
+
+    <!-- title for the dialog showing the error of camera hardware -->
+    <string name="camera_error_title">Camera error</string>
+
+    <!-- message for the dialog showing the error of camera hardware -->
+    <string name="cannot_connect_camera">Can\'t connect to the camera.</string>
+
+    <!-- message for the dialog showing the camera is disabled because of security policies. Camera cannot be used. -->
+    <string name="camera_disabled">Camera has been disabled because of security policies.</string>
+
+    <!-- label for the icon meaning 'show me all the images that were taken with the camera' -->
+    <string name="camera_label">CameraOMAP4</string>
+
+    <!-- label for the 'video recording application shown in the top level 'all applications' -->
+    <string name="video_camera_label">CamcorderOMAP4</string>
+
+    <!-- label for the icon meaning 'show me all the images that were taken with the cpcam' -->
+    <string name="cpcam_camera_label">CPcamOMAP4</string>
+
+    <!-- label for the folder that contains Camera pictures in the gallery -->
+    <string name="gallery_camera_bucket_name">Camera pictures</string>
+
+    <!-- label for the folder that contains Camera videos in the gallery -->
+    <string name="gallery_camera_videos_bucket_name">Camera videos</string>
+
+    <!-- alert to the user to wait for some operation to complete -->
+    <string name="wait">Please wait\u2026</string>
+
+    <!-- alert to the user that USB storage must be available before using the camera [CHAR LIMIT=NONE] -->
+    <string name="no_storage" product="nosdcard">Mount USB storage before using the camera.</string>
+    <!-- alert to the user that an SD card must be installed before using the camera -->
+    <string name="no_storage" product="default">Insert an SD card before using the camera.</string>
+
+    <!-- alert to the user that the USB storage is too full to complete the operation [CHAR LIMIT=NONE] -->
+    <string name="not_enough_space" product="nosdcard">Your USB storage is full.</string>
+    <!-- alert to the user that the SD card is too full to complete the operation -->
+    <string name="not_enough_space" product="default">Your SD card is full.</string>
+
+    <!-- alert to the user that the USB storage is being disk-checked [CHAR LIMIT=30] -->
+    <string name="preparing_sd" product="nosdcard">Preparing USB storage\u2026</string>
+    <!-- alert to the user that the SD card is being disk-checked -->
+    <string name="preparing_sd" product="default">Preparing SD card\u2026</string>
+
+    <!-- alert to the user that the camera fails to read or write the USB storage. [CHAR LIMIT=NONE] -->
+    <string name="access_sd_fail" product="nosdcard">Couldn\'t access USB storage.</string>
+    <!-- alert to the user that the camera fails to read or write the SD card. -->
+    <string name="access_sd_fail" product="default">Couldn\'t access SD card.</string>
+
+    <!-- Confirmation dialog when restoring settings -->
+    <string name="confirm_restore_title">Restore defaults</string>
+    <string name="confirm_restore_message">Restore Camera default settings?</string>
+
+    <!-- button in review mode indicating that the video just taken should be played [CHAR LIMIT=10] -->
+    <string name="review_play">Play</string>
+
+    <!-- button in review mode indicating that the photo taking, video recording, and panorama saving session should be canceled [CHAR LIMIT=10] -->
+    <string name="review_cancel">CANCEL</string>
+
+    <!-- button in review mode indicating that the taken photo/video is OK to be attached/uploaded [CHAR LIMIT=10] -->
+    <string name="review_ok">DONE</string>
+
+    <!-- button in review mode indicate the user want to retake another photo/video for attachment [CHAR LIMIT=10] -->
+    <string name="review_retake">RETAKE</string>
+
+    <!-- Button indicating to go to the image gallery -->
+    <string name="camera_gallery_photos_text">Gallery</string>
+
+    <!-- Button indicating to switch to another camera -->
+    <string name="switch_camera_id">Switch Camera</string>
+
+    <!-- A lable that overlays on top of the preview frame to indicate the camcorder is in time lapse mode [CHAR LIMIT=35] -->
+    <string name="time_lapse_title">Time lapse recording</string>
+
+    <!-- Settings screen, camera selection dialog title. Users can select a camera from the phone (front-facing or back-facing). [CHAR LIMIT=20] -->
+    <string name="pref_camera_id_title">Select camera</string>
+
+    <string name="pref_camera_id_default" translatable="false">0</string>
+
+    <!-- In select camera setting, back facing camera. [CHAR LIMIT=14] -->
+    <string name="pref_camera_id_entry_back">Back</string>
+    <!-- In select camera setting, front-facing camera. [CHAR LIMIT=14] -->
+    <string name="pref_camera_id_entry_front">Front</string>
+
+    <!-- Settings screen, setting title text -->
+    <string name="pref_camera_recordlocation_title">Store location</string>
+
+    <string name="pref_camera_recordlocation_default" translatable="false">none</string>
+
+    <!-- Settings screen, Record location dialog choices -->
+    <string name="pref_camera_recordlocation_entry_off">Off</string>
+    <string name="pref_camera_recordlocation_entry_on">On</string>
+
+    <!-- The Video quality settings in preference [CHAR LIMIT=21] -->
+    <string name="pref_video_quality_title">Video quality</string>
+    <!-- The default quality value is 5 (720p) -->
+    <string name="pref_video_quality_default" translatable="false">5</string>
+    <!-- Video quality setting entry. Videos will be recorded in 1080p quality. [CHAR LIMIT=24] -->
+    <string name="pref_video_quality_entry_1080p" translatable="false">HD</string>
+    <!-- Video quality setting entry. Videos will be recorded in 720p quality. [CHAR LIMIT=24] -->
+    <string name="pref_video_quality_entry_720p" translatable="false">HD</string>
+    <!-- Video quality setting entry. Videos will be recorded in 480p quality. [CHAR LIMIT=24] -->
+    <string name="pref_video_quality_entry_480p" translatable="false">SD</string>
+
+    <!-- Describes the preference dialog for choosing interval between frame capture for
+    time lapse recording. Appears at top of the dialog. [CHAR LIMIT=30] -->
+    <string name="pref_video_time_lapse_frame_interval_title">Time lapse interval</string>
+    <string name="pref_video_time_lapse_frame_interval_default" translatable="false">0</string>
+    <!-- The time interval between frame capture for time lapse recording -->
+    <string name="pref_video_time_lapse_frame_interval_entry_1000" translatable="false">1s</string>
+    <string name="pref_video_time_lapse_frame_interval_entry_1500" translatable="false">1.5s</string>
+    <string name="pref_video_time_lapse_frame_interval_entry_2000" translatable="false">2s</string>
+    <string name="pref_video_time_lapse_frame_interval_entry_2500" translatable="false">2.5s</string>
+    <string name="pref_video_time_lapse_frame_interval_entry_3000" translatable="false">3s</string>
+    <string name="pref_video_time_lapse_frame_interval_entry_5000" translatable="false">5s</string>
+    <string name="pref_video_time_lapse_frame_interval_entry_10000" translatable="false">10s</string>
+
+    <!-- Settings screen, Camera setting category title -->
+    <string name="pref_camera_settings_category">Camera settings</string>
+
+    <!-- Settings screen, Camcorder setting category title -->
+    <string name="pref_camcorder_settings_category">Camcorder settings</string>
+
+    <!-- Default Video FrameRate setting. A string value -->
+    <string name="pref_camera_videoframerate_range_default" translatable="false">30000,30000</string>
+
+    <!-- Settings screen, Select Video FrameRate range title -->
+    <string name="pref_camera_videoframerate_range_title">Select FrameRate Range</string>
+
+    <!-- Settings screen, Video BitRate category title -->
+    <string name="pref_camera_videobitrate_category">Video BitRate</string>
+
+    <!-- Default Video bitRate setting. A numerical value. Do not translate. -->
+    <string name="pref_camera_videobitrate_default">12000000</string>
+
+    <!-- Settings screen, Select Video bitRate title -->
+    <string name="pref_camera_videobitrate_title">Select Video BitRate</string>
+    <!-- Settings screen, Video bitRate dialog radio button choices -->
+    <string name="pref_camera_videobitrate_entry_0">Auto</string>
+    <string name="pref_camera_videobitrate_entry_1">64K</string>
+    <string name="pref_camera_videobitrate_entry_2">128K</string>
+    <string name="pref_camera_videobitrate_entry_3">192K</string>
+    <string name="pref_camera_videobitrate_entry_4">240K</string>
+    <string name="pref_camera_videobitrate_entry_5">320K</string>
+    <string name="pref_camera_videobitrate_entry_6">360K</string>
+    <string name="pref_camera_videobitrate_entry_7">384K</string>
+    <string name="pref_camera_videobitrate_entry_8">420K</string>
+    <string name="pref_camera_videobitrate_entry_9">768K</string>
+    <string name="pref_camera_videobitrate_entry_10">1M</string>
+    <string name="pref_camera_videobitrate_entry_11">1.5M</string>
+    <string name="pref_camera_videobitrate_entry_12">2M</string>
+    <string name="pref_camera_videobitrate_entry_13">4M</string>
+    <string name="pref_camera_videobitrate_entry_14">6M</string>
+    <string name="pref_camera_videobitrate_entry_15">8M</string>
+    <string name="pref_camera_videobitrate_entry_16">10M</string>
+    <string name="pref_camera_videobitrate_entry_17">12M</string>
+    <string name="pref_camera_videobitrate_entry_18">14M</string>
+    <string name="pref_camera_videobitrate_entry_19">16M</string>
+    <string name="pref_camera_videobitrate_entry_20">18M</string>
+    <string name="pref_camera_videobitrate_entry_21">20M</string>
+
+    <!-- Settings screen, Audio Encoder category title -->
+    <string name="pref_camera_audioencoder_category">Audio Encoder</string>
+
+    <!-- Default Audio Encoder setting. A numerical value. Do not translate. -->
+    <string name="pref_camera_audioencoder_default">3</string>
+
+    <!-- Settings screen, Select Audio Encoder title -->
+    <string name="pref_camera_audioencoder_title">Select Audio Encoder</string>
+
+    <!-- Settings screen, Audio Encoder dialog radio button choices -->
+    <string name="pref_camera_audioencoder_entry_1">AMR-NB</string>
+    <string name="pref_camera_audioencoder_entry_2">AMR-WB</string>
+    <string name="pref_camera_audioencoder_entry_3">AAC</string>
+
+    <!-- Settings screen, Video Encoder category title -->
+    <string name="pref_camera_videoencoder_category">Video Encoder</string>
+
+    <!-- Default Video Encoder setting. A numerical value. Do not translate. -->
+    <string name="pref_camera_videoencoder_default">2</string>
+
+    <!-- Settings screen, Select Video Encoder title -->
+    <string name="pref_camera_videoencoder_title">Select Video Encoder</string>
+
+    <!-- Settings screen, Video Encoder dialog radio button choices -->
+    <string name="pref_camera_videoencoder_entry_1">H263</string>
+    <string name="pref_camera_videoencoder_entry_2">H264</string>
+    <string name="pref_camera_videoencoder_entry_3">MPEG4</string>
+
+    <!-- Default video format setting. A numerical value. -->
+    <string name="pref_camera_video_format_default" translatable="false">8</string>
+
+    <!-- Settings screen, Video format title -->
+    <string name="pref_camera_video_format_title">Video Format</string>
+
+    <!-- Settings screen, Video format dialog radio button choices -->
+    <string name="pref_camera_video_format_entry_0_sqcif">SQCIF 128x96</string>
+    <string name="pref_camera_video_format_entry_1_qcif">QCIF 176x144</string>
+    <string name="pref_camera_video_format_entry_2_cif">CIF 352x288</string>
+    <string name="pref_camera_video_format_entry_3_qvga">QVGA 320x240</string>
+    <string name="pref_camera_video_format_entry_4_vga">VGA 640x480</string>
+    <string name="pref_camera_video_format_entry_5_ntsc">DVD-Video NTSC 720x480</string>
+    <string name="pref_camera_video_format_entry_6_pal">DVD-Video PAL 720x576</string>
+    <string name="pref_camera_video_format_entry_7_wvga">WVGA 800x480</string>
+    <string name="pref_camera_video_format_entry_8_720p">1280x720</string>
+    <string name="pref_camera_video_format_entry_9_1080p">1920x1080</string>
+
+    <!-- Settings screen, Video format dialog title -->
+    <string name="pref_camera_video_format_dialogtitle">Video format</string>
+
+    <!-- Video recording timer -->
+    <string name="pref_camera_video_timer_default" translatable="false">true</string>
+    <string name="pref_camera_video_timer_title">Recording timer</string>
+    <string name="pref_camera_video_timer_entry_on">ON</string>
+    <string name="pref_camera_video_timer_entry_off">OFF</string>
+
+    <!-- Settings screen, Picture size title -->
+    <string name="pref_camera_picturesize_title">Picture size</string>
+
+    <!-- Settings screen, Picture size dialog radio button choices -->
+    <string name="pref_camera_picturesize_entry_4416x3312">14M pixels</string>
+    <string name="pref_camera_picturesize_entry_4032x3024">12M pixels</string>
+    <string name="pref_camera_picturesize_entry_3648x2736">10M pixels</string>
+    <string name="pref_camera_picturesize_entry_3280x2464">8M pixels</string>
+    <string name="pref_camera_picturesize_entry_3264x2448">8M pixels</string>
+    <string name="pref_camera_picturesize_entry_2592x1936">5M pixels</string>
+    <string name="pref_camera_picturesize_entry_2592x1944">5M pixels</string>
+    <string name="pref_camera_picturesize_entry_2016x1512">3M pixels</string>
+    <string name="pref_camera_picturesize_entry_2048x1536">3M pixels</string>
+    <string name="pref_camera_picturesize_entry_1600x1200">2M pixels</string>
+    <string name="pref_camera_picturesize_entry_1280x960">1.3M pixels</string>
+    <string name="pref_camera_picturesize_entry_1024x768">1M pixels</string>
+    <string name="pref_camera_picturesize_entry_640x480">VGA</string>
+    <string name="pref_camera_picturesize_entry_320x240">QVGA</string>
+
+    <string name="pref_camera_previewsize_title">Preview size</string>
+    <string name="pref_camera_2d_previewsize_default">640x480</string>
+    <string name ="pref_camera_ss_previewsize_default" translatable="false">1280x480</string>
+    <string name ="pref_camera_tb_previewsize_default" translatable="false">640x960</string>
+    <string name="pref_camera_previewsize_entry_sqcif">SQCIF</string>
+    <string name="pref_camera_previewsize_entry_qcif">QCIF</string>
+    <string name="pref_camera_previewsize_entry_cif">CIF</string>
+    <string name="pref_camera_previewsize_entry_qvga">QVGA</string>
+    <string name="pref_camera_previewsize_entry_vga">VGA</string>
+    <string name="pref_camera_previewsize_entry_pal">PAL</string>
+    <string name="pref_camera_previewsize_entry_ntsc">NTSC</string>
+    <string name="pref_camera_previewsize_entry_wvga">WVGA</string>
+    <string name="pref_camera_previewsize_entry_hd">720p</string>
+    <string name="pref_camera_previewsize_entry_fullhd">Full HD</string>
+
+    <string name="pref_camera_previewframerate_title">Select FPS</string>
+    <string name="pref_camera_previewframerate_entry_five">5</string>
+    <string name="pref_camera_previewframerate_entry_ten">10</string>
+    <string name="pref_camera_previewframerate_entry_fifteen">15</string>
+    <string name="pref_camera_previewframerate_entry_twenty">20</string>
+    <string name="pref_camera_previewframerate_entry_twentyfour">24</string>
+    <string name="pref_camera_previewframerate_entry_twentyseven">27</string>
+    <string name="pref_camera_previewframerate_entry_thirty">30</string>
+
+    <string name="pref_omap4_camera_sensor_orientation_default">0</string>
+
+    <string name="pref_camera_video_mode_title">Video mode</string>
+    <string name="pref_camera_video_mode_default">video-mode</string>
+    <string name="pref_camera_video_mode_entry_st">Standard</string>
+    <string name="pref_camera_video_mode_entry_hq">High Quality</string>
+
+    <string name="pref_camera_mode_title">Capture mode</string>
+    <string name="pref_camera_mode_default">high-quality</string>
+    <string name="pref_camera_mode_entry_hs">High Speed</string>
+    <string name="pref_camera_mode_entry_hq">High Quality</string>
+    <string name="pref_camera_mode_entry_zsl">ZSL</string>
+    <string name="pref_camera_mode_entry_temporal_bracketing">Temporal Bracketing</string>
+    <string name="pref_camera_mode_entry_exp_bracketing">Exposure Bracketing</string>
+    <string name="pref_camera_mode_entry_zoom_bracketing">Zoom Bracketing</string>
+
+    <string name="pref_camera_bracketrange_title">Bracketing Range</string>
+    <string name="pref_camera_bracketrange_default">1</string>
+    <string name="pref_camera_bracketrange_entry_one">[-1:1:+1]</string>
+    <string name="pref_camera_bracketrange_entry_two">[-2:1:+2]</string>
+    <string name="pref_camera_bracketrange_entry_three">[-3:1:+3]</string>
+
+    <string name="pref_camera_burst_title">Burst Count</string>
+    <string name="pref_camera_burst_default">0</string>
+    <string name="pref_camera_burst_entry_0">0</string>
+    <string name="pref_camera_burst_entry_5">5</string>
+    <string name="pref_camera_burst_entry_10">10</string>
+    <string name="pref_camera_burst_entry_15">15</string>
+
+    <string name="pref_camera_zoom_bracketing_rangevalues">5,10,15,20,25,30,35,40,45,60</string>
+
+    <string name="pref_camera_gbce_title">Contrast Enhancement</string>
+    <string name="pref_camera_gbce_default">off</string>
+    <string name="pref_camera_gbce_entry_off">Off</string>
+    <string name="pref_camera_gbce_entry_gbce">GBCE</string>
+    <string name="pref_camera_gbce_entry_glbce">GLBCE</string>
+
+    <string name="pref_camera_jpegquality_title">Jpeg Quality</string>
+    <string name="pref_camera_jpegquality_default">2</string>
+    <string name="pref_camera_jpegquality_entry_low">Normal</string>
+    <string name="pref_camera_jpegquality_entry_medium">Fine</string>
+    <string name="pref_camera_jpegquality_entry_high">Superfine</string>
+
+    <string name="pref_camera_iso_title">ISO</string>
+    <string name="pref_camera_iso_default">auto</string>
+    <string name="pref_camera_iso_entry_auto">Auto</string>
+    <string name="pref_camera_iso_entry_100">100</string>
+    <string name="pref_camera_iso_entry_200">200</string>
+    <string name="pref_camera_iso_entry_400">400</string>
+    <string name="pref_camera_iso_entry_800">800</string>
+
+    <string name="pref_camera_exposuremode_title">Exposure Mode</string>
+    <string name="pref_camera_exposuremode_default">auto</string>
+    <string name="pref_camera_exposuremode_entry_auto">Auto</string>
+    <string name="pref_camera_exposuremode_entry_macro">Macro</string>
+    <string name="pref_camera_exposuremode_entry_portrait">Portrait</string>
+    <string name="pref_camera_exposuremode_entry_snow">Snow</string>
+    <string name="pref_camera_exposuremode_entry_sports">Sports</string>
+    <string name="pref_camera_exposuremode_entry_night">Night</string>
+    <string name="pref_camera_exposuremode_entry_spotlight">Spotlight</string>
+    <string name="pref_camera_exposuremode_entry_backlighting">Backlighting</string>
+    <string name="pref_camera_exposuremode_entry_beach">Beach</string>
+    <string name="pref_camera_exposuremode_entry_aperture">Aperture</string>
+    <string name="pref_camera_exposuremode_entry_smallaperture">Small aperture</string>
+    <string name="pref_camera_exposuremode_entry_manual">Manual</string>
+
+    <!-- Default focus mode setting.-->
+    <string name="pref_camera_focusmode_default" translatable="false">continuous-picture</string>
+
+    <!-- Settings screen, Focus mode title -->
+    <string name="pref_camera_focusmode_title">Focus mode</string>
+
+    <!-- Settings screen, Focue mode dialog radio button choices -->
+    <string name="pref_camera_focusmode_entry_caf">CAF</string>
+    <string name="pref_camera_focusmode_entry_auto">Auto</string>
+    <string name="pref_camera_focusmode_entry_infinity">Infinity</string>
+    <string name="pref_camera_focusmode_entry_macro">Macro</string>
+
+    <!-- Default flash mode setting.-->
+    <string name="pref_camera_flashmode_default" translatable="false">auto</string>
+
+    <!-- Value for flash off setting-->
+    <string name="pref_camera_flashmode_no_flash" translatable="false">no_flash</string>
+
+    <!-- Settings screen, Flash mode title -->
+    <string name="pref_camera_flashmode_title">Flash mode</string>
+
+    <!-- Settings screen, Flash mode dialog radio button choices -->
+    <string name="pref_camera_flashmode_entry_auto">Auto</string>
+    <string name="pref_camera_flashmode_entry_on">On</string>
+    <string name="pref_camera_flashmode_entry_off">Off</string>
+    <string name="pref_camera_flashmode_entry_redeye">Red eye</string>
+    <string name="pref_camera_flashmode_entry_torch">Torch</string>
+
+    <!-- Default videocamera flash mode setting.-->
+    <string name="pref_camera_video_flashmode_default" translatable="false">off</string>
+
+    <!-- Default white balance setting. -->
+    <string name="pref_camera_whitebalance_default" translatable="false">auto</string>
+
+    <!-- Settings screen, white balance title -->
+    <string name="pref_camera_whitebalance_title">White balance</string>
+
+    <!-- Settings screen, White balance dialog radio button choices -->
+    <string name="pref_camera_whitebalance_entry_auto">Auto</string>
+    <string name="pref_camera_whitebalance_entry_incandescent">Incandescent</string>
+    <string name="pref_camera_whitebalance_entry_daylight">Daylight</string>
+    <string name="pref_camera_whitebalance_entry_fluorescent">Fluorescent</string>
+    <string name="pref_camera_whitebalance_entry_cloudy">Cloudy</string>
+    <string name="pref_camera_whitebalance_entry_tungsten">Tungsten</string>
+    <string name="pref_camera_whitebalance_entry_shade">Shade</string>
+    <string name="pref_camera_whitebalance_entry_horizon">Horizon</string>
+    <string name="pref_camera_whitebalance_entry_twilight">Twilight</string>
+    <string name="pref_camera_whitebalance_entry_sunset">Sunset</string>
+    <string name="pref_camera_whitebalance_entry_warm">Warm Fluorescent</string>
+
+    <!-- Default color effect setting. -->
+    <string name="pref_camera_coloreffect_default" translatable="false">none</string>
+
+    <!-- Settings screen, Select Color effect title -->
+    <string name="pref_camera_coloreffect_title">Color effect</string>
+
+    <!-- Settings screen, Color effect dialog radio button choices -->
+    <string name="pref_camera_coloreffect_entry_none">None</string>
+    <string name="pref_camera_coloreffect_entry_mono">Mono</string>
+    <string name="pref_camera_coloreffect_entry_sepia">Sepia</string>
+    <string name="pref_camera_coloreffect_entry_negative">Negative</string>
+    <!-- Color effect that overexposes and reverses some of the tones. -->
+    <string name="pref_camera_coloreffect_entry_blackboard">Blackboard</string>
+    <string name="pref_camera_coloreffect_entry_whiteboard">Whiteboard</string>
+    <string name="pref_camera_coloreffect_entry_solarize">Solarize</string>
+    <string name="pref_camera_coloreffect_entry_posterize">Posterize</string>
+    <string name="pref_camera_coloreffect_entry_aqua">Aqua</string>
+    <string name="pref_camera_coloreffect_entry_pastel">Pastel</string>
+    <string name="pref_camera_coloreffect_entry_mosaic">Mosaic</string>
+    <string name="pref_camera_coloreffect_entry_redtint">Red tint</string>
+    <string name="pref_camera_coloreffect_entry_bluetint">Blue tint</string>
+    <string name="pref_camera_coloreffect_entry_greentint">Green tint</string>
+    <string name="pref_camera_coloreffect_entry_natural">Natural</string>
+    <string name="pref_camera_coloreffect_entry_vivid">Vivid</string>
+    <string name="pref_camera_coloreffect_entry_colourswap">Colourswap</string>
+
+    <string name="pref_camera_antibanding_default" translatable="false">auto</string>
+    <string name="pref_camera_antibanding_title">Antibanding</string>
+    <string name="pref_camera_antibanding_entry_auto">Auto</string>
+    <string name="pref_camera_antibanding_entry_50hz">50Hz</string>
+    <string name="pref_camera_antibanding_entry_60Hz">60Hz</string>
+    <string name="pref_camera_antibanding_entry_off">Off</string>
+
+    <string name="pref_camera_saturation_title">Saturation</string>
+    <string name="pref_camera_saturation_default">100</string>
+    <string name="pref_camera_saturation_entry_low">Low</string>
+    <string name="pref_camera_saturation_entry_medium">Medium</string>
+    <string name="pref_camera_saturation_entry_high">High</string>
+
+    <string name="pref_camera_sharpness_title">Sharpness</string>
+    <string name="pref_camera_sharpness_default">100</string>
+    <string name="pref_camera_sharpness_entry_low">Low</string>
+    <string name="pref_camera_sharpness_entry_medium">Medium</string>
+    <string name="pref_camera_sharpness_entry_high">High</string>
+
+    <!-- Default 'Video Stabilization' Enabling setting. A numerical value.-->
+    <string name="pref_camera_vstab_default" translatable="false">false</string>
+
+    <!-- Settings screen, 'Video Stabilization' Enabling title -->
+    <string name="pref_camera_vstab_title">Video Stabilization</string>
+
+    <!-- Settings screen, 'Video Stabilization' Enabling dialog radio button choices -->
+    <string name="pref_camera_vstab_entry_on">ON</string>
+    <string name="pref_camera_vstab_entry_off">OFF</string>
+
+    <!-- Default 'Video Noise Filtering' Enabling setting. A numerical value.-->
+    <string name="pref_camera_vnf_default" translatable="false">false</string>
+
+    <!-- Settings screen, 'Video Noise Filtering' Enabling title -->
+    <string name="pref_camera_vnf_title">Video Noise Filtering</string>
+
+    <!-- Settings screen, 'Video Noise Filtering' Enabling dialog radio button choices -->
+    <string name="pref_camera_vnf_entry_on">ON</string>
+    <string name="pref_camera_vnf_entry_off">OFF</string>
+
+    <string name="pref_camera_contrast_title">Contrast</string>
+    <string name="pref_camera_contrast_default">100</string>
+    <string name="pref_camera_contrast_entry_low">Low</string>
+    <string name="pref_camera_contrast_entry_medium">Medium</string>
+    <string name="pref_camera_contrast_entry_high">High</string>
+
+    <string name="pref_camera_brightness_title">Brightness</string>
+    <string name="pref_camera_brightness_default">50</string>
+    <string name="pref_camera_brightness_entry_low">Low</string>
+    <string name="pref_camera_brightness_entry_medium">Medium</string>
+    <string name="pref_camera_brightness_entry_high">High</string>
+
+    <!-- Default scene mode setting. -->
+    <string name="pref_camera_scenemode_default" translatable="false">auto</string>
+
+    <!-- Settings screen, Select Scene mode -->
+    <string name="pref_camera_scenemode_title">Scene mode</string>
+
+    <!-- Settings menu, scene mode choices -->
+    <string name="pref_camera_scenemode_entry_auto">Auto</string>
+    <!-- Scene mode that takes an image quickly with little motion blur. -->
+    <string name="pref_camera_scenemode_entry_action">Action</string>
+    <!-- Scene mode that takes an image with as little noise as possible so details of the subject are maintained. -->
+    <string name="pref_camera_scenemode_entry_portrait">Portrait</string>
+    <!-- Scene mode that takes an image of a landscape assuming all subjects are relatively far from the phone. -->
+    <string name="pref_camera_scenemode_entry_landscape">Landscape</string>
+    <!-- Scene mode that takes long exposures to capture night scenes without flash. -->
+    <string name="pref_camera_scenemode_entry_night">Night</string>
+    <!-- Scene mode that takes night shots with long exposure and flash to illuminate the subject while still capturing darker detail in the background. -->
+    <string name="pref_camera_scenemode_entry_night_portrait">Night portrait</string>
+    <!-- Scene mode to be used in a stage show. -->
+    <string name="pref_camera_scenemode_entry_theatre">Theatre</string>
+    <!-- Scene mode optimized for taking images on the beach. -->
+    <string name="pref_camera_scenemode_entry_beach">Beach</string>
+    <!-- Scene mode optimized for taking images in the snow. -->
+    <string name="pref_camera_scenemode_entry_snow">Snow</string>
+    <!-- Scene mode optimized for taking images in the sunset. -->
+    <string name="pref_camera_scenemode_entry_sunset">Sunset</string>
+    <!-- Scene mode for taking a photo as sharp as possible. -->
+    <string name="pref_camera_scenemode_entry_steadyphoto">Steady photo</string>
+    <!-- Scene mode optimized for taking images of fireworks. -->
+    <string name="pref_camera_scenemode_entry_fireworks">Fireworks</string>
+    <!-- Scene mode optimized for taking closeup images. -->
+    <string name="pref_camera_scenemode_entry_closeup">Closeup</string>
+    <!-- Scene mode optimized for taking images under water. -->
+    <string name="pref_camera_scenemode_entry_underwater">Underwater</string>
+    <string name="pref_camera_scenemode_entry_mood">Mood</string>
+    <!-- Scene mode optimized for taking images of a document. -->
+    <string name="pref_camera_scenemode_entry_document">Document</string>
+    <!-- Scene mode optimized for taking images of barcodes. -->
+    <string name="pref_camera_scenemode_entry_barcode">Barcode</string>
+    <!-- Scene mode optimized for taking images of supernight. -->
+    <string name="pref_camera_scenemode_entry_supernight">Supernight</string>
+    <!-- Scene mode optimized for taking images in the cinema. -->
+    <string name="pref_camera_scenemode_entry_cine">Cine</string>
+    <!-- Scene mode optimized for taking images with the old film effects. -->
+    <string name="pref_camera_scenemode_entry_oldfilm">Old film</string>
+    <!-- Scene mode optimized for taking images of a sport actions. -->
+    <string name="pref_camera_scenemode_entry_sports">Sports</string>
+    <!-- Scene mode optimized for taking indoor low-lights pictures. [CHAR LIMIT=16] -->
+    <string name="pref_camera_scenemode_entry_party">Party</string>
+    <!-- Scene mode optimized for capturing the naturally warm color of scenes lit by candles. [CHAR LIMIT=16] -->
+    <string name="pref_camera_scenemode_entry_candlelight">Candlelight</string>
+
+    <!-- Toast after trying to select a setting that is not allowed to change in scene mode [CHAR LIMIT=NONE] -->
+    <string name="not_selectable_in_scene_mode">Not selectable in scene mode.</string>
+
+    <!-- Restore settings item in preference -->
+    <string name="pref_restore_title">Camera settings</string>
+    <string name="pref_restore_detail">Restore defaults</string>
+
+    <!-- Exposure settings in preference -->
+    <string name="pref_exposure_title">Exposure</string>
+    <string name="pref_exposure_default" translatable="false">0</string>
+
+    <!-- Dialog "OK" button. Dismisses dialog. -->
+    <string name="dialog_ok">OK</string>
+
+    <!-- Low-memory dialog message [CHAR LIMT=NONE] -->
+    <string name="spaceIsLow_content" product="nosdcard">Your USB storage is running out of space. Change the quality setting or delete some images or other files.</string>
+    <!-- Low-memory dialog message [CHAR LIMIT=NONE] -->
+    <string name="spaceIsLow_content" product="default">Your SD card is running out of space. Change the quality setting or delete some images or other files.</string>
+
+    <!-- Camera format string for new image files. Passed to java.text.SimpleDateFormat. -->
+    <string name="image_file_name_format" translatable="false">"'IMG'_yyyyMMdd_HHmmssSS"</string>
+
+    <!-- Video Camera format string for new video files. Passed to java.text.SimpleDateFormat. -->
+    <string name="video_file_name_format" translatable="false">"'VID'_yyyyMMdd_HHmmss"</string>
+
+    <!-- Filename prefix for panorama output. -->
+    <string name="pano_file_name_format" translatable="false">"'PANO'_yyyyMMdd_HHmmss"</string>
+
+    <!-- The messsage shown when video record reaches size limit. -->
+    <string name="video_reach_size_limit">Size limit reached.</string>
+
+    <!-- The text of menu item to switch the mode to Camera. [CHAR LIMIT=NONE] -->
+    <string name="switch_to_camera_label">Switch to camera</string>
+
+    <!-- The text of menu item to switch the mode to CPcam. [CHAR LIMIT=NONE] -->
+    <string name="switch_to_cpcam_label">Switch to CPcam</string>
+
+    <!-- The text of menu item to switch the mode to Video. [CHAR LIMIT=NONE] -->
+    <string name="switch_to_video_label">Switch to video</string>
+
+    <!-- The text of menu item to switch the mode to Panorama. [CHAR LIMIT=NONE] -->
+    <string name="switch_to_panorama_label">Switch to panorama</string>
+
+    <string name="setting_increment" translatable="false">&gt;</string>
+    <string name="setting_decrement" translatable="false">&lt;</string>
+
+    <!-- Title of the dialog showing a list of applications that can share the captured picture. [CHAR LIMIT=30] -->
+    <string name="share_picture_via">Share picture via</string>
+
+    <!-- Title of the dialog showing a list of applications that can share the captured video. [CHAR LIMIT=30] -->
+    <string name="share_video_via">Share video via</string>
+
+    <!-- Toast saying that there is no picture to share. [CHAR LIMIT=30] -->
+    <string name="no_picture_to_share">No picture to share.</string>
+
+    <!-- Toast saying that there is no video to share. [CHAR LIMIT=30] -->
+    <string name="no_video_to_share">No video to share.</string>
+
+    <!-- The text shown when the panorama panning speed is to fast [CHAR LIMIT=12] -->
+    <string name="pano_too_fast_prompt">Too fast</string>
+
+    <!-- The text shown in the progress dialog when panorama preview is generating in the background [CHAR LIMIT=30] -->
+    <string name="pano_dialog_prepare_preview">Preparing panorama</string>
+
+    <!-- The text shown in the dialog when panorama saving failed [CHAR LIMIT=40] -->
+    <string name="pano_dialog_panorama_failed">Couldn\'t save panorama.</string>
+
+    <!-- The text shown on the dialog title in the dialogs for Panorama [CHAR LIMIT=12] -->
+    <string name="pano_dialog_title">Panorama</string>
+
+    <!-- The text shown on the top-left corner of the screen to indicate the capturing is on going [CHAR LIMIT=27] -->
+    <string name="pano_capture_indication">Capturing panorama</string>
+
+    <!-- The text shown on the bottom-left corner of the screen to indicate that the saving is in process [CHAR LIMIT=13] -->
+    <string name="pano_review_saving_indication_str">Saving\u2026</string>
+
+    <!-- Toast telling users tapping on the viewfinder will trigger autofocus [CHAR LIMIT=28] -->
+    <string name="tap_to_focus">Touch to focus.</string>
+
+    <!-- Default effect setting that clears the effect. -->
+    <string name="pref_video_effect_default" translatable="false">none</string>
+
+    <!-- Title of video effect setting popup window -->
+    <string name="pref_video_effect_title">Effects</string>
+
+    <!-- Effect setting item that clear the effect. [CHAR LIMIT=14] -->
+    <string name="effect_none">None</string>
+    <!-- Effect setting item that squeezes the face. [CHAR LIMIT=14] -->
+    <string name="effect_goofy_face_squeeze">Squeeze</string>
+    <!-- Effect setting item that makes eyes big. [CHAR LIMIT=14] -->
+    <string name="effect_goofy_face_big_eyes">Big eyes</string>
+    <!-- Effect setting item that makes mouth big. [CHAR LIMIT=14] -->
+    <string name="effect_goofy_face_big_mouth">Big mouth</string>
+    <!-- Effect setting item that makes mouth small. [CHAR LIMIT=14] -->
+    <string name="effect_goofy_face_small_mouth">Small mouth</string>
+    <!-- Effect setting item that makes nose big. [CHAR LIMIT=14] -->
+    <string name="effect_goofy_face_big_nose">Big nose</string>
+    <!-- Effect setting item that makes eyes small. [CHAR LIMIT=14] -->
+    <string name="effect_goofy_face_small_eyes">Small eyes</string>
+    <!-- Effect setting item that replaces background with Android in Space. [CHAR LIMIT=14] -->
+    <string name="effect_backdropper_space">In space</string>
+    <!-- Effect setting item that replaces background with a sunset. [CHAR LIMIT=14] -->
+    <string name="effect_backdropper_sunset">Sunset</string>
+    <!-- Effect setting item that replaces background with a disco effect. [CHAR LIMIT=14] -->
+    <string name="effect_backdropper_disco">Disco</string>
+    <!-- Effect setting item that replaces background with video from gallery. [CHAR LIMIT=14] -->
+    <string name="effect_backdropper_gallery">Choose your own</string>
+
+    <!-- Message displayed in overlay during background replacement training [CHAR LIMIT=180]-->
+    <string name="bg_replacement_message">Set your device down\nStep out of view for a moment</string>
+
+    <!-- Toast after trying to select a setting that is not allowed to change in effect [CHAR LIMIT=50] -->
+    <string name="not_selectable_in_effect">Not selectable when the effect is on.</string>
+
+    <!-- Toast telling users tapping on the viewfinder will take a picture [CHAR LIMIT=65] -->
+    <string name="video_snapshot_hint">Take a photo during video recording by touching the preview screen.</string>
+
+    <!-- Toast telling users video snapshot is disabled when the effects are on and a user tries to tap on the viewfinder [CHAR LIMIT=65] -->
+    <string name="disable_video_snapshot_hint">Video snapshot is disabled when special effects are on.</string>
+
+    <!-- A button in effect setting popup to clear the effect. [CHAR LIMIT=26] -->
+    <string name="clear_effects">Clear effects</string>
+
+    <!-- Title of category for silly face effects. [CHAR LIMIT=26] -->
+    <string name="effect_silly_faces">SILLY FACES</string>
+
+    <!-- Title of category for background replacement effects. [CHAR LIMIT=26] -->
+    <string name="effect_background">BACKGROUND</string>
+
+    <!-- The shutter button. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_shutter_button">Shutter button</string>
+    <!-- The button to review the thumbnail. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_review_thumbnail">Most recent photo</string>
+    <!-- The front/back camera switch. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_camera_picker">Front and back camera switch</string>
+    <!-- The mode picker to switch between camera, video and panorama. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_mode_picker">Camera, video, or panorama selector</string>
+    <!-- The button to switch to the second-level indicators of the camera settings. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_second_level_indicators">More setting controls</string>
+    <!-- The button to back to the first-level indicators of the camera settings. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_back_to_first_level">Close setting controls</string>
+    <!-- The zoom control button. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_zoom_control">Zoom control</string>
+    <!-- The zoom control button. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_cpcam_gain_control">Gain control</string>
+    <!-- The zoom control button. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_cpcam_exposure_control">Exposure control</string>
+    <!-- The decrement button in camera preference such as exposure, picture size. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_decrement">Decrease %1$s</string>
+    <!-- The increment button in camera preference such as exposure, picture size. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_increment">Increase %1$s</string>
+    <!-- The on/off switch in camera settings, such as store location. [CHAR LIMIT = NONE] -->
+    <string name="accessibility_switch">%1$s switch</string>
+
+    <!-- Default AutoConvergence mode setting.-->
+    <string name="pref_camera_autoconvergence_default" translatable="false">frame</string>
+
+    <!-- Settings screen, AutoConvergence mode title -->
+    <string name="pref_camera_autoconvergence_title">Auto Convergence Mode</string>
+
+    <!-- Settings screen, AutoConvergence mode dialog radio button choices -->
+    <string name="pref_camera_autoconvergence_entry_mode_frame">Frame Mode</string>
+    <string name="pref_camera_autoconvergence_entry_mode_center">Center Mode</string>
+    <string name="pref_camera_autoconvergence_entry_mode_touch">Touch Mode</string>
+    <string name="pref_camera_autoconvergence_entry_mode_manual">Manual Mode</string>
+    <string name="pref_camera_autoconvergence_entry_mode_disable">Disable</string>
+
+     <!--  Mechanical Misalignment Correction mode setting -->
+    <string name="pref_camera_mechanical_misalignment_correction_default" translatable="false">true</string>
+
+    <!-- Settings screen, Mechanical Misalignment Correction title -->
+    <string name="pref_camera_mechanical_misalignment_correction_title">SMALC</string>
+
+    <!-- Settings screen, Misalignment dialog radio button choices -->
+    <string name="pref_camera_mechanical_misalignment_correction_enable">Enable</string>
+    <string name="pref_camera_mechanical_misalignment_correction_disable">Disable</string>
+
+    <!--  Picture Format setting -->
+    <string name="pref_camera_picture_format_default" translatable="false">jpeg</string>
+
+    <!-- Settings screen, Picture Format title -->
+    <string name="pref_camera_picture_format_title">Picture Format</string>
+
+    <!-- Settings screen, Picture Format dialog radio button choices -->
+    <string name="pref_camera_picture_format_jpeg">JPEG</string>
+    <string name="pref_camera_picture_format_jps">JPS</string>
+    <string name="pref_camera_picture_format_mpo">MPO</string>
+
+    <!-- TODO: remove the string as it is a work-around solution to bypass the default speak of the element type. -->
+    <string name="empty" translatable="false">" "</string>
+
+    <!--  Preview Layouts -->
+    <string name="pref_camera_preview_layout_default" translatable="false">tb-full</string>
+    <string name="pref_camera_preview_layout_title">Preview Layouts</string>
+
+    <string name="pref_video_preview_layout_default" translatable="false">tb-subsampled</string>
+    <string name="pref_video_preview_layout_title">Preview Layouts</string>
+
+    <!--  Capture Layouts -->
+    <string name="pref_camera_capture_layout_default" translatable="false">tb-full</string>
+    <string name="pref_camera_capture_layout_title">Capture Layouts</string>
+
+    <string name="pref_video_capture_layout_default" translatable="false">tb-full</string>
+    <string name="pref_video_capture_layout_title">Capture Layouts</string>
+
+    <!-- Layouts entries -->
+    <string name="pref_camera_layout_entry_tb_full">TB Full</string>
+    <string name="pref_camera_layout_entry_tb_subsampled">TB Subsampled</string>
+    <string name="pref_camera_layout_entry_ss_full">SS Full</string>
+    <string name="pref_camera_layout_entry_ss_subsampled">SS Subsampled</string>
+
+    <string name="pref_camera_s3d_default" translatable="false">on</string>
+    <string name="pref_camera_s3d_title">S3D View</string>
+    <string name="pref_camera_s3d_on">On</string>
+    <string name="pref_camera_s3d_off">Off</string>
+
+    <!-- Manual Convergence Settings Dialog -->
+    <string name="settings_manual_convergence_caption">Manual Convergence: </string>
+    <string name="settings_manual_convergence_button_ok">Ok</string>
+
+    <!-- Manual Exposure Settings Dialog -->
+    <string name="settings_manual_3d_exposure_left_caption">Left Manual Exposure [ms]: </string>
+    <string name="settings_manual_3d_exposure_right_caption">Right Manual Exposure [ms]: </string>
+
+    <string name="settings_manual_3d_gain_left_caption">Left ISO: </string>
+    <string name="settings_manual_3d_gain_right_caption">Right ISO: </string>
+    <string name="settings_manual_3d_gain_exposure_button_ok">Ok</string>
+
+    <string name="settings_manual_2d_exposure_caption"> Manual Exposure [ms]: </string>
+    <string name="settings_manual_2d_gain_caption">Manual ISO: </string>
+    <string name="shot_title_caption">Shots: </string>
+
+    <string name="settings_manual_gain_exposure_button_ok">Ok</string>
+    <string name="settings_manual_exposure_title_popup">Manual Exposure Settings</string>
+    <string name="manual_gain_button">Absolute</string>
+    <string name="reprocess_button">Reprocess</string>
+
+    <!-- Video File Container Setting -->
+    <string name="pref_video_record_container_title">Video File Container</string>
+    <string name="pref_video_record_container_default" translatable="false">mp4</string>
+    <string name="pref_video_record_container_mp4">MP4</string>
+    <string name="pref_video_record_container_3gp">3GP</string>
+</resources>

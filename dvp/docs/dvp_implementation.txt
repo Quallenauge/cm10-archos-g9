@@ -1,0 +1,36 @@
+/*!
+\page page_implementation Implementation Details
+
+\section languages Languages
+
+DVP is implemented in C with some C99 extensions. GCC and Microsoft's CL
+compiler can both compile the majority of DVP. DVP does contain some NEON ARM
+assembly (see Writing ARM Assembly) which is in the AT&T assembly style.
+
+DVP contains other components which are implemented in C++ (VisionCam/
+VisionEngine). These are convenience classes used to simplify usage of DVP
+within a HLOS environment.
+
+\section supported_hlos Supported HLOS
+
+- Froyo, Gingerbread, IceCreamSandwich Android - using Android makefiles.
+- QNX - using Concerto
+- Ubuntu Linux - "Host" Build where the reference "C" versions of the kernels
+are used. Using Concerto build.
+- Windows NT - "Host" Build where the reference "C" versions of the kernels are
+used. Using Concerto build.
+
+\section android_specific Android Specific Issues
+
+-# Android Froyo/Gingerbread/ICS do not support a generic shmget (shared memory
+allocation) and thus a "work-around" was used which allows multiple DVP
+clients to allocate from a shared memory area via a native system service, "
+shm_service" which is implemented in the SOSAL.
+-# Android does not allow access to the OMX-CAMERA unless you are a "root"
+privileged process (due to the need to read DCC files which are marked as
+root privilege).
+-# Once you access the OMX-CAMERA in root mode, you need a Binder interface for
+callers to use to access your Daemon's features.
+
+*/
+

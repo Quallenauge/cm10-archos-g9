@@ -1,0 +1,36 @@
+
+/*! \page page_memory Memory Allocation And Usage
+
+DVP allows the programmer to allocate memory in many formats, depending on
+the local HLOS. When DVP is running on a system with a TILER, DVP can
+allocate 1D cached and 1D uncached and 2D uncached tiled memory. Normally
+most allocations are allocated via malloc, calloc or memalign. The RPC layer
+of DVP understands the Cache issues associated with remote core execution and
+works to keep buffers consistent after Section executions.
+
+\section sec_supported_memory Supported Memory Types
+
+DVP supports multiple memory types for Images and Buffers.
+Plain Virtual Memory
+- 1D TILER Cached Memory
+- 1D TILER Uncached Memory
+- 2D TILER Uncached Memory
+- Diplay Buffers (2D TILER Uncached) Memory
+
+On systems where the TILER API is exposed to DVP directly it will use it to
+allocate 1D/2D memory. On Host systems, only plain virtual memory is supported.
+
+To specify the desired memory allocation, you provide the \ref DVP_MemType_e
+along with the \ref DVP_Image_Alloc function.
+
+\code
+
+DVP_Image_t image;
+
+DVP_Image_Init(&image, 640, 480, FOURCC_UYVY);
+DVP_Image_Alloc(hDVP, &image, DVP_MTYPE_MPUCACHED_1DTILED);
+
+\endcode
+
+*/
+

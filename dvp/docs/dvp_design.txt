@@ -1,0 +1,82 @@
+/*! \page page_design_rationale Design Rationale
+
+The design rationale of DVP is to create a systematic way to process machine
+vision kernels across multiple cores in a heterogeneous computing system like
+the OMAP44xx, leveraging specialized hardware which can greatly accelerate
+specific machine vision kernels while minimizing latency by aggregating IPC
+transactions.
+
+\section remoteexecution Remote Execution Considerations
+
+\subsection ipc Interprocess Communication (IPC) Overhead
+
+One of the biggest challenges of using heterogeneous multi-cores is the
+latency involved in IPC. Even with high-speed IPC on the order to microseconds, HLOS's still have
+higher level latency issues such as context switches between processes and
+kernels, and inter-thread switching. Remote work aggregation is the only
+method of mitigating this unpredicatable overhead.
+
+\subsection example_bad High IPC Overhead Example
+
+\msc
+	a [label="Client Process"], b [label="HLOS Kernel"], c [label="Remote Core"];
+	a=>b [label="exec(kernel1)"];
+	b=>c [label="<ipc>"];
+	c->c [label="kernel1()"];
+	b<<c [label="<ipc result>"];
+	a<<b [label="<exec result>"];
+	a=>b [label="exec(kernel2)"];
+	b=>c [label="<ipc>"];
+	c->c [label="kernel2()"];
+	b<<c [label="<ipc result>"];
+	a<<b [label="<exec result>"];
+	a=>b [label="exec(kernel3)"];
+	b=>c [label="<ipc>"];
+	c->c [label="kernel3()"];
+	b<<c [label="<ipc result>"];
+	a<<b [label="<exec result>"];
+\endmsc
+
+\subsection example_good Low IPC Overhead Example
+
+\msc
+	a [label="Client Process"], b [label="HLOS Kernel"], c [label="Remote Core"];
+	a=>b [label="exec(section(kernel1,kernel2,kernel3))"];
+	b=>c [label="<ipc>"];
+	c->c [label="kernel1()"];
+	c->c [label="kernel2()"];
+	c->c [label="kernel3()"];
+	b<<c [label="<ipc result>"];
+	a<<b [label="<exec results>"];
+\endmsc
+
+IPC Overhead is minimized through offloading as many tasks
+as can be sent at once in a single transmission. In the context of DVP, this
+means sending as many kernels to execute on a remote kernel at once as
+possible. In some cases, like SIMCOP, high aggregation may not be possible as the number of
+supported kernels is low. However the DSP can process many different types of
+kernels, and is a good candidate to offload a myriad of tasks until it is
+fully utilized. The pratical extension of this optimization in the Graph is to
+group as many core-centric operations into a single Section as possible.
+Sections are analyzed to see how many nodes ahead of the current node can be
+sent together to the appropriate remote core. In the best case, entire sections
+can be offloaded to the remote cores, thus greatly improving local loading
+and minimizing per Node latency. This has the downside of creating longer
+uninterruptible operations on remote cores. A balance must be struck by the
+client to create a graph with sections that optimally aggregate work versus
+functionality.
+
+
+\section local_optimization Local Optimization
+
+Each Manager can locally optimize Graph performance, beyond what the Boss may
+understand. For example, the CPU Manager may have some specialized assembly
+routines to do an optimized version of a kernel if the right conditions are
+met (specific parameters, combination kernels will subsequent kernels, etc).
+Each Manager can and must make these determinations internally. These
+optimized kernels should only be used if the overhead of checking for and
+running the optimization is greatly outweighed by the Mhz saving. Programmers
+of customer Managers should carefully weight optimization checks.
+
+
+*/

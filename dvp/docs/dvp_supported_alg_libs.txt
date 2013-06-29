@@ -1,0 +1,23 @@
+/*! \page supported_algorithms Supported Algorithm Libraries
+
+Following algorithms are largely from the Machine Vision Algorithms. Currently DVP has several
+TI proprietary algorithm kernels which it uses.
+
+- VLIB (Vision Library) - a collection of computer vision kernels that have been developed by and optimized for TI's media processors.
+- RVM  (Rear View Module) - Homography Transforms.
+- TISMO (TI Stereo Module) - a method to generate a depth map from 2 simple cameras.
+- IMGLIB (Image Library) - a collection of more than 70 image processing kernels
+optimized for TI's DSP that can be used for image and video processing applications. The rich set of software routines
+included in IMGLIB perform image processing functionalities including compression/decompression, image analysis, image filtering, and format
+conversion.
+- VRUN (Video/Image Coproc)- a subset of VLIB and IMGLIB ported to iMX.
+- ORB - an efficient alternative to SIFT or SURF based on BRIEF and FAST.
+
+DVP also has some algorithm kernels which will be released "openly" with DVP.
+- \subpage page_yuv - a set of NEON accelerated image processing functions.
+- \subpage page_imgfilter - a 3x3 image convolution library written in NEON.
+- \subpage page_ocl - a set of OpenCL kernels which implement a 3x3 image convolution. (Only
+available on OpenCL enabled platforms).
+
+*/
+

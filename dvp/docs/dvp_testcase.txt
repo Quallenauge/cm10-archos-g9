@@ -1,0 +1,88 @@
+/*!
+\page page_testcase Testing
+
+\section sec_tests Supported Tests
+
+The follow tests are not strictly examples of how to use DVP as they may cover
+failure modes and engaging in robustness testing. They are mentioned here as
+they may help developers and users understand how to use DVP.
+
+- \subpage dvp_unittest - A framework test which covers basic API
+operations and framework unit tests.
+- \subpage dvp_kr_test - Kernel Regression Tests. Contains examples for configuring every kernel that
+is currently supported within DVP.
+
+*/
+//-----------------------------------------------------------------------------
+/*!
+
+\page dvp_unittest dvp_unittest: The Framework Unit Tests
+
+The DVP unit test is just a series of frameworking tests to flush out the
+API on a given platform.
+
+\section dvp_unittest_usage Usage
+
+\code
+$ dvp_unittest
+\endcode
+
+\see \ref group_tests
+
+\include dvp_unittest.c
+
+
+*/
+//-----------------------------------------------------------------------------
+/*!
+
+\page dvp_kr_test dvp_test: The Kernel Regression Tests
+
+
+The dvp_test is a command-line unit test that receives input from VisionCam
+(FileVisionCam or OMXVisionCam) and calls specified pre-configured DVP kernel
+graphs for each camera frame (defined in TestVisionEngine.cpp in the same directory).
+
+\section dvp_test_purpose Purpose
+- This test is what is used for validating all the kernels from DVP API.
+- Can be used to profile kernels on different cores by changing the affinity.
+- Can be extended to add and test custom kernels implemented on the A9 or DSP.
+
+\section dvp_test_usage Usage
+Since this test is expected to use input and output files on the file system, it should
+be executed from the /sdcard directory on the file system.  It is expecting the input
+files to be in the /sdcard/raw folder, which is also where it puts the output files.
+The input/output file naming convention is expected to be pYUV player compliant.\n\n
+\a dvp_test \<input\> \<width\> \<height\> \<frame_rate\> \<color\>
+\<num_frames\> \<graph\> \<core affinity\>\n
+- \b input: If using the camera input, then this should be "OMX".  If reading from a
+file input, then this should be the unique string at the beginning of the pYUV player-
+complient file name (before the _<width>x<height>_ portion of the file name.
+- \b width: The width in pixels of the input image
+- \b height: The height of the input image
+- \b frame_rate: The frame rate of the input image
+- \b color: The color of the input image (must be "UYVY")
+- \b num_frames: The number of frames to process
+- \b graph: The graph number to process (see the enum \ref TI_GraphType_e)
+- \b core affinity: Optional parameter for graphs which support core affinity: cpu, dsp, simcop, or gpu
+
+Examples:
+\par cd sdcard && dvp_test OMX 320 240 30 UYVY 200 3
+This will configure the OMX camera to provide 200 frames of 320x240 resolution
+video of UYVY 422 format at 30 frames per second.  Then the TI_GRAPH_TYPE_TEST1 graph
+setup will be run on this video, placing the output files in the /sdcard/raw directory.
+\par cd sdcard && dvp_test handqqvga 160 120 30 UYVY 10 7
+This will try to open the /sdcard/raw/handqqvga_160x120_30Hz_UYVY.yuv file, and read
+10 frames into the TI_GRAPH_TYPE_TEST5 grapsh setup, placing the output files in the /sdcard/raw directory.
+If the file is not found, then the test will print a warning, and send gray frames.
+
+\section dvp_test_code Source
+\include dvp_test.cpp
+\include TestVisionEngine.cpp
+
+
+
+
+
+*/
+

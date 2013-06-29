@@ -1,0 +1,142 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:camera="http://schemas.android.com/apk/res/com.ti.omap4.android.camera"
+        android:id="@+id/panel"
+        android:orientation="vertical"
+        android:layout_width="540px"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10px"
+        android:paddingRight="10px"
+        android:gravity="center"
+        android:visibility="gone">
+<!--    <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/popup_title_frame_min_height"
+                >
+        <TextView android:id="@+id/title"
+                  style="@style/PopupTitleText"
+                  android:text="@string/settings_manual_exposure_title_popup"
+                  android:gravity="center_vertical"/>
+    </FrameLayout>
+    <View style="@style/PopupTitleSeperator" /> -->
+    <TextView
+        android:id="@+id/exposure_caption_left"
+        android:text="@string/settings_manual_3d_exposure_left_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:paddingTop="20px"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/exposure_seek_left"
+        android:layout_width="fill_parent"
+        android:paddingBottom="3px"
+        android:layout_height="wrap_content"
+        android:max="64"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:progress="64" />
+    <TextView
+        android:id="@+id/exposure_caption_right"
+        android:text="@string/settings_manual_3d_exposure_right_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/exposure_seek_right"
+        android:layout_width="fill_parent"
+        android:paddingBottom="3px"
+        android:layout_height="wrap_content"
+        android:max="64"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:progress="64" />
+    <TextView
+        android:id="@+id/gain_caption_left"
+        android:text="@string/settings_manual_3d_gain_left_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:paddingTop="0px"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/gain_seek_left"
+        android:layout_width="fill_parent"
+        android:paddingBottom="3px"
+        android:layout_height="wrap_content"
+        android:max="50"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:progress="50" />
+    <TextView
+        android:id="@+id/gain_caption_right"
+        android:text="@string/settings_manual_3d_gain_right_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/gain_seek_right"
+        android:layout_width="fill_parent"
+        android:paddingBottom="9px"
+        android:layout_height="wrap_content"
+        android:max="50"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:progress="50" />
+    <TextView
+        android:id="@+id/exposure_caption"
+        android:text="@string/settings_manual_2d_exposure_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:paddingTop="20px"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/exposure_seek"
+        android:layout_width="fill_parent"
+        android:paddingBottom="3px"
+        android:layout_height="wrap_content"
+        android:max="64"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:progress="64" />
+    <TextView
+        android:id="@+id/gain_caption"
+        android:text="@string/settings_manual_2d_gain_caption"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3px"
+        android:paddingTop="0px"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <SeekBar
+        android:id="@+id/gain_seek"
+        android:layout_width="fill_parent"
+        android:paddingBottom="3px"
+        android:layout_height="wrap_content"
+        android:max="50"
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:progress="50" />
+    <Button
+        android:text="@string/settings_manual_gain_exposure_button_ok"
+        android:id="@+id/buttonOK"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20px"
+        android:gravity="center" />
+</LinearLayout>

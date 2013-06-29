@@ -1,0 +1,8 @@
+-keep class com.ti.arx.ARXStreams.ARXStreamsActivity {
+  private void onBufferChanged();
+  private void onARXDeath();
+}
+
+-keepclassmembers class com.ti.arx.ARXStreams.ARXStreamsActivity {
+  private int context;
+}

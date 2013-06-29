@@ -1,0 +1,9 @@
+/*!
+\page page_introduction Introduction
+
+ Distributed Vision Processing (DVP) is a framework developed by Texas Instruments that provides an API for
+ clients to construct and call processing graphs of supported low-level vision and imaging functions.
+ These functions (better known as kernels) are processed using optimized libraries on one of the SoC's supported
+ cores.  On OMAP4, DVP can process libraries on the SIMCOP, DSP, or Cortex A9/Neon.
+
+ */

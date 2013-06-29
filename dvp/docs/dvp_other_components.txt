@@ -1,0 +1,46 @@
+/*! \page page_components Other Components
+
+\section sosal Simple OS Abstraction Layer (SOSAL)
+SOSAL is a simple operating system abstraction layer plus design pattern
+library which allow for rapid development. It contains:
+
+- OS: Threads, Mutex, Semaphore, Events, Sockets
+- Patterns: List, Hash, Queue, Ring Buffer, RPC over Sockets
+
+\section display Display
+Display, in this context, is a critical component which allows for programmers
+to see the images coming from either the camera or the output from kernels.
+Supported Display Techs are:
+
+- V4L2 (Output)
+- LibScreen
+- GTK
+
+\section visioncam Vision Camera (VisionCam)
+
+VisionCam is a C++ Wrapper around the OMX-Camera interface which aims to
+simplify the OMX interface down to the bare-minimum needed to enable
+Machine Vision applications.
+
+\subsection subclasses Subclasses
+VisionCam has several subclasses which allow for various stages of development
+. They include:
+
+- UVCVisionCam - wraps the V4L2 capture interface for USB Video Camera (UVC)
+drivers on Ubuntu PCs. This is used for early development.
+- SocketVisionCam - exposes the VisionCam interface over RPC over Sockets to
+the Host PC (Ubuntu or Windows). This is used for later develop which still
+relies on PC code.
+- OMXVisionCam - on production OMAP code bases it uses the OMX-Camera interface.
+- FileVisionCam - wraps read RAW image data from a file, either an .avi or .yuv
+/.rgb file. Used for testing.
+
+\section visionengine VisionEngine
+
+VisionEngine is a utility C++ class used to implement Machine Vision
+applications which contain a thread and/or a reference to VisionCam and DVP. It
+can construct and run a single DVP Kernel Graph with any number of sections/
+nodes/images
+
+*/
+
