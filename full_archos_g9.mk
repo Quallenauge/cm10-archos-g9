@@ -25,7 +25,7 @@ endif
 # Init Files
 PRODUCT_COPY_FILES := \
 	device/archos/archos_g9/rootdir/fstab.archosa80sboard:root/fstab.archosa80sboard \
-	device/archos/archos_g9/rootdir/init.archos-common.rc:root/init.archos-common.rc \
+	device/archos/archos_g9/rootdir/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
 	device/archos/archos_g9/rootdir/init.archosa80sboard.usb.rc:root/init.archosa80sboard.usb.rc \
 	device/archos/archos_g9/rootdir/init.recovery.archosa80sboard.rc:root/init.recovery.archosa80sboard.rc \
 	device/archos/archos_g9/rootdir/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
