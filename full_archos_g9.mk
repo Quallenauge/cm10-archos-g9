@@ -24,24 +24,12 @@ endif
 
 # Init Files
 PRODUCT_COPY_FILES := \
-	$(LOCAL_KERNEL):kernel \
-	$(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
-	$(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa80sboard \
-	$(PREBUILT_PATH)/root/init.archos_init.rc:root/init.archos_init.rc \
-	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
-	$(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
-	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
-	$(PREBUILT_PATH)/root/init.goldfish.rc:root/init.goldfish.rc \
-	$(PREBUILT_PATH)/root/init.rc:root/init.rc \
-	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
-	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa101sboard.rc \
-	$(PREBUILT_PATH)/root/ueventd.goldfish.rc:root/ueventd.goldfish.rc \
-	$(PREBUILT_PATH)/root/ueventd.rc:root/ueventd.rc
+	device/archos/archos_g9/rootdir/fstab.archosa80sboard:root/fstab.archosa80sboard \
+	device/archos/archos_g9/rootdir/init.archos-common.rc:root/init.archos-common.rc \
+	device/archos/archos_g9/rootdir/init.archosa80sboard.usb.rc:root/init.archosa80sboard.usb.rc \
+	device/archos/archos_g9/rootdir/init.recovery.archosa80sboard.rc:root/init.recovery.archosa80sboard.rc \
+	device/archos/archos_g9/rootdir/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
 
-# Start Scripts for proprietary programs
-PRODUCT_COPY_FILES += \
-	$(PREBUILT_PATH)/root/usr/bin/start_avos:root/usr/bin/start_avos \
-	$(PREBUILT_PATH)/root/usr/sbin/start_audiomixer:root/usr/sbin/start_audiomixer
 
 # Files which has to be on system folder
 
@@ -49,32 +37,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:system/etc/permissions/android.software.live_wallpaper.xml
 	
-# Modem Kernel Modules
-PRODUCT_COPY_FILES += \
-        $(PREBUILT_PATH)/root/lib/modules/usb_wwan.ko:root/lib/modules/usb_wwan.ko \
-        $(PREBUILT_PATH)/root/lib/modules/option.ko:root/lib/modules/option.ko \
-        $(PREBUILT_PATH)/root/lib/modules/hso.ko:root/lib/modules/hso.ko 
-
-# EGL Proprietary Files
-#PRODUCT_COPY_FILES += \
-#	$(PREBUILT_PATH)/system/lib/egl/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
-#	$(PREBUILT_PATH)/system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
-#	$(PREBUILT_PATH)/system/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
-#	$(PREBUILT_PATH)/system/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-#	$(PREBUILT_PATH)/system/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
-#	$(PREBUILT_PATH)/system/lib/libIMGegl.so:system/lib/libIMGegl.so \
-#	$(PREBUILT_PATH)/system/lib/libpvr2d.so:system/lib/libpvr2d.so \
-#	$(PREBUILT_PATH)/system/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
-#	$(PREBUILT_PATH)/system/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
-#	$(PREBUILT_PATH)/system/lib/libsrv_init.so:system/lib/libsrv_init.so \
-#	$(PREBUILT_PATH)/system/lib/libsrv_um.so:system/lib/libsrv_um.so \
-#	$(PREBUILT_PATH)/system/lib/libusc.so:system/lib/libusc.so \
-#        $(PREBUILT_PATH)/system/bin/pvrsrvinit:system/bin/pvrsrvinit \
-
-# Graphics
-#PRODUCT_COPY_FILES += \
-#	$(PREBUILT_PATH)/system/lib/modules/omaplfb_sgx540_120.ko:system/lib/modules/omaplfb_sgx540_120.ko \
-#	$(PREBUILT_PATH)/system/vendor/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so
 
 # DRM Proprietary Files
 PRODUCT_COPY_FILES += \
@@ -182,37 +144,13 @@ PRODUCT_COPY_FILES += \
 	 $(PREBUILT_PATH)/system/lib/libsuplhelperservicejni.so:system/lib/libsuplhelperservicejni.so \
 	 $(PREBUILT_PATH)/system/lib/libgps.so:system/lib/libgps.so
 
-#    $(PREBUILT_PATH)/system/lib/libedid.so:system/lib/libedid.so \
-# 	 $(PREBUILT_PATH)/system/lib/libtiutils.so:system/lib/libtiutils.so \
-#    $(PREBUILT_PATH)/system/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so \
-#    $(PREBUILT_PATH)/system/lib/libskia.so:system/lib/libskia.so
-
-
-# archos audio depends on tinyalsa
-PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
 
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
      $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
      
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
-#    $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so \
-#    $(PREBUILT_PATH)/system/lib/libion.so:system/lib/libion.so \
-#    $(PREBUILT_PATH)/system/lib/libstagefrighthw.so:system/lib/libstagefrighthw.so \
-#    $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
-
-##    $(PREBUILT_PATH)/system/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
-
 # Misc Stuff
 PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
     $(PREBUILT_PATH)/system/etc/gps/cert/client_keystore.bks:system/etc/gps/cert/client_keystore.bks \
     $(PREBUILT_PATH)/system/etc/gps/config/GPSCConfigFile.cfg:system/etc/gps/config/GPSCConfigFile.cfg \
     $(PREBUILT_PATH)/system/etc/gps/config/GpsConfigFile.txt:system/etc/gps/config/GpsConfigFile.txt \
@@ -222,10 +160,6 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/gps/config/SuplConfig.spl:system/etc/gps/config/SuplConfig.spl \
     $(PREBUILT_PATH)/system/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
-PRODUCT_PACKAGES := \
-        Superuser \
-        su 
-
 # Wifi
 PRODUCT_PACKAGES += \
         lib_driver_cmd_wl12xx \
@@ -234,8 +168,6 @@ PRODUCT_PACKAGES += \
         dhcpcd.conf \
         wpa_supplicant.conf \
         hostapd.conf \
-        calibrator \
-        make_ext4fs \
 	com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
@@ -244,7 +176,6 @@ PRODUCT_PACKAGES += \
         libedid \
         audio_policy.default \
         libaudioutils
-#        hwcomposer.default 
 
 PRODUCT_PACKAGES += \
         LiveWallpapers \
@@ -303,9 +234,39 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
 #	camera.archos
 
-# SGX driver
+# SGX Drivers
 PRODUCT_PACKAGES += \
-	ti_omap4_sgx_libs
+	libglslcompiler_SGX540_120.so \
+	libglslcompiler_SGX544_112.so \
+	libIMGegl_SGX540_120.so \
+	libIMGegl_SGX544_112.so \
+	libpvr2d_SGX540_120.so \
+	libpvr2d_SGX544_112.so \
+	libpvrANDROID_WSEGL_SGX540_120.so \
+	libpvrANDROID_WSEGL_SGX544_112.so \
+	libPVRScopeServices_SGX540_120.so \
+	libPVRScopeServices_SGX544_112.so \
+	libsrv_init_SGX540_120.so \
+	libsrv_init_SGX544_112.so \
+	libsrv_um_SGX540_120.so \
+	libsrv_um_SGX544_112.so \
+	libusc_SGX540_120.so \
+	libusc_SGX544_112.so \
+	powervr.ini \
+	pvrsrvctl_SGX540_120 \
+	pvrsrvctl_SGX544_112 \
+	pvrsrinit \
+	gralloc.omap4430 \
+	gralloc.omap4460 \
+	gralloc.omap4370 
+
+#adb has changed his security model since 4.2.2, don't use it (for now)
+ADDITIONAL_DEFAULT_PROPERTIES := ro.adb.secure=0
+# adb has root
+ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
+#
+ADDITIONAL_DEFAULT_PROPERTIES += persist.sys.usb.config=mtp
+
 
 # Ducati binary (from TI)
 #DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
