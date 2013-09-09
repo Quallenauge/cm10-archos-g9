@@ -1,0 +1,28 @@
+on init
+    mkdir /mnt
+    mkdir /mnt/rawfs
+    mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
+    
+    mkdir /mnt/partitions
+    
+    # mount the internal sdcard to this location
+    mount ext4 /dev/block/mmcblk0p4 /mnt/partitions rw
+    
+    # loop mount our images here
+    #mount ext4 loop@/mnt/partitions/data.ext4 /data noatime nosuid
+    #mount ext4 loop@/mnt/partitions/cache.ext4 /cache noatime nosuid
+    #mount ext4 loop@/mnt/partitions/system.ext4 /system noatime nosuid  
+    
+    start sde_boot
+    
+on boot
+    
+    write /sys/class/leds/lcd-backlight/brightness 150 
+    write /sys/class/android_usb/android0/enable 1
+    start adb
+
+
+service sde_boot /sbin/reboot_into -s sde
+    oneshot
+    disabled
+    
