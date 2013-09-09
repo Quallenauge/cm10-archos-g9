@@ -42,7 +42,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/archos/archos_g9/bluetooth
 TARGET_NO_BOOTLOADER := true
 
 #TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
-TARGET_KERNEL_CONFIG    := archos_g9_defconfig
+TARGET_KERNEL_CONFIG    := cyanogenmod_archosg9_defconfig
 BOARD_KERNEL_BASE      := 0x80000000
 #BOARD_KERNEL_CMDLINE  :=
 
@@ -105,7 +105,7 @@ TIWLAN_OPENSOURCE_MODULES:
 	if [ ! -d ${PRODUCT_OUT}/system/etc/wifi ]; then mkdir -p ${PRODUCT_OUT}/system/etc/wifi; fi
 	cp hardware/ti/wlan/mac80211/ti-utils/ini_files/127x/TQS_S_2.6.ini ${PRODUCT_OUT}/system/etc/wifi
     
-TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_OPENSOURCE_MODULES
+#TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_OPENSOURCE_MODULES
 
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
@@ -145,7 +145,7 @@ BOARD_USE_TI_ENHANCED_DOMX := true
 ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
 endif
-
+TARGET_CPU_VARIANT := cortex-a9
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
@@ -209,20 +209,12 @@ BOARD_ALWAYS_INSECURE := true
 # Boot animation
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
-#adb has changed his security model since 4.2.2, don't use it (for now)
-ADDITIONAL_DEFAULT_PROPERTIES = ro.adb.secure=0
-
 #camera
 #COMMON_GLOBAL_CFLAGS             += -DTIMM_OSAL_DEBUG_TRACE_DETAIL=2 -DTIMM_OSAL_DEBUG_TRACE_LEVEL=5
 #TI_CAMERAHAL_DEBUG_ENABLED         := true
 #TI_CAMERAHAL_VERBOSE_DEBUG_ENABLED := true
 #TI_CAMERAHAL_DEBUG_FUNCTION_NAMES  := true
 # For further logging take a look into camera_inc_CameraHal.h and turn on the debug flag
-
-# adb has root
-ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
-ADDITIONAL_DEFAULT_PROPERTIES += ro.allow.mock.location=1
-ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 
 
 # The SGS series is hdpi however with new development going toward xhdpi we need to inherit xhdpi or we will lose those pngs
@@ -238,8 +230,9 @@ BOARD_HAS_SDCARD_INTERNAL := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
 
+TARGET_RECOVERY_FSTAB := device/archos/archos_g9/rootdir/fstab.archosa80sboard
 
 # Common TI device independent definitions (such as DOMX_PATH...)
-include device/ti/common-open/BoardConfig.mk
+include device/archos/archos_g9/BoardConfigCommon.mk
 
 
