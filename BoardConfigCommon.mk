@@ -13,65 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+ifeq ($(TARGET_DEVICE),archos_g9)
 # Common Makefile to be included at the bottom of each device's
 # BoardConfig.mk file. Definitions here are supposed to be device independent.
+COMMON_FOLDER := device/archos/archos_g9
 
+# set to allow building from omap4-common
+BOARD_VENDOR := archos
 
-# Function to check malformed boolean variable
-define ti-check-boolean-var
-$(if $(call filter,true,$($(1))),,$(if $($(1)),\
-    $(error Boolean variable $(1) is set to "$($(1))". Expected: "true" or undefined),))
-endef
+PRODUCT_VENDOR_KERNEL_HEADERS := $(COMMON_FOLDER)/kernel-headers
 
-
-# Check boolean variables
-$(call ti-check-boolean-var,ENHANCED_DOMX)
-$(call ti-check-boolean-var,OMAP_ENHANCEMENT)
-$(call ti-check-boolean-var,OMAP_ENHANCEMENT_S3D)
-$(call ti-check-boolean-var,OMAP_ENHANCEMENT_CPCAM)
-$(call ti-check-boolean-var,OMAP_ENHANCEMENT_VTC)
-$(call ti-check-boolean-var,OMAP_ENHANCEMENT_BURST_CAPTURE)
-$(call ti-check-boolean-var,USE_ITTIAM_AAC)
-$(call ti-check-boolean-var,OMAP_ENHANCEMENT_MULTIGPU)
-
+TARGET_SPECIFIC_HEADER_PATH := $(COMMON_FOLDER)/include
 
 # Makefile variable and C/C++ macro to recognise DOMX version
 ifdef ENHANCED_DOMX
-    COMMON_GLOBAL_CFLAGS += -DENHANCED_DOMX
+
     DOMX_PATH := hardware/ti/domx
 else
     DOMX_PATH := hardware/ti/omap4xxx/domx
 endif
-
-# C/C++ macros for OMAP_ENHANCEMENT
-ifdef OMAP_ENHANCEMENT
+    COMMON_GLOBAL_CFLAGS += -DENHANCED_DOMX
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT -DTARGET_OMAP4
-endif
-
-ifdef OMAP_ENHANCEMENT_BURST_CAPTURE
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_BURST_CAPTURE
-endif
-
-ifdef OMAP_ENHANCEMENT_S3D
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_S3D
-endif
-
-ifdef OMAP_ENHANCEMENT_CPCAM
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_CPCAM
-endif
-
-ifdef OMAP_ENHANCEMENT_VTC
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_VTC
-endif
-
-ifdef USE_ITTIAM_AAC
     COMMON_GLOBAL_CFLAGS += -DUSE_ITTIAM_AAC
-endif
-
-ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
-endif
 
-# Undefine local functions
-ti-check-boolean-var :=
+endif

@@ -45,66 +45,7 @@ TARGET_NO_BOOTLOADER := true
 TARGET_KERNEL_CONFIG    := cyanogenmod_archosg9_defconfig
 BOARD_KERNEL_BASE      := 0x80000000
 #BOARD_KERNEL_CMDLINE  :=
-
-SGX_MODULES:
-	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
-	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean
-	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
-#	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=debug TARGET_SGX=540 PLATFORM_VERSION=4.0
-	# It seems that the default sgx deployment will overwrite the builded one
-	cp out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
-
-SGX_PREBUILD_MODULES:
-	# Copy prebuild modules from archos
-	cp -v -r device/archos/archos_g9/prebuilt/system/sgx/* $(TARGET_OUT)/
-
-TIWLAN_MODULES:
-	make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_spi.ko $(KERNEL_MODULES_OUT)
-
-
-TIWLAN_OPENSOURCE_MODULES:
-	cd hardware/ti/wlan_os/ && pwd && git reset --hard && git clean -fd && bash scripts/driver-select ti
-	echo "make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m"
-	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8
-	echo "Remove kernel builded (and oputdated modules)..."
-	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
-	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
-	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
-	mv hardware/ti/wlan_os/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore_sdio.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-
-	cd hardware/ti/wlan_os/ && pwd && git reset --hard && git clean -fd && bash scripts/driver-select bt
-	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8
-	if [ ! -d ${KERNEL_MODULES_OUT}/bluetooth ]; then mkdir -p ${KERNEL_MODULES_OUT}/bluetooth; fi
-	mv hardware/ti/wlan_os/net/bluetooth/bluetooth.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/net/bluetooth/rfcomm/rfcomm.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/net/bluetooth/hidp/hidp.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/drivers/bluetooth/hci_uart.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/net/bluetooth/bnep/bnep.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/drivers/bluetooth/btwilink.ko $(KERNEL_MODULES_OUT)/bluetooth/
-
-	if [ ! -d ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity ]; then mkdir -p ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity; fi
-	cp hardware/linux-firmware/ti-connectivity/TIInit_7.2.31.bts ${PRODUCT_OUT}/system/etc/firmware/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-2.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-ap.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-fw.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-nvs.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl127x-fw-5-sr.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl12xx-nvs.bin  ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-
-	if [ ! -d ${PRODUCT_OUT}/system/etc/wifi ]; then mkdir -p ${PRODUCT_OUT}/system/etc/wifi; fi
-	cp hardware/ti/wlan/mac80211/ti-utils/ini_files/127x/TQS_S_2.6.ini ${PRODUCT_OUT}/system/etc/wifi
-    
+   
 #TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_OPENSOURCE_MODULES
 
 TARGET_NO_RADIOIMAGE         := true
