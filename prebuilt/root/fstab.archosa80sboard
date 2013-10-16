@@ -17,7 +17,3 @@
 #/dev/block/mmcblk0p1 						/mnt/rawfs	rawfs
 /dev/block/mmcblk0p2						/mnt/system 	ext4	noatime,nosuid,noexec	wait
 /dev/block/mmcblk0p4						/data		ext4	noatime,nosuid		wait,check,encryptable=footer
-
-/devices/platform/omap/omap_hsmmc.0/mmc_host/mmc1 		/storage/sdcard1 auto 	defaults	voldmanaged=sdcard1:auto
-/devices/platform/omap/musb-omap2430/musb-hdrc/usb2/2-1/2-1:1.0 /storage/usbdisk0 auto 	defaults	voldmanaged=usbdisk0:auto
-
