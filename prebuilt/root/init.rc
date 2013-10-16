@@ -1,17 +1,34 @@
+
+import init.archos_init.rc
+import init.${ro.hardware}.rc
+
 ## Import dongle stuff 
-import init.dongle.rc
+#import init.dongle.rc
+
 on early-init
     # Set init and its forked children's oom_adj.
     write /proc/1/oom_adj -16
 
+    # Set the security context for the init process.
+    # This should occur before anything else (e.g. ueventd) is started.
+    setcon u:r:init:s0
+
     start ueventd
+    
+    # create mountpoints
+    mkdir /mnt 0775 root system
+    mkdir /mnt/rawfs 0777 root system
+
+    # Create mountpoint so Dalvik can mark as slave in zygotes.
+    mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
 
 on init
-
-sysclktz 0
+# I like verbose output
+	loglevel 8
+	sysclktz 0
 
 # setup the global environment
-    export PATH /bin:/sbin:/usr/bin:/vendor/bin:/system/sbin:/system/bin:/system/xbin:/usr/sbin
+    export PATH /system/sbin:/system/bin:/system/xbin:/bin:/sbin:/usr/bin:/vendor/bin:/usr/sbin
     export LD_LIBRARY_PATH /vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
     export ANDROID_CACHE /cache
@@ -20,9 +37,15 @@ sysclktz 0
     export ANDROID_DATA /data
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
-#    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar:/system/framework/filterfw.jar
-    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/framework2.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
-    
+	
+	# Added from p3100 build
+    export ANDROID_ROOT /system
+    export ANDROID_STORAGE /storage
+	 
+    export BOOTCLASSPATH /system/framework/core.jar:/system/framework/core-junit.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/mms-common.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/apache-xml.jar
+    export TERMINFO /system/etc/terminfo
+    export TERM linux
+	
     export BT_FW_PATH /lib/firmware
 
     mount usbfs usbfs /proc/bus/usb devuid=1000,listuid=1000,busuid=1000
@@ -39,41 +62,35 @@ sysclktz 0
 # but someday that may change.
 #    symlink /system/vendor /vendor
 
-# create mountpoints
-#    mkdir /mnt 0775 root system
-#    mkdir /mnt/sdcard 0000 system system
-
-# Create cgroup mount point for cpu accounting
-#    mkdir /acct
-    mount cgroup none /acct cpuacct
-#    mkdir /acct/uid
-
-#    mkdir /system
-#    mkdir /data 0771 system system
-#    mkdir /cache 0770 system cache
-     mkdir /data/cache 0771 system cache
-#    mkdir /config 0500 root root
-
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell 0700 shell shell
+    mkdir /storage 0050 root sdcard_r
+    
     # Directory for putting things only root should see.
-#    mkdir /mnt/secure 0700 root root
+    mkdir /mnt/secure 0700 root root
+    # Create private mountpoint so we can MS_MOVE from staging
+    mount tmpfs tmpfs /mnt/secure mode=0700,uid=0,gid=0
 
     # Directory for staging bindmounts
-#    mkdir /mnt/secure/staging 0700 root root
+    mkdir /mnt/secure/staging 0700 root root
 
     # Directory-target for where the secure container
     # imagefile directory will be bind-mounted
-#    mkdir /mnt/secure/asec  0700 root root
+    mkdir /mnt/secure/asec  0700 root root
 
     # Secure container public mount points.
-#    mkdir /mnt/asec  0700 root system
-    chown root system /mnt/asec
+    mkdir /mnt/asec  0700 root system
     mount tmpfs tmpfs /mnt/asec mode=0755,gid=1000
 
     # Filesystem image public mount points.
-#    mkdir /mnt/obb 0700 root system
-    chown root system /mnt/obb
+    mkdir /mnt/obb 0700 root system
     mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
 
+    # Archos
+    mkdir /mnt/system
+    mkdir /mnt/storage_usb      0550 system sdcard_rw
+    mkdir /mnt/sdcard1          0550 system sdcard_rw
+    
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
     write /proc/cpu/alignment 4
@@ -84,29 +101,30 @@ sysclktz 0
     write /proc/sys/kernel/randomize_va_space 2
 
 # Create cgroup mount points for process groups
-mkdir /dev/cpuctl
-    mount cgroup none /dev/cpuctl cpu
-        chown system system /dev/cpuctl
-            chown system system /dev/cpuctl/tasks
-                chmod 0660 /dev/cpuctl/tasks
-                    write /dev/cpuctl/cpu.shares 1024
-                        write /dev/cpuctl/cpu.rt_runtime_us 950000
-                            write /dev/cpuctl/cpu.rt_period_us 1000000
-                            
-                                mkdir /dev/cpuctl/apps
-                                    chown system system /dev/cpuctl/apps/tasks
-                                        chmod 0666 /dev/cpuctl/apps/tasks
-                                            write /dev/cpuctl/apps/cpu.shares 1024
-                                                write /dev/cpuctl/apps/cpu.rt_runtime_us 800000
-                                                    write /dev/cpuctl/apps/cpu.rt_period_us 1000000
+	mkdir /dev/cpuctl
+	mount cgroup none /dev/cpuctl cpu
+	chown system system /dev/cpuctl
+	chown system system /dev/cpuctl/tasks
+	chmod 0660 /dev/cpuctl/tasks
+	write /dev/cpuctl/cpu.shares 1024
+	write /dev/cpuctl/cpu.rt_runtime_us 950000
+	write /dev/cpuctl/cpu.rt_period_us 1000000
+                           
+	mkdir /dev/cpuctl/apps
+	chown system system /dev/cpuctl/apps/tasks
+	chmod 0666 /dev/cpuctl/apps/tasks
+	write /dev/cpuctl/apps/cpu.shares 1024
+	write /dev/cpuctl/apps/cpu.rt_runtime_us 800000
+	write /dev/cpuctl/apps/cpu.rt_period_us 1000000
                                                     
-                                                        mkdir /dev/cpuctl/apps/bg_non_interactive
-                                                            chown system system /dev/cpuctl/apps/bg_non_interactive/tasks
-                                                                chmod 0666 /dev/cpuctl/apps/bg_non_interactive/tasks
-                                                                    # 5.0 %
-                                                                        write /dev/cpuctl/apps/bg_non_interactive/cpu.shares 52
-                                                                            write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_runtime_us 700000
-                                                                                write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_period_us 1000000
+	mkdir /dev/cpuctl/apps/bg_non_interactive
+	chown system system /dev/cpuctl/apps/bg_non_interactive/tasks
+	chmod 0666 /dev/cpuctl/apps/bg_non_interactive/tasks
+
+# 5.0 %
+	write /dev/cpuctl/apps/bg_non_interactive/cpu.shares 52
+	write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_runtime_us 700000
+	write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_period_us 1000000
                                                                                 
 # Allow everybody to read the xt_qtaguid resource tracking misc dev.
 # This is needed by any process that uses socket tagging.
@@ -114,10 +132,11 @@ mkdir /dev/cpuctl
 
 on fs
 # mount partitions
-    mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
-    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
-    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
-    
+     mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
+#    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
+#    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
+#     mount_all /fstab.A80S
+   
     # use the external sdcard to leave archos data in tact 
     #mount ext4 /dev/block/mmcblk1p2 /data noatime nosuid
     
@@ -127,6 +146,10 @@ on post-fs
 
     # once everything is setup, no need to modify /
     # mount rootfs rootfs / ro remount
+
+    # mount shared so changes propagate into child namespaces
+    mount rootfs rootfs / shared rec
+    mount tmpfs tmpfs /mnt/secure private rec
 
     chown root system /mnt/system
     chmod 0770 /mnt/system
@@ -138,6 +161,9 @@ on post-fs
     mkdir /data/cache 0771 system cache
     chown system cache /data/cache
     chmod 0771 /data/cache
+
+    # Add folder for paid apps
+    mkdir /data/app-asec 0700 root root
 
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
@@ -163,10 +189,10 @@ on post-fs-data
 
     # prepare S emulated storage in /data/media.
     mkdir /data/media
-    chown system sdcard_rw /data/media
-    chmod 775 /data/media
+    chown media_rw media_rw /data/media
+    chmod 770 /data/media
     # Create legacy sysid
-    exec /system/bin/logwrapper /usr/bin/create_sysid -p /data/media/
+#    exec /system/bin/logwrapper /usr/bin/create_sysid -p /data/media/
 
     # Create a directory for all sorts of files that shall
     # reside in internal nand (thumbnails etc)
@@ -207,6 +233,7 @@ on post-fs-data
     # create basic filesystem structure
     mkdir /data/misc 01771 system misc
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/bluedroid/ 0770 bluetooth bluetooth
     mkdir /data/misc/bluetooth 0770 system system
     mkdir /data/misc/keystore 0700 keystore keystore
     mkdir /data/misc/keychain 0771 system system
@@ -222,14 +249,20 @@ on post-fs-data
     mkdir /data/local/tmp 0771 shell shell
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
+    mkdir /data/app-lib 0771 system system
     mkdir /data/app 0771 system system
     mkdir /data/property 0700 root root
+    mkdir /data/btips 0770 root system
     mkdir /data/gps 0770 system system
     mkdir /data/gps/aiding 0770 system system
     mkdir /data/misc/smb 0777 system system
     mkdir /data/test 0777 shell shell
+	
+	mkdir /data/misc/radio 0770 system radio
+	mkdir /data/misc/zoneinfo 0775 system system
+	mkdir /data/misc/media 0700 media media
 
-    touch /data/misc/smb/fusesmb.conf
+    #touch /data/misc/smb/fusesmb.conf
     chown system system /data/misc/smb/fusesmb.conf
     chmod 666 /data/misc/smb/fusesmb.conf
 
@@ -248,6 +281,14 @@ on post-fs-data
     # create directory for DRM plug-ins
     mkdir /data/drm 0774 drm drm
 
+    # create directory for MediaDrm plug-ins - give drm the read/write access to
+    # the following directory.
+    mkdir /data/mediadrm 0770 mediadrm mediadrm
+
+    # symlink to bugreport storage location
+    symlink /data/data/com.android.shell/files/bugreports /data/bugreports
+
+	
 
     # copy hostapd.conf (WLAN HotSpot)
     copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
@@ -264,10 +305,12 @@ on post-fs-data
     chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
 
     # sgx for tvout
-    mknod /dev/omaplfb c 30 0
+    #mknod /dev/omaplfb c 30 0
 
     # network
     insmod /lib/modules/fuse.ko
+
+    class_start late_start
 
 on boot
 # basic network init
@@ -297,7 +340,7 @@ on boot
     chmod 777 /tmp/inc
     exec /tmp/inc
 
-    exec /system/bin/logwrapper /system/xbin/busybox run-parts /system/etc/init.d
+#    exec /system/bin/logwrapper /system/xbin/busybox run-parts /system/etc/init.d
 
 # Activate OSD plane transparency
 #    write /sys/devices/system/display/gfxformat 12
@@ -350,18 +393,32 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_def
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
+	
+	write /proc/sys/net/ipv4/ping_group_range "0 2147483647"
 
 #    write /sys/class/leds/lcd-backlight/brightness 255
 
+# Set these so we can remotely update SELinux policy
+    chown system system /sys/fs/selinux/load
+    chown system system /sys/fs/selinux/enforce
+
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
     setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
-    setprop net.tcp.buffersize.hspa    4094,87380,262144,4096,16384,262144
+    setprop net.tcp.buffersize.hspa    4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.hsupa   4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.hsdpa   4094,87380,1220608,4096,16384,1220608
+    setprop net.tcp.buffersize.hspap   4094,87380,1220608,4096,16384,1220608
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
+    setprop net.tcp.buffersize.evdo    4094,87380,262144,4096,16384,262144
+
+# Assign TCP buffer thresholds to be ceiling value of technology maximums
+# Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max  2097152
+    write /proc/sys/net/core/wmem_max  2097152
+
 
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 0
@@ -369,7 +426,7 @@ on boot
     class_start core
     class_start main
 
-    # generate nvs with calibration and mac
+#    # generate nvs with calibration and mac
     exec /system/bin/logwrapper /usr/bin/create_nvs -t /lib/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/wifi/ti-connectivity/wl1271-nvs.bin -w wl127x
 
     setprop archos.tetherState disconnected
@@ -432,6 +489,7 @@ on property:sys.usb.config=accessory,adb
 # Used to set USB configuration at boot and to switch the configuration
 # when changing the default configuration
 on property:persist.sys.usb.config=*
+#    setprop sys.usb.config none
     setprop sys.usb.config $persist.sys.usb.config
 
 # external_apks extraction
@@ -441,11 +499,11 @@ on  property:ro.board.zone=*
 service battery /system/bin/logwrapper /system/bin/batteryd -d
     class core
 
-service audiomixer /system/bin/logwrapper /usr/sbin/audiomixer
+service audiomixer /system/bin/logwrapper /usr/sbin/start_audiomixer
     class core
     ioprio rt 4
 
-service avos /system/bin/logwrapper /usr/bin/avos
+service avos /system/bin/logwrapper /usr/bin/start_avos
     class core
 
 service djmount /system/bin/logwrapper /usr/bin/djmount -f -o allow_other,iocharset=UTF-8 /mnt/network/upnp
@@ -497,7 +555,9 @@ on property:persist.serv.avos.enable=0
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
     class core
+    socket adbd stream 660 system system
     disabled
+    seclabel u:r:adbd:s0
 
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
@@ -546,8 +606,8 @@ on property:service.ftp.enable=0
 on property:vpn.tun.enable=1
     insmod /lib/modules/tun.ko
 
-on property:vpn.tun.enable=0
-    rmmod tun
+#on property:vpn.tun.enable=0
+#    rmmod tun
 
 on property:service.media.restart=1
     stop media
@@ -593,7 +653,7 @@ service netd /system/bin/netd
     class main
     socket netd stream 0660 root system
     socket dnsproxyd stream 0660 root inet
-socket mdns stream 0660 root system
+    socket mdns stream 0660 root system
 
 #service sharesd /system/bin/sharesd
 #    class main
@@ -616,20 +676,23 @@ service surfaceflinger /system/bin/surfaceflinger
     onrestart restart zygote
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
+#service zygote /system/xbin/strace -ff -tt -o/data/zygote.strace /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     class main
     socket zygote stream 666
     onrestart write /sys/android_power/request_state wake
     onrestart write /sys/power/state on
     onrestart restart media
     onrestart restart netd
+    critical
 
 service drm /system/bin/drmserver
     class main
     user drm
     group system inet drmrpc
 
-service media /system/bin/mediaserver
-    class main
+#service media /system/xbin/strace -ff -tt -o/data/strace/mediaserver.strace /system/bin/mediaserver
+service media /system/bin/mediaserver 
+   class main
     user media
     group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc
     ioprio rt 4
@@ -679,8 +742,10 @@ service mtpd /system/bin/mtpd
     group vpn net_admin inet net_raw
     disabled
     oneshot
-
-service navl_server /system/bin/navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"
+#service navl_server /system/xbin/strace -tt -o/data/navl_server.strace /system/
+#service navl_server /system/bin/navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"a
+service navl_server /system/bin/start_navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"a
+    user root 
     class main
     disabled
     oneshot
@@ -704,12 +769,17 @@ service reboot /system/bin/reboot
 
 service nand /system/bin/nand /data/nand 1000 1015
     class main
-    
-    	service mdnsd /system/bin/mdnsd
-        class main
-    	   user mdnsr
-    	            group inet net_raw
-    	                socket mdnsd stream 0660 mdnsr inet
-    	                    disabled
-    	                        oneshot
-    	                        
+    oneshot
+
+service mdnsd /system/bin/mdnsd
+    class main
+    user mdnsr
+    group inet net_raw
+    socket mdnsd stream 0660 mdnsr inet
+    disabled
+    oneshot
+
+service create_SysId /system/bin/logwrapper /usr/bin/create_sysid -p /data/media/
+    class core
+    oneshot
+

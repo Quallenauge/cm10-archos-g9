@@ -1,0 +1,5 @@
+#!/bin/sh
+
+umask 000
+/system/bin/navd $*
+

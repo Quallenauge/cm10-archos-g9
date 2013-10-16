@@ -1,0 +1,18 @@
+#Inertial navigation log file path
+INAV_LOGFILE_PATH /data/gps/logs/
+
+#Unified toolkit IP Address
+UTK_IP_ADDR	172.25.1.100 4646
+
+#PPS Client Driver details : Driver name and open attributes
+PPS_CLIENT_DRV /dev/pps0 0666
+
+#Inertial sensor sampling interval in ms
+SENSOR_SAMPLING_INTERVAL 100
+
+#Timer offset wrt PPS pulse 
+#Equivalent to - First timer wakeup interval, subsequent timer wake up interval is 1 second
+TIMER_PPS_OFFSET 950
+
+#Timer and PPS resychronization interval in seconds
+TIMER_PPS_RESYNC_INTERVAL 12
