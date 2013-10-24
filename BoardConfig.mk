@@ -16,6 +16,7 @@
 
 LOCAL_PATH := device/archos/archos_g9
 
+DEVICE_PATH := $(LOCAL_PATH)
 #$(warning "LocalPath: $(LOCAL_PATH)")
 
 # These two variables are set first, so they can be overridden
@@ -48,10 +49,11 @@ BOARD_KERNEL_BASE      := 0x80000000
 #BOARD_KERNEL_CMDLINE  :=
 
 SGX_MODULES:
-	tar -xvf device/ti/proprietary-open/omap4/sgx_src/eurasia_km.tgz -C device/ti/proprietary-open/omap4/sgx_src/
-	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean
-	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
-#	make -C device/ti/proprietary-open/omap4/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=debug TARGET_SGX=540 PLATFORM_VERSION=4.0
+	if [ ! -d $(PRODUCT_OUT)/sgx_src/ ]; then mkdir -p $(PRODUCT_OUT)/sgx_src/; fi
+	tar -xvf $(DEVICE_PATH)/sgx/omap4/sgx_src/eurasia_km.tgz -C $(PRODUCT_OUT)/sgx_src/
+	make -C $(PRODUCT_OUT)/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean
+	make -C $(PRODUCT_OUT)/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
+#	make -C $(PRODUCT_OUT)/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=debug TARGET_SGX=540 PLATFORM_VERSION=4.0
 	# It seems that the default sgx deployment will overwrite the builded one
 	cp out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
 
@@ -60,54 +62,19 @@ SGX_PREBUILD_MODULES:
 	cp -v -r device/archos/archos_g9/prebuilt/system/sgx/* $(TARGET_OUT)/
 
 TIWLAN_MODULES:
-	make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_COMPAT_WL12XX_SDIO=m
+	cd hardware/ti/wlan/mac80211/compat_wl12xx && pwd && git reset --hard && git clean -fd
+	echo "make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m"
+	make -C hardware/ti/wlan/mac80211/compat_wl12xx ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8
+	echo "Remove kernel builded (and oputdated modules)..."
+	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
+	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_spi.ko $(KERNEL_MODULES_OUT)
 
-
-TIWLAN_OPENSOURCE_MODULES:
-	cd hardware/ti/wlan_os/ && pwd && git reset --hard && git clean -fd && bash scripts/driver-select ti
-	echo "make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m"
-	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8
-	echo "Remove kernel builded (and oputdated modules)..."
-	rm $(KERNEL_MODULES_OUT)/wl12xx.ko
-	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
-#	rm $(KERNEL_MODULES_OUT)/wl12xx_sdio_test.ko
-	mv hardware/ti/wlan_os/compat/compat.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wlcore/wlcore_sdio.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan_os/drivers/net/wireless/ti/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-
-	cd hardware/ti/wlan_os/ && pwd && git reset --hard && git clean -fd && bash scripts/driver-select bt
-	echo "make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m -j8"
-	make -C hardware/ti/wlan_os/ ARCH=arm KERNEL_DIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) CONFIG_WLCORE=m CONFIG_WLCORE_SDIO=m CONFIG_BT=m -j8
-	if [ ! -d ${KERNEL_MODULES_OUT}/bluetooth ]; then mkdir -p ${KERNEL_MODULES_OUT}/bluetooth; fi
-	mv hardware/ti/wlan_os/net/bluetooth/bluetooth.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/net/bluetooth/rfcomm/rfcomm.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/net/bluetooth/hidp/hidp.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/drivers/bluetooth/hci_uart.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/net/bluetooth/bnep/bnep.ko $(KERNEL_MODULES_OUT)/bluetooth/
-	mv hardware/ti/wlan_os/drivers/bluetooth/btwilink.ko $(KERNEL_MODULES_OUT)/bluetooth/
-
-	if [ ! -d ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity ]; then mkdir -p ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity; fi
-	cp hardware/linux-firmware/ti-connectivity/TIInit_7.2.31.bts ${PRODUCT_OUT}/system/etc/firmware/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-2.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-fw-ap.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-fw.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl1271-nvs.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl127x-fw-5-sr.bin ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-	cp hardware/linux-firmware/ti-connectivity/wl12xx-nvs.bin  ${PRODUCT_OUT}/system/etc/firmware/ti-connectivity/
-
-	if [ ! -d ${PRODUCT_OUT}/system/etc/wifi ]; then mkdir -p ${PRODUCT_OUT}/system/etc/wifi; fi
-	cp hardware/ti/wlan/mac80211/ti-utils/ini_files/127x/TQS_S_2.6.ini ${PRODUCT_OUT}/system/etc/wifi
-    
-TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_OPENSOURCE_MODULES
+TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_MODULES
 
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
@@ -165,8 +132,8 @@ TARGET_KRAIT_BIONIC_PLDTHRESH := 10
 TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
-# Audio library
-#COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+# Audio library - as long microphone doesn't work with upstream drivers
+COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 
 #ENABLE_WEBGL := true
 
@@ -189,18 +156,13 @@ BOARD_WLAN_DEVICE                := wl12xx_mac80211
 BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
 COMMON_GLOBAL_CFLAGS += -DUSES_TI_MAC80211
 
-# Opensource driver uses wlcore
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlcore_sdio.ko"
-WIFI_DRIVER_MODULE_NAME          := "wlcore_sdio"
-WIFI_FIRMWARE_LOADER             := ""
+#Openlink drivers
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wl12xx_sdio.ko"
+WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
+
 endif
 
 BOARD_WPAN_DEVICE                := true
-
-#Openlink drivers
-#WIFI_DRIVER_MODULE_PATH          := "/lib/modules/wl12xx_sdio.ko"
-#WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
-
 
 #TARGET_PROVIDES_INIT_RC := true
 #TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true

@@ -30,10 +30,18 @@ PRODUCT_COPY_FILES := \
 	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
 	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
 	$(PREBUILT_PATH)/root/init.goldfish.rc:root/init.goldfish.rc \
-	$(PREBUILT_PATH)/root/init.rc:root/init.rc \
 	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
 	$(PREBUILT_PATH)/root/ueventd.goldfish.rc:root/ueventd.goldfish.rc \
 	$(PREBUILT_PATH)/root/ueventd.rc:root/ueventd.rc
+
+
+# Prebuilts /system/etc
+PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin:/system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
+    $(PREBUILT_PATH)/system/etc/wifi/TQS_S_2.6.ini:/system/etc/wifi/TQS_S_2.6.ini
 
 # Start Scripts for proprietary programs
 PRODUCT_COPY_FILES += \
@@ -51,27 +59,6 @@ PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/root/lib/modules/usb_wwan.ko:root/lib/modules/usb_wwan.ko \
         $(PREBUILT_PATH)/root/lib/modules/option.ko:root/lib/modules/option.ko \
         $(PREBUILT_PATH)/root/lib/modules/hso.ko:root/lib/modules/hso.ko 
-
-# EGL Proprietary Files
-#PRODUCT_COPY_FILES += \
-#	$(PREBUILT_PATH)/system/lib/egl/libEGL_POWERVR_SGX540_120.so:system/lib/egl/libEGL_POWERVR_SGX540_120.so \
-#	$(PREBUILT_PATH)/system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so:system/lib/egl/libGLESv1_CM_POWERVR_SGX540_120.so \
-#	$(PREBUILT_PATH)/system/lib/egl/libGLESv2_POWERVR_SGX540_120.so:system/lib/egl/libGLESv2_POWERVR_SGX540_120.so \
-#	$(PREBUILT_PATH)/system/lib/hw/gralloc.omap4.so:system/lib/hw/gralloc.omap4.so \
-#	$(PREBUILT_PATH)/system/lib/libglslcompiler.so:system/lib/libglslcompiler.so \
-#	$(PREBUILT_PATH)/system/lib/libIMGegl.so:system/lib/libIMGegl.so \
-#	$(PREBUILT_PATH)/system/lib/libpvr2d.so:system/lib/libpvr2d.so \
-#	$(PREBUILT_PATH)/system/lib/libpvrANDROID_WSEGL.so:system/lib/libpvrANDROID_WSEGL.so \
-#	$(PREBUILT_PATH)/system/lib/libPVRScopeServices.so:system/lib/libPVRScopeServices.so \
-#	$(PREBUILT_PATH)/system/lib/libsrv_init.so:system/lib/libsrv_init.so \
-#	$(PREBUILT_PATH)/system/lib/libsrv_um.so:system/lib/libsrv_um.so \
-#	$(PREBUILT_PATH)/system/lib/libusc.so:system/lib/libusc.so \
-#        $(PREBUILT_PATH)/system/bin/pvrsrvinit:system/bin/pvrsrvinit \
-
-# Graphics
-#PRODUCT_COPY_FILES += \
-#	$(PREBUILT_PATH)/system/lib/modules/omaplfb_sgx540_120.ko:system/lib/modules/omaplfb_sgx540_120.ko \
-#	$(PREBUILT_PATH)/system/vendor/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so
 
 # DRM Proprietary Files
 PRODUCT_COPY_FILES += \
@@ -164,14 +151,10 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/hw/lights.archos.so:system/lib/hw/lights.archos.so \
     $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so
 
-# Not needed anymore
-#    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
-#    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so 
-
-    
-#    $(PREBUILT_PATH)/system/lib/hw/camera.omap4.so:system/lib/hw/camera.omap4.so \
-#    $(PREBUILT_PATH)/system/lib/hw/camera.archos.so:system/lib/hw/camera.archos.so \
-#    $(PREBUILT_PATH)/system/bin/uim-sysfs:system/bin/uim-sysfs
+# Archos audio libraries - as long microphone doesn't work with upstream audio libs
+PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
+    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so 
 
 # GPS libraries 
 PRODUCT_COPY_FILES += \
@@ -181,12 +164,6 @@ PRODUCT_COPY_FILES += \
 	 $(PREBUILT_PATH)/system/lib/libsuplhelperservicejni.so:system/lib/libsuplhelperservicejni.so \
 	 $(PREBUILT_PATH)/system/lib/libgps.so:system/lib/libgps.so
 
-#    $(PREBUILT_PATH)/system/lib/libedid.so:system/lib/libedid.so \
-# 	 $(PREBUILT_PATH)/system/lib/libtiutils.so:system/lib/libtiutils.so \
-#    $(PREBUILT_PATH)/system/lib/hw/hwcomposer.omap4.so:system/vendor/lib/hw/hwcomposer.omap4.so \
-#    $(PREBUILT_PATH)/system/lib/libskia.so:system/lib/libskia.so
-
-
 # archos audio depends on tinyalsa
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
@@ -194,20 +171,6 @@ PRODUCT_COPY_FILES += \
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
      $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
-     
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so:system/lib/libOMX.TI.DUCATI1.MISC.SAMPLE.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so:system/lib/libOMX.TI.DUCATI1.VIDEO.CAMERA.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.secure.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so:system/lib/libOMX.TI.DUCATI1.VIDEO.DECODER.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.H264E.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so:system/lib/libOMX.TI.DUCATI1.VIDEO.MPEG4E.so \
-#    $(PREBUILT_PATH)/system/lib/libOMX_Core.so:system/lib/libOMX_Core.so \
-#    $(PREBUILT_PATH)/system/lib/libdomx.so:system/lib/libdomx.so \
-#    $(PREBUILT_PATH)/system/lib/libion.so:system/lib/libion.so \
-#    $(PREBUILT_PATH)/system/lib/libstagefrighthw.so:system/lib/libstagefrighthw.so \
-#    $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
-
-##    $(PREBUILT_PATH)/system/lib/libstagefright_omx.so:system/lib/libstagefright_omx.so
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
@@ -225,17 +188,24 @@ PRODUCT_PACKAGES := \
         Superuser \
         su 
 
-# Wifi
+# WI-Fi
 PRODUCT_PACKAGES += \
-        lib_driver_cmd_wl12xx \
+        dhcpcd.conf \
+        hostapd.conf \
+        wifical.sh \
+        TQS_D_1.7.ini \
+        TQS_D_1.7_127x.ini \
+        crda \
+        regulatory.bin \
+        calibrator \
+        lib_driver_cmd_wl12xx
+
+PRODUCT_PACKAGES += \
         wlan_loader \
         wlan_cu \
-        dhcpcd.conf \
         wpa_supplicant.conf \
-        hostapd.conf \
-        calibrator \
         make_ext4fs \
-	com.android.future.usb.accessory
+        com.android.future.usb.accessory
 
 PRODUCT_PACKAGES += \
         libinvensense_mpl \
@@ -299,10 +269,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ti-wpan-fw
 
-## Camera
-#PRODUCT_PACKAGES += \
-#	camera.archos
-
 # SGX driver
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
@@ -310,11 +276,7 @@ PRODUCT_PACKAGES += \
 # Omap reference audio driver
 PRODUCT_PACKAGES += \
 	audio.primary.omap4
-
-# Ducati binary (from TI)
-#DUCATI_TGZ := device/ti/proprietary-open/omap4/ducati_blaze_tablet.tgz
-#PRODUCT_PACKAGES += \
-#	ducati-m3.bin
+	
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
