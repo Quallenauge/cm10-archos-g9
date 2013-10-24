@@ -12,7 +12,9 @@ on init
 #    log "On init in archos_init..."
     write /sys/class/rfkill/rfkill0/state 0
 
-    # Enable watchdog configuration - hardcoded to 4460     
+    export BT_FW_PATH /system/etc/firmware
+
+    # Enable watchdog configuration - hardcoded to 4460
     setprop ro.board.cpu_type OMAP4460
 
     # See storage config details at http://source.android.com/tech/storage/
@@ -27,7 +29,7 @@ on init
     export EMULATED_STORAGE_TARGET /storage/emulated
     export SECONDARY_STORAGE /mnt/storage_sd_card
     export SECOND_VOLUME_STORAGE /mnt/storage_sd_card
-	
+
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
@@ -75,20 +77,19 @@ on early-boot
 # wi-fi
 	mkdir /data/misc/wifi/sockets 0770 wifi wifi
 	mkdir /data/misc/dhcp 0770 dhcp dhcp
- 	insmod /system/lib/modules/compat.ko
+	insmod /system/lib/modules/compat.ko
 	insmod /system/lib/modules/cfg80211.ko
 	insmod /system/lib/modules/mac80211.ko
 	insmod /system/lib/modules/wlcore.ko debug_level=0x63c00
 	insmod /system/lib/modules/wl12xx.ko
 
 # bluetooth
-        insmod /system/lib/modules/compat.ko                              
-        insmod /system/lib/modules/bluetooth/bluetooth.ko                           
-        insmod /system/lib/modules/bluetooth/rfcomm.ko                              
-        insmod /system/lib/modules/bluetooth/hidp.ko                                        
-        insmod /system/lib/modules/bluetooth/hci_uart.ko                                                 
-        insmod /system/lib/modules/bluetooth/bnep.ko                                
-        insmod /system/lib/modules/tty_hci.ko
+	insmod /system/lib/modules/bluetooth.ko
+	insmod /system/lib/modules/rfcomm.ko
+	insmod /system/lib/modules/hidp.ko
+	insmod /system/lib/modules/hci_uart.ko
+	insmod /system/lib/modules/bnep.ko
+	insmod /system/lib/modules/tty_hci.ko
 
 # btwilink is insmodded by uim-sysfs.
 #	insmod /system/lib/modules/bluetooth/btwilink.ko
@@ -164,7 +165,7 @@ on fs
     chmod 0660 /dev/ttyS0
     chown radio radio /dev/ttyS0
 
-    
+
     # change permissions for overlay managers and display devices
     chown system system /sys/devices/platform/omapdss/display0/enabled
     chown system system /sys/devices/platform/omapdss/display1/enabled
@@ -183,7 +184,7 @@ on fs
     chown system system /sys/devices/platform/omapdss/overlay1/zorder
     chown system system /sys/devices/platform/omapdss/overlay2/zorder
     chown system system /sys/devices/platform/omapdss/overlay3/zorder
-    
+
     #change permissions on overlay1, 2 and 3 for hdmi setup
     chown system system /sys/devices/platform/omapdss/overlay1/position
     chown system system /sys/devices/platform/omapdss/overlay1/input_size
@@ -194,7 +195,7 @@ on fs
     chown system system /sys/devices/platform/omapdss/overlay3/position
     chown system system /sys/devices/platform/omapdss/overlay3/input_size
     chown system system /sys/devices/platform/omapdss/overlay3/output_size
-    
+
     # change permissions for manager tranparency parameters
     chown system system /sys/devices/platform/omapdss/manager0/name
     chown system system /sys/devices/platform/omapdss/manager0/display
@@ -235,7 +236,7 @@ on fs
 #setup the hdmi interface
     # Enable hotplug detection for HDMI
     write /sys/devices/platform/omapdss/display1/hpd_enabled 1
-    
+
 
 # Change permissions for FB overlays for HDMI UI Cloning
     chown system system /sys/class/graphics/fb0/overlays
@@ -295,21 +296,21 @@ service thermaldaemon /system/bin/thermaldaemon
 #    oneshot
 
 on property:ro.board.cpu_type=OMAP4460
-    start thermaldaemon    
+    start thermaldaemon
 
 service watchdog_daemon /system/bin/watchdog_daemon
     class core
     user root
     group root
 #    critical
-    
+
 #Load IVA firmware
 #service baseimage /system/bin/syslink_daemon.out -f /lib/firmware/base_image_sys_m3.xem3 /lib/firmware/base_image_app_m3.xem3
 #    class core
 #    critical
 #    user root
 #    group media
-    
+
 service akmd /system/bin/akmd8975 -m 6
     class core
     user compass
@@ -343,7 +344,7 @@ service hciattach /system/bin/hciattach -l
 #    class main
 #    disabled
 #    oneshot
-    
+
 #service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c /system/etc/wifi/wpa_supplicant.conf
 #    class main
 #    socket wpa_wlan0 dgram 660 wifi wifi
@@ -405,7 +406,7 @@ service hostapd_bin /system/bin/hostapd -d /data/misc/wifi/hostapd.conf
 #    class main
 #    disabled
 #    oneshot
-    
+
 #service ifcfg_softap /system/bin/ifconfig tiap0 up
 #    class main
 #    disabled
@@ -435,4 +436,81 @@ service console /bin/sh
 #    group log
 
 on property:ro.secure=0
-    start console    
+    start console
+
+
+on boot
+
+service battery /system/bin/logwrapper /system/bin/batteryd -d
+    class core
+
+service powerd /system/bin/powerd
+    class core
+    user root
+    group system
+    disabled
+
+service dbus /system/bin/dbus-daemon --system --nofork
+    class main
+    socket dbus stream 660 bluetooth bluetooth
+    user bluetooth
+    group bluetooth net_bt_admin
+
+service bluetoothd /system/bin/bluetoothd -n
+    class main
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+    # init.rc does not yet support applying capabilities, so run as root and
+    # let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled
+
+service navl_server /system/bin/start_navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"a
+    user root
+    class main
+    disabled
+    oneshot
+
+service nand /system/bin/nand /data/nand 1000 1015
+    class main
+    oneshot
+
+service create_SysId /system/bin/logwrapper /usr/bin/create_sysid -p /data/media/
+    class core
+    oneshot
+
+# generate nvs with calibration and mac
+service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/wifi/ti-connectivity/wl1271-nvs.bin -w wl127x
+    class core
+    oneshot
+
+on fs
+    # mount partitions
+    mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
+
+on post-fs-data
+
+    #RawFS
+    chown system system /mnt/rawfs/params
+    chown root system /mnt/rawfs
+    chmod 0770 /mnt/rawfs
+
+    # copy hostapd.conf (WLAN HotSpot)
+    copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
+
+#create a directory for all sorts of files that shall
+    # reside in internal nand (thumbnails etc)
+    mkdir /data/nand 0775 system sdcard_rw
+    chown system sdcard_rw /data/nand
+    chmod 775 /data/nand
+
+    mkdir /data/misc/vpn 0770 system vpn
+    mkdir /data/misc/systemkeys 0700 system system
+    # give system access to wpa_supplicant.conf for backup and restore
+    # and make it readable for our users, because we are nice.
+    mkdir /data/misc/wifi 0775 wifi wifi
+    mkdir /data/misc/wifi/ti-connectivity 0775 wifi wifi
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    mkdir /data/misc/vpn/profiles 0770 system vpn
+    mkdir /data/local 0771 shell shell
+
