@@ -290,9 +290,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
 
-PRODUCT_PROPERTY_OVERRIDES += \
-	fw.max_users=8
-
 PRODUCT_CHARACTERISTICS := tablet
 
 # Pick up overlay for features that depend on non-open-source files
