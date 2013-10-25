@@ -40,8 +40,9 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
     $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
     $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
-    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin:/system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
-    $(PREBUILT_PATH)/system/etc/wifi/TQS_S_2.6.ini:/system/etc/wifi/TQS_S_2.6.ini
+    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-nvs.bin:/system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
+    $(PREBUILT_PATH)/system/etc/wifi/TQS_S_2.6.ini:/system/etc/wifi/TQS_S_2.6.ini \
+    $(PREBUILT_PATH)/system/etc/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
 
 # Start Scripts for proprietary programs
 PRODUCT_COPY_FILES += \
