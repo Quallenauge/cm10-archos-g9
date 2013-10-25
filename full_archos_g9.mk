@@ -279,12 +279,19 @@ PRODUCT_PACKAGES += \
 	audio.primary.omap4
 	
 
+# Boost Pulse
+PRODUCT_PACKAGES += \
+	power.archos
+
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
 	hwui.render_dirty_regions=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	fw.max_users=8
 
 PRODUCT_CHARACTERISTICS := tablet
 
