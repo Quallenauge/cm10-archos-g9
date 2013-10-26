@@ -262,6 +262,39 @@ on fs
 #    chown system system /sys/devices/platform/omapdss/display1/s3d_enable
 #    chown system system /sys/devices/platform/omapdss/display1/s3d_type
 
+on fs
+    # mount partitions - RawFS
+    mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs        
+    chown system system /mnt/rawfs/params
+    chown root system /mnt/rawfs
+    chmod 0770 /mnt/rawfs
+    
+    # We chown/chmod /cache again so because mount is run as root + defaults
+    mkdir /data/cache 0771 system cache
+    chown system cache /data/cache
+    chmod 0771 /data/cache
+
+
+on post-fs-data
+    # copy hostapd.conf (WLAN HotSpot)
+    copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
+
+    #create a directory for all sorts of files that shall
+    # reside in internal nand (thumbnails etc)
+    mkdir /data/nand 0775 system sdcard_rw
+    chown system sdcard_rw /data/nand
+    chmod 775 /data/nand
+
+    mkdir /data/misc/vpn 0770 system vpn
+    mkdir /data/misc/systemkeys 0700 system system
+    # give system access to wpa_supplicant.conf for backup and restore
+    # and make it readable for our users, because we are nice.
+    mkdir /data/misc/wifi 0775 wifi wifi
+    mkdir /data/misc/wifi/ti-connectivity 0775 wifi wifi
+    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
+    mkdir /data/misc/vpn/profiles 0770 system vpn
+    mkdir /data/local 0771 shell shell
+
 service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
     user root
@@ -484,33 +517,5 @@ service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/fir
     class core
     oneshot
 
-on fs
-    # mount partitions
-    mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
 
-on post-fs-data
-
-    #RawFS
-    chown system system /mnt/rawfs/params
-    chown root system /mnt/rawfs
-    chmod 0770 /mnt/rawfs
-
-    # copy hostapd.conf (WLAN HotSpot)
-    copy /system/etc/wifi/softap/hostapd.conf /data/misc/wifi/hostapd.conf
-
-#create a directory for all sorts of files that shall
-    # reside in internal nand (thumbnails etc)
-    mkdir /data/nand 0775 system sdcard_rw
-    chown system sdcard_rw /data/nand
-    chmod 775 /data/nand
-
-    mkdir /data/misc/vpn 0770 system vpn
-    mkdir /data/misc/systemkeys 0700 system system
-    # give system access to wpa_supplicant.conf for backup and restore
-    # and make it readable for our users, because we are nice.
-    mkdir /data/misc/wifi 0775 wifi wifi
-    mkdir /data/misc/wifi/ti-connectivity 0775 wifi wifi
-    chmod 0660 /data/misc/wifi/wpa_supplicant.conf
-    mkdir /data/misc/vpn/profiles 0770 system vpn
-    mkdir /data/local 0771 shell shell
 
