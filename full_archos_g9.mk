@@ -26,11 +26,14 @@ endif
 PRODUCT_COPY_FILES := \
 	$(LOCAL_KERNEL):kernel \
 	$(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
+	$(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard \
 	$(PREBUILT_PATH)/root/init.archos_init.rc:root/init.archos_init.rc \
 	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
+	$(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
 	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
 	$(PREBUILT_PATH)/root/init.goldfish.rc:root/init.goldfish.rc \
 	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
+	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa101sboard.rc \
 	$(PREBUILT_PATH)/root/ueventd.goldfish.rc:root/ueventd.goldfish.rc \
 	$(PREBUILT_PATH)/root/ueventd.rc:root/ueventd.rc
 
@@ -185,9 +188,17 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/gps/config/SuplConfig.spl:system/etc/gps/config/SuplConfig.spl \
     $(PREBUILT_PATH)/system/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
+
 PRODUCT_PACKAGES := \
         Superuser \
         su 
+
+
+# ArchosControlCenter Stuff
+PRODUCT_PACKAGES += \
+        deepsleeper \
+        set3GPortState \
+        ArchosControlCenter
 
 # WI-Fi
 PRODUCT_PACKAGES += \

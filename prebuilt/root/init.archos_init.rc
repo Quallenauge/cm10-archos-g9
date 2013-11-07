@@ -518,4 +518,9 @@ service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/fir
     oneshot
 
 
+# enable 3G Port
+service set3GPortState /system/bin/set3GPortState
+    user root
+    oneshot
+    disabled
 
