@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="app_name">ArchosControlWidget</string>
+    <string name="button_text">Switch</string>
+    <string name="deepsleep_text">Deep Sleep:</string>
+    <string name="three_g_port_text">3G Port:</string>
+    <string name="Off">Off</string>
+</resources>

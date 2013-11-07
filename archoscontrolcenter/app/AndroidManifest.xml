@@ -1,0 +1,26 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:sharedUserId="android.uid.system"
+    package="com.quallenauge.widget"
+    android:versionCode="1"
+    android:versionName="1.2" >
+	<uses-permission android:name="android.permission.ADD_SYSTEM_SERVICE" />
+    
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="16" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <receiver android:label="@string/app_name" android:name=".ArchosControlWidget">
+            <intent-filter >
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/archos_control_center_widget_provider"/>
+        </receiver>
+        <service android:name="com.quallenauge.service.ArchosControlService" android:exported="true"></service>
+    </application>
+
+</manifest>
