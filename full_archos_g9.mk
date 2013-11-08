@@ -113,7 +113,6 @@ PRODUCT_COPY_FILES += \
 # xbin
 PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
-        $(PREBUILT_PATH)/system/bin/rild:system/bin/rild \
         $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
         $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
         $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
@@ -178,7 +177,6 @@ PRODUCT_COPY_FILES += \
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
     $(PREBUILT_PATH)/system/etc/gps/cert/client_keystore.bks:system/etc/gps/cert/client_keystore.bks \
     $(PREBUILT_PATH)/system/etc/gps/config/GPSCConfigFile.cfg:system/etc/gps/config/GPSCConfigFile.cfg \
     $(PREBUILT_PATH)/system/etc/gps/config/GpsConfigFile.txt:system/etc/gps/config/GpsConfigFile.txt \
@@ -293,6 +291,12 @@ PRODUCT_PACKAGES += \
 # Boost Pulse
 PRODUCT_PACKAGES += \
 	power.archos
+
+# Rild 
+PRODUCT_PACKAGES += \
+	radiooptions \
+	rild
+
 
 PRODUCT_PROPERTY_OVERRIDES := \
 	wifi.interface=wlan0 \
