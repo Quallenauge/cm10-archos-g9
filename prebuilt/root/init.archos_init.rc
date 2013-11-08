@@ -274,6 +274,8 @@ on fs
     chown system cache /data/cache
     chmod 0771 /data/cache
 
+     mkdir /data/tmp 0777 root root                               
+     symlink /data/tmp /tmp
 
 on post-fs-data
     # copy hostapd.conf (WLAN HotSpot)
