@@ -93,7 +93,7 @@ BOARD_EGL_CFG := $(PREBUILT_PATH)/system/lib/egl/egl.cfg
 USE_OPENGL_RENDERER        := true
 #BOARD_USES_PANDA_GRAPHICS := true
 
-
+BOARD_RIL_NO_CELLINFOLIST  := true
 
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
@@ -136,6 +136,9 @@ TARGET_KRAIT_BIONIC_PLDSIZE := 64
 COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 
 #ENABLE_WEBGL := true
+
+# Enable dalvik startup with a low memory footprint
+TARGET_ARCH_LOWMEM := true
 
 TARGET_USERIMAGES_USE_EXT4         := true
 # Use 384MByte as system image
