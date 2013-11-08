@@ -44,7 +44,10 @@ public class ArchosControlService extends Service {
 		m_3GPortMode = get3GPortMode();
 		Log.v(TAG, "3G Port state <"+get3GPortMode()+">.");
 		
-		if (ArchosControlService.EXTRA_MODE_3G_PORT.equals( intent.getExtras().get(ArchosControlService.EXTRA_MODE))){
+		if (intent.getExtras().get(ArchosControlService.EXTRA_MODE)==null){
+			Log.v(TAG, "Error! Intent type not supported! - Updating widgets.");
+		}
+		else if (ArchosControlService.EXTRA_MODE_3G_PORT.equals( intent.getExtras().get(ArchosControlService.EXTRA_MODE))){
 			if (m_3GPortMode=set3GPortMode(!m_3GPortMode)){
 				Log.v(TAG, "3G-Port switch from <"+!m_3GPortMode+"> to <"+m_3GPortMode+"> requested!");
 			}
