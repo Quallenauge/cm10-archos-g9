@@ -48,18 +48,13 @@ TARGET_KERNEL_CONFIG    := archos_g9_defconfig
 BOARD_KERNEL_BASE      := 0x80000000
 #BOARD_KERNEL_CMDLINE  :=
 
+# External SGX Module
 SGX_MODULES:
-	if [ ! -d $(PRODUCT_OUT)/sgx_src/ ]; then mkdir -p $(PRODUCT_OUT)/sgx_src/; fi
-	tar -xvf $(DEVICE_PATH)/sgx/omap4/sgx_src/eurasia_km.tgz -C $(PRODUCT_OUT)/sgx_src/
-	make -C $(PRODUCT_OUT)/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0 clean
-	make -C $(PRODUCT_OUT)/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
-#	make -C $(PRODUCT_OUT)/sgx_src/eurasia_km/eurasiacon/build/linux2/omap4430_android/ ARCH=arm KERNELDIR=$(KERNEL_OUT) CROSS_COMPILE="arm-eabi-" TARGET_PRODUCT="blaze_tablet" BUILD=debug TARGET_SGX=540 PLATFORM_VERSION=4.0
-	# It seems that the default sgx deployment will overwrite the builded one
-	cp out/target/product/archos_g9/target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
-
-SGX_PREBUILD_MODULES:
-	# Copy prebuild modules from archos
-	cp -v -r device/archos/archos_g9/prebuilt/system/sgx/* $(TARGET_OUT)/
+	make clean -C device/archos/archos_g9/pvr/pvr-source/eurasiacon/build/linux2/omap4430_android
+	cp $(TARGET_KERNEL_SOURCE)/drivers/video/omap2/omapfb/omapfb.h $(KERNEL_OUT)/drivers/video/omap2/omapfb/omapfb.h
+	make -j8 -C device/archos/archos_g9/pvr/pvr-source/eurasiacon/build/linux2/omap4430_android ARCH=arm KERNEL_CROSS_COMPILE=arm-eabi- CROSS_COMPILE=arm-eabi- KERNELDIR=$(KERNEL_OUT) TARGET_PRODUCT="blaze_tablet" BUILD=release TARGET_SGX=540 PLATFORM_VERSION=4.0
+	mv $(KERNEL_OUT)/../../target/kbuild/pvrsrvkm_sgx540_120.ko $(KERNEL_MODULES_OUT)
+	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/pvrsrvkm_sgx540_120.ko
 
 TIWLAN_MODULES:
 	cd hardware/ti/wlan/mac80211/compat_wl12xx && pwd && git reset --hard && git clean -fd
@@ -74,7 +69,7 @@ TIWLAN_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 
-TARGET_KERNEL_MODULES := SGX_MODULES TIWLAN_MODULES
+TARGET_KERNEL_MODULES := TIWLAN_MODULES SGX_MODULES
 
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
@@ -133,7 +128,8 @@ TARGET_KRAIT_BIONIC_BBTHRESH := 64
 TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Audio library - as long microphone doesn't work with upstream drivers
-COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+# COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+# AUDIO_POLICY_TEST := true
 
 #ENABLE_WEBGL := true
 

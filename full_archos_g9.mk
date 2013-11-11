@@ -50,7 +50,8 @@ PRODUCT_COPY_FILES += \
 # Start Scripts for proprietary programs
 PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/root/usr/bin/start_avos:root/usr/bin/start_avos \
-	$(PREBUILT_PATH)/root/usr/sbin/start_audiomixer:root/usr/sbin/start_audiomixer
+	$(PREBUILT_PATH)/root/usr/sbin/start_audiomixer:root/usr/sbin/start_audiomixer \
+	$(PREBUILT_PATH)/system/etc/audio_policy.conf:system/etc/audio_policy.conf
 
 # Files which has to be on system folder
 
@@ -155,9 +156,9 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/lib/hw/sensors.omap4.so:system/lib/hw/sensors.omap4.so
 
 # Archos audio libraries - as long microphone doesn't work with upstream audio libs
-PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
-    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so 
+#PRODUCT_COPY_FILES += \
+#    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
+#    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so 
 
 # GPS libraries 
 PRODUCT_COPY_FILES += \
@@ -168,8 +169,8 @@ PRODUCT_COPY_FILES += \
 	 $(PREBUILT_PATH)/system/lib/libgps.so:system/lib/libgps.so
 
 # archos audio depends on tinyalsa
-PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
+#PRODUCT_COPY_FILES += \
+#    $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
 
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
@@ -285,8 +286,8 @@ PRODUCT_PACKAGES += \
 
 # Omap reference audio driver
 PRODUCT_PACKAGES += \
-	audio.primary.omap4
-	
+	audio.primary.archos \
+	audio_policy.archos
 
 # Boost Pulse
 PRODUCT_PACKAGES += \
@@ -296,6 +297,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	radiooptions \
 	rild
+
 
 
 PRODUCT_PROPERTY_OVERRIDES := \
