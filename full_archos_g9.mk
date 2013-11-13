@@ -159,6 +159,10 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_COPY_FILES += \
 #    $(PREBUILT_PATH)/system/lib/hw/audio.primary.archos.so:system/lib/hw/audio.primary.archos.so \
 #    $(PREBUILT_PATH)/system/lib/hw/audio_policy.archos.so:system/lib/hw/audio_policy.archos.so 
+PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/system/etc/mixer_paths.xml:/system/etc/mixer_paths.xml \
+    $(PREBUILT_PATH)/system/etc/audio_policy.conf:system/etc/audio_policy.conf
+
 
 # GPS libraries 
 PRODUCT_COPY_FILES += \
@@ -286,9 +290,15 @@ PRODUCT_PACKAGES += \
 
 # Omap reference audio driver
 PRODUCT_PACKAGES += \
-	audio.primary.archos \
-	audio_policy.archos
+	audio.hdmi.archos \
+	audio.primary.archos
 
+PRODUCT_PACKAGES += \
+	tinypcm \
+	tinycap \
+	tinyplay \
+	tinymix
+	
 # Boost Pulse
 PRODUCT_PACKAGES += \
 	power.archos
