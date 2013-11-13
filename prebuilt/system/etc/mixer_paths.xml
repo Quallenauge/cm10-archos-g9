@@ -1,0 +1,99 @@
+<mixer>
+	<!-- These are the initial mixer settings -->
+	<!-- general -->
+<ctl name="DL1 Equalizer"	                         value="Flat response"/>
+<ctl name="DL2 Left Equalizer"                       value="Band-pass 450-14500Hz"/>
+<ctl name="DL2 Right Equalizer"                      value="Flat response"/>
+<ctl name="Sidetone Equalizer"                       value="Flat response"/>
+<ctl name="AMIC Equalizer"                           value="High-pass 0dB"/>
+<ctl name="DMIC Equalizer"                           value="High-pass 0dB"/>
+<ctl name="DL1 Media Playback Volume"                value="0"/>
+<ctl name="DL1 Tones Playback Volume"                value="0"/>
+<ctl name="DL1 Voice Playback Volume"                value="120"/>
+<ctl name="DL1 Capture Playback Volume"              value="0"/>
+<ctl name="DL2 Media Playback Volume"                value="107"/>
+<ctl name="DL2 Tones Playback Volume"                value="0"/>
+<ctl name="DL2 Voice Playback Volume"                value="120"/>
+<ctl name="DL2 Capture Playback Volume"              value="0"/>
+<ctl name="VXREC Media Volume"                       value="0"/>
+<ctl name="VXREC Tones Volume"                       value="0"/>
+<ctl name="VXREC Voice DL Volume"                    value="0"/>
+<ctl name="VXREC Voice UL Volume"                    value="0"/>
+<ctl name="AUDUL Media Volume"                       value="0"/>
+<ctl name="AUDUL Tones Volume"                       value="0"/>
+<ctl name="AUDUL Voice UL Volume"                    value="120"/>
+<ctl name="AUDUL Voice DL Volume"                    value="0"/>
+<ctl name="SDT UL Volume"                            value="101"/>
+<ctl name="SDT DL Volume"                            value="120"/>
+<ctl name="DMIC1 UL Volume"                          value="120 120"/>
+<ctl name="DMIC2 UL Volume"                          value="120 120"/>
+<ctl name="DMIC3 UL Volume"                          value="120 120"/>
+<ctl name="AMIC UL Volume"                           value="135 135"/>
+<ctl name="BT UL Volume"                             value="120 120"/>
+<ctl name="DL1 Mono Mixer"                           value="0"/> <!-- value="0" -->  
+<ctl name="DL2 Mono Mixer"                           value="0"/> <!-- value="0" -->  
+<ctl name="AUDUL Mono Mixer"                         value="0"/> <!-- value="0" -->  
+<ctl name="DL1 MM_EXT Switch"                        value="0"/> <!-- value="0" -->  
+<ctl name="DL1 BT_VX Switch"                         value="0"/> <!-- value="0" -->  
+<ctl name="DL1 PDM Switch"                           value="0"/> <!-- value="0" -->  
+<ctl name="Sidetone Mixer Capture"                   value="0"/> <!-- value="0" -->  
+<ctl name="Sidetone Mixer Playback"                  value="1"/> <!-- value="On" -->
+<ctl name="Capture Mixer Tones"                      value="0"/> <!-- value="Off" -->
+<ctl name="Capture Mixer Voice Playback"             value="0"/> <!-- value="Off" -->
+<ctl name="Capture Mixer Voice Capture"              value="0"/> <!-- value="Off" -->
+<ctl name="Capture Mixer Media Playback"             value="0"/> <!-- value="Off" -->
+<ctl name="Voice Capture Mixer Tones Playback"       value="0"/> <!-- value="Off" -->
+<ctl name="Voice Capture Mixer Media Playback"       value="0"/> <!-- value="Off" -->
+<ctl name="Voice Capture Mixer Capture"              value="0"/> <!-- value="Off" -->
+<ctl name="DL2 Mixer Tones"                          value="0"/> <!-- value="Off" -->
+<ctl name="DL2 Mixer Voice"                          value="0"/> <!-- value="Off" -->
+<ctl name="DL2 Mixer Capture"                        value="0"/> <!-- value="Off" -->
+<ctl name="DL2 Mixer Multimedia"                     value="1"/> <!-- value="On" -->
+<ctl name="DL1 Mixer Tones"                          value="0"/> <!-- value="Off" -->
+<ctl name="DL1 Mixer Voice"                          value="0"/> <!-- value="Off" -->
+<ctl name="DL1 Mixer Capture"                        value="0"/> <!-- value="Off" -->
+<ctl name="DL1 Mixer Multimedia"                     value="0"/> <!-- value="Off" -->
+<ctl name="MUX_VX1"                                  value="None"/>
+<ctl name="MUX_VX0"                                  value="None"/>
+<ctl name="MUX_UL11"                                 value="AMic0"/>
+<ctl name="MUX_UL10"                                 value="AMic0"/>
+<ctl name="MUX_UL07"                                 value="None"/>
+<ctl name="MUX_UL06"                                 value="None"/>
+<ctl name="MUX_UL05"                                 value="None"/>
+<ctl name="MUX_UL04"                                 value="None"/>
+<ctl name="MUX_UL03"                                 value="None"/>
+<ctl name="MUX_UL02"                                 value="None"/>
+<ctl name="MUX_UL01"                                 value="None"/>
+<ctl name="MUX_UL00"                                 value="None"/>
+<ctl name="Capture Preamplifier Volume"              value="1 1"/>
+<ctl name="Capture Volume"                           value="4 4"/>
+<ctl name="Aux FM Volume"                            value="3 3"/>
+<ctl name="Headset Playback Volume"                  value="0 0"/>
+<ctl name="Handsfree Playback Volume"                value="29 29"/>
+<ctl name="Earphone Playback Volume"                 value="15"/>
+<ctl name="Headset Power Mode"                       value="High-Performance"/>
+<ctl name="Earphone Playback Switch"                 value="0"/> <!-- value="Off" -->
+<ctl name="Headset Right Playback"                   value="0"/> <!-- value="Off" -->
+<ctl name="Headset Left Playback"                    value="0"/> <!-- value="Off" -->
+<ctl name="Handsfree Right Playback"                 value="HF DAC"/> <!-- value="Off" -->
+<ctl name="Handsfree Left Playback"                  value="HF DAC"/> <!-- value="Off" -->
+<ctl name="Analog Right Capture Route"               value="0"/> <!-- value="Off" -->
+<ctl name="Analog Left Capture Route"                value="Main Mic"/>
+<ctl name="TWL6040 Power Mode"                       value="Low-Power"/>
+
+	<path name="speaker">
+		<!-- codec output controls -->
+	</path>
+
+	<path name="headphone">
+		<!-- codec out controls -->
+	</path>
+
+	<path name="headset">
+		<!-- codec out controls -->
+	</path>
+
+	<path name="builtin-mic">
+	</path>
+	
+</mixer>

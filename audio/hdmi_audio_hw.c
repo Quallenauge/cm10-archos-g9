@@ -62,6 +62,8 @@
 #define HDMI_PERIOD_COUNT 4
 #define HDMI_MAX_CHANNELS 8
 
+#define HDMI_EDID_PATH "/sys/devices/omapdss/display1/edid"
+
 typedef audio_hw_device_t hdmi_device_t;
 
 struct hdmi_device_t {
@@ -204,7 +206,7 @@ char * hdmi_out_get_parameters(const struct audio_stream *stream,
 
     TRACEM("stream=%p keys='%s'", stream, keys);
 
-    if (hdmi_query_audio_caps(&caps)) {
+    if (hdmi_query_audio_caps(HDMI_EDID_PATH, &caps)) {
         ALOGE("Unable to get the HDMI audio capabilities");
         str = calloc(1, 1);
         goto end;
@@ -295,33 +297,12 @@ int hdmi_out_set_volume(struct audio_stream_out *stream, float left, float right
 
 static int hdmi_out_find_card(void)
 {
-    char name[256] = "";
-    int card = 0;
-    int found = 0;
-    int ret;
-
-    do {
-        /* return an error after last valid card */
-#ifdef OMAP_ENHANCEMENT
-        ret = mixer_get_card_name(card, name, sizeof(name));
-#else
-        ret = -ENOTSUP;
-#endif
-        if (ret)
-            break;
-
-        if (strstr(name, "HDMI") || strstr(name, "hdmi")) {
-            TRACEM("HDMI card '%s' found at %d", name, card);
-            found = 1;
-            break;
-        }
-    } while (card++ < MAX_CARD_COUNT);
-
-    /* Use default card number if not found */
-    if (!found)
-        card = 1;
-
-    return card;
+    /* XXX TODO: Dynamically detect HDMI card
+     * If another audio device is present at boot time (e.g.
+     * USB Audio device) then it might take the card #1
+     * position, putting HDMI on card #2.
+     */
+    return 1;
 }
 
 static int hdmi_out_open_pcm(hdmi_out_t *out)
@@ -391,8 +372,7 @@ ssize_t hdmi_out_write(struct audio_stream_out *stream, const void* buffer,
 
     if (!out->up) {
         if(hdmi_out_open_pcm(out)) {
-            ret = -ENOSYS;
-	    goto exit;
+            return -ENOSYS;
         }
     }
 
@@ -402,21 +382,15 @@ ssize_t hdmi_out_write(struct audio_stream_out *stream, const void* buffer,
     } else {
        ret = pcm_write(out->pcm, buffer, bytes);
     }
-exit:
-    if (ret != 0) {
-        ALOGE("Error writing to HDMI pcm: %s",
-              out->pcm ? pcm_get_error(out->pcm) : "failed to open PCM device");
+    if (ret) {
+        ALOGE("Error writing to HDMI pcm: %s", pcm_get_error(out->pcm));
+        ret = (ret < 0) ? ret : -ret;
         hdmi_out_standby((struct audio_stream*)stream);
-	unsigned int usecs = bytes * 1000000 /
-			audio_stream_frame_size((struct audio_stream*)stream) /
-			hdmi_out_get_sample_rate((struct audio_stream*)stream);
-	if (usecs >= 1000000L) {
-	    usecs = 999999L;
-	}
-	usleep(usecs);
+    } else {
+        ret = bytes;
     }
 
-    return bytes;
+    return ret;
 }
 
 
