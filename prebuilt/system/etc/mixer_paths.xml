@@ -7,11 +7,9 @@
 <ctl name="Sidetone Equalizer"                       value="Flat response"/>
 <ctl name="AMIC Equalizer"                           value="High-pass 0dB"/>
 <ctl name="DMIC Equalizer"                           value="High-pass 0dB"/>
-<ctl name="DL1 Media Playback Volume"                value="0"/>
 <ctl name="DL1 Tones Playback Volume"                value="0"/>
 <ctl name="DL1 Voice Playback Volume"                value="120"/>
 <ctl name="DL1 Capture Playback Volume"              value="0"/>
-<ctl name="DL2 Media Playback Volume"                value="107"/>
 <ctl name="DL2 Tones Playback Volume"                value="0"/>
 <ctl name="DL2 Voice Playback Volume"                value="120"/>
 <ctl name="DL2 Capture Playback Volume"              value="0"/>
@@ -35,7 +33,6 @@
 <ctl name="AUDUL Mono Mixer"                         value="0"/> <!-- value="0" -->  
 <ctl name="DL1 MM_EXT Switch"                        value="0"/> <!-- value="0" -->  
 <ctl name="DL1 BT_VX Switch"                         value="0"/> <!-- value="0" -->  
-<ctl name="DL1 PDM Switch"                           value="0"/> <!-- value="0" -->  
 <ctl name="Sidetone Mixer Capture"                   value="0"/> <!-- value="0" -->  
 <ctl name="Sidetone Mixer Playback"                  value="1"/> <!-- value="On" -->
 <ctl name="Capture Mixer Tones"                      value="0"/> <!-- value="Off" -->
@@ -48,11 +45,9 @@
 <ctl name="DL2 Mixer Tones"                          value="0"/> <!-- value="Off" -->
 <ctl name="DL2 Mixer Voice"                          value="0"/> <!-- value="Off" -->
 <ctl name="DL2 Mixer Capture"                        value="0"/> <!-- value="Off" -->
-<ctl name="DL2 Mixer Multimedia"                     value="1"/> <!-- value="On" -->
 <ctl name="DL1 Mixer Tones"                          value="0"/> <!-- value="Off" -->
 <ctl name="DL1 Mixer Voice"                          value="0"/> <!-- value="Off" -->
 <ctl name="DL1 Mixer Capture"                        value="0"/> <!-- value="Off" -->
-<ctl name="DL1 Mixer Multimedia"                     value="0"/> <!-- value="Off" -->
 <ctl name="MUX_VX1"                                  value="None"/>
 <ctl name="MUX_VX0"                                  value="None"/>
 <ctl name="MUX_UL11"                                 value="AMic0"/>
@@ -68,29 +63,56 @@
 <ctl name="Capture Preamplifier Volume"              value="1 1"/>
 <ctl name="Capture Volume"                           value="4 4"/>
 <ctl name="Aux FM Volume"                            value="3 3"/>
-<ctl name="Headset Playback Volume"                  value="0 0"/>
-<ctl name="Handsfree Playback Volume"                value="29 29"/>
 <ctl name="Earphone Playback Volume"                 value="15"/>
 <ctl name="Headset Power Mode"                       value="High-Performance"/>
 <ctl name="Earphone Playback Switch"                 value="0"/> <!-- value="Off" -->
-<ctl name="Headset Right Playback"                   value="0"/> <!-- value="Off" -->
-<ctl name="Headset Left Playback"                    value="0"/> <!-- value="Off" -->
-<ctl name="Handsfree Right Playback"                 value="HF DAC"/> <!-- value="Off" -->
-<ctl name="Handsfree Left Playback"                  value="HF DAC"/> <!-- value="Off" -->
 <ctl name="Analog Right Capture Route"               value="0"/> <!-- value="Off" -->
 <ctl name="Analog Left Capture Route"                value="Main Mic"/>
 <ctl name="TWL6040 Power Mode"                       value="Low-Power"/>
 
 	<path name="speaker">
 		<!-- codec output controls -->
+		<ctl name="DL1 Media Playback Volume"                value="0"/>
+		<ctl name="DL2 Media Playback Volume"                value="107"/>		
+		<ctl name="DL1 PDM Switch"                           value="0"/> <!-- value="Off" -->
+		<ctl name="DL2 Mixer Multimedia"                     value="1"/> <!-- value="On" -->
+		<ctl name="DL1 Mixer Multimedia"                     value="0"/> <!-- value="Off" -->
+		<ctl name="Headset Playback Volume"                  value="0 0"/>
+		<ctl name="Handsfree Playback Volume"                value="29 29"/>		
+		<ctl name="Headset Right Playback"                   value="0"/> <!-- value="Off" -->
+		<ctl name="Headset Left Playback"                    value="0"/> <!-- value="Off" -->
+		<ctl name="Handsfree Right Playback"                 value="HF DAC"/> <!-- value="Off" -->
+		<ctl name="Handsfree Left Playback"                  value="HF DAC"/> <!-- value="Off" -->
 	</path>
 
 	<path name="headphone">
-		<!-- codec out controls -->
+		<!-- codec output controls, same as speaker -->
+		<ctl name="DL1 Media Playback Volume"                value="0"/>
+		<ctl name="DL2 Media Playback Volume"                value="107"/>		
+		<ctl name="DL1 PDM Switch"                           value="0"/> <!-- value="Off" -->
+		<ctl name="DL2 Mixer Multimedia"                     value="1"/> <!-- value="On" -->
+		<ctl name="DL1 Mixer Multimedia"                     value="0"/> <!-- value="Off" -->
+		<ctl name="Headset Playback Volume"                  value="0 0"/>
+		<ctl name="Handsfree Playback Volume"                value="29 29"/>		
+		<ctl name="Headset Right Playback"                   value="0"/> <!-- value="Off" -->
+		<ctl name="Headset Left Playback"                    value="0"/> <!-- value="Off" -->
+		<ctl name="Handsfree Right Playback"                 value="HF DAC"/> <!-- value="Off" -->
+		<ctl name="Handsfree Left Playback"                  value="HF DAC"/> <!-- value="Off" -->
 	</path>
 
 	<path name="headset">
 		<!-- codec out controls -->
+		<ctl name="DL1 Media Playback Volume"                value="102"/>
+		<ctl name="DL2 Media Playback Volume"                value="0"/>
+		<ctl name="DL1 PDM Switch"                           value="1"/> <!-- value="On" -->
+		<ctl name="DL2 Mixer Multimedia"                     value="0"/> <!-- value="Off" -->
+		<ctl name="DL1 Mixer Multimedia"                     value="1"/> <!-- value="On" -->
+		<ctl name="Headset Playback Volume"                  value="14 14"/>
+		<ctl name="Handsfree Playback Volume"                value="0 0"/>
+		<ctl name="Headset Right Playback"                   value="HS DAC"/> <!-- value="On" -->
+		<ctl name="Headset Left Playback"                    value="HS DAC"/> <!-- value="On" -->
+		<ctl name="Handsfree Right Playback"                 value="Off"/> <!-- value="Off" -->
+		<ctl name="Handsfree Left Playback"                  value="Off"/> <!-- value="Off" -->		
 	</path>
 
 	<path name="builtin-mic">
