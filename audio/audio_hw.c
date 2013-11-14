@@ -365,12 +365,12 @@ static int start_output_stream(struct stream_out *out)
     if (adev->active_out) {
         struct stream_out *out = adev->active_out;
         pthread_mutex_lock(&out->lock);
-            ALOGD("Workaround: Close pcm before new opening it(%d, %d, PCM_OUT | PCM_MMAP, %p)\n", card, device, out->pcm_config);
+            // ALOGD("Workaround: Close pcm before new opening it(%d, %d, PCM_OUT | PCM_MMAP, %p)\n", card, device, out->pcm_config);
             do_out_standby(out);
         pthread_mutex_unlock(&out->lock);
     }
 
-
+/*
     ALOGD("pcm_open(%d, %d, PCM_OUT | PCM_MMAP, %p)\n", card, device, out->pcm_config);
     ALOGD("Config: channels <%d> | rate <%d> | period_size <%d> | period_count <%d> | format <%d> | start_threshold <%d> | stop_threshold <%d> | silence_threshold <%d>\n",
 	    out->pcm_config->channels ,
@@ -381,9 +381,9 @@ static int start_output_stream(struct stream_out *out)
 	    out->pcm_config->start_threshold ,
 	    out->pcm_config->stop_threshold ,
 	    out->pcm_config->silence_threshold
-	   );      
+	   );
+*/
     out->pcm = pcm_open(card, device, PCM_OUT | PCM_MMAP, out->pcm_config);
-    ALOGD("pcm_open(out) succeed");
 
     if (out->pcm && !pcm_is_ready(out->pcm)) {
         ALOGE("pcm_open(out) failed: %s", pcm_get_error(out->pcm));
