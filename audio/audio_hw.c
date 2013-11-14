@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-//#define LOG_TAG "audio_hw_primary"
-//#define LOG_NDEBUG 0
+#define LOG_TAG "audio_hw_primary"
+#define LOG_NDEBUG 0
 
 #include <errno.h>
 #include <pthread.h>
@@ -246,9 +246,10 @@ static void select_devices(struct audio_device *adev)
     int in_devices = 0;
 
     reset_mixer_state(adev->ar);
+	ALOGV("adev->out_device: 0x%8x", adev->out_device);
 
     for (i = 0; i < (sizeof(dev_names) / sizeof(dev_names[0])); i++)
-        if (dev_names[i].output_flag) {
+        if (dev_names[i].output_flag) {		
             if (adev->out_device & dev_names[i].mask) {
                 ALOGV("[MATCH] out_devices += %s", dev_names[i].name);
                 audio_route_apply_path(adev->ar, dev_names[i].name);
@@ -1238,6 +1239,7 @@ static uint32_t adev_get_supported_devices(const struct audio_hw_device *dev)
     unsigned int i, j;
 
     for (i = 0; i < adev->ar->num_mixer_paths; i++)
+        ALOGD("%s(%p): Analyze  device mixer_path: %s\n", __FUNCTION__, dev, adev->ar->mixer_path[i].name);
         for (j = 0; j < (sizeof(dev_names) / sizeof(dev_names[0])); j++)
             if (strcmp(adev->ar->mixer_path[i].name, dev_names[j].name) == 0) {
                 supported |= dev_names[j].mask;
