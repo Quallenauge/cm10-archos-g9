@@ -36,11 +36,12 @@ $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 #$(call inherit-product, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
 
 $(call inherit-product, device/archos/archos_g9/pvr/common-vendor-blobs.mk)
-$(call inherit-product, device/archos/archos_g9/pvr/common-vendor-blobs.mk)
 
 $(call inherit-product, device/archos/archos_g9/wpan/ti-wpan-products.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
+
+include $(call first-makefiles-under,$(LOCAL_PATH)/audio)
 
 # About our tablet
 PRODUCT_NAME := cm_archos_g9

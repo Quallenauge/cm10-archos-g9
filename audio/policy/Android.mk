@@ -14,4 +14,12 @@
 
 LOCAL_PATH := $(call my-dir)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+include $(CLEAR_VARS)
+
+ifeq ($(OMAP_MULTIZONE_AUDIO),true)
+# Multizone Audio Policy
+include $(LOCAL_PATH)/multizone/Android.mk
+else
+# Legacy Audio Policy (single output, stock policy)
+include $(LOCAL_PATH)/legacy/Android.mk
+endif
