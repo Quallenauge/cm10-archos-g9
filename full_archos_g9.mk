@@ -288,7 +288,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	ti_omap4_sgx_libs
 
-# Omap reference audio driver
+# Archos audio driver, based on upstream omap drivers (common-open)
 PRODUCT_PACKAGES += \
 	audio.hdmi.archos \
 	audio.primary.archos
