@@ -272,7 +272,7 @@ struct pcm_config pcm_config_tones = {
 struct pcm_config pcm_config_mm_lp = {
     .channels = 2,
     .rate = DEFAULT_OUT_SAMPLING_RATE,
-    .period_size = SHORT_PERIOD_SIZE. // LONG_PERIOD_SIZE is default, but it causes XRUN's on homescreen key sounds
+    .period_size = SHORT_PERIOD_SIZE, // LONG_PERIOD_SIZE is default, but it causes XRUN's on homescreen key sounds
     .period_count = PLAYBACK_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
