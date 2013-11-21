@@ -272,7 +272,7 @@ struct pcm_config pcm_config_tones = {
 struct pcm_config pcm_config_mm_lp = {
     .channels = 2,
     .rate = DEFAULT_OUT_SAMPLING_RATE,
-    .period_size = LONG_PERIOD_SIZE,
+    .period_size = SHORT_PERIOD_SIZE. // LONG_PERIOD_SIZE is default, but it causes XRUN's on homescreen key sounds
     .period_count = PLAYBACK_PERIOD_COUNT,
     .format = PCM_FORMAT_S16_LE,
 };
@@ -2103,7 +2103,8 @@ static int out_set_sample_rate(struct audio_stream *stream, uint32_t rate)
 static size_t out_get_buffer_size(const struct audio_stream *stream)
 {
     struct omap_stream_out *out = (struct omap_stream_out *)stream;
-
+    size_t result_size;
+    
     LOGFUNC("%s(%p)", __FUNCTION__, stream);
 
     /* take resampling into account and return the closest majoring
@@ -2111,7 +2112,9 @@ static size_t out_get_buffer_size(const struct audio_stream *stream)
     be a multiple of 16 frames */
     size_t size = (SHORT_PERIOD_SIZE * DEFAULT_OUT_SAMPLING_RATE) / out->config.rate;
     size = ((size + 15) / 16) * 16;
-    return size * audio_stream_frame_size((struct audio_stream *)stream);
+    result_size = size * audio_stream_frame_size((struct audio_stream *)stream);
+    LOGFUNC("%s(%p): ResultSize=%d", __FUNCTION__, stream, result_size);
+    return result_size;
 }
 
 static audio_channel_mask_t out_get_channels(const struct audio_stream *stream)
