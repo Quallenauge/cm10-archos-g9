@@ -399,7 +399,8 @@ struct route_setting hf_dl2[] = {
     },
     {
         .ctl_name = MIXER_DL2_VOICE_PLAYBACK_VOLUME,
-        .intval = MIXER_ABE_GAIN_0DB,
+        //.intval = MIXER_ABE_GAIN_0DB,
+		.intval = DB_TO_ABE_GAIN(8),
     },
     {
         .ctl_name = MIXER_DL2_TONES_PLAYBACK_VOLUME,
@@ -2147,9 +2148,13 @@ static int do_output_standby(struct omap_stream_out *out)
     LOGFUNC("%s(%p)", __FUNCTION__, out);
 
     if (!out->standby) {
-        pcm_close(out->pcm);
+		/* Originally, the pcm is closed at this point.
+		 * It turns out, that this causes a clicking noise which is played over the outputs.
+		 * As workaround, turn off the outputs and after that (as last action) close the pcm stream and play the click into the empty space.
+		pcm_close(out->pcm);
         out->pcm = NULL;
-
+		*/
+	
         for (i = 0; i < MAX_OUTPUTS; i++) {
             /* find the correct output and deactivate it */
             if(adev->active_output[i] == out) {
@@ -2160,18 +2165,21 @@ static int do_output_standby(struct omap_stream_out *out)
 
         /* if in call, don't turn off the output stage. This will
         be done when the call is ended */
-        if ((adev->mode != AUDIO_MODE_IN_CALL) &&
+	if ((adev->mode != AUDIO_MODE_IN_CALL) &&
               (!adev->activeOutputs)){
             set_route_by_array(adev->mixer, hs_output, 0);
             set_route_by_array(adev->mixer, hf_output, 0);
         }
-
+	
         /* stop writing to echo reference */
         if (out->echo_reference != NULL) {
             out->echo_reference->write(out->echo_reference, NULL);
             out->echo_reference = NULL;
         }
         out->standby = 1;
+	
+		pcm_close(out->pcm);
+        out->pcm = NULL;
     }
 
     return 0;
