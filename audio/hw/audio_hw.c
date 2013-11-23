@@ -400,7 +400,7 @@ struct route_setting hf_dl2[] = {
     {
         .ctl_name = MIXER_DL2_VOICE_PLAYBACK_VOLUME,
         //.intval = MIXER_ABE_GAIN_0DB,
-		.intval = DB_TO_ABE_GAIN(8),
+        .intval = DB_TO_ABE_GAIN(5),
     },
     {
         .ctl_name = MIXER_DL2_TONES_PLAYBACK_VOLUME,
