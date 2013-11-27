@@ -52,6 +52,11 @@
 
 #include "ril_interface.h"
 
+#define AUDIO_DEVICE_OUT_FM_RADIO_TX 0
+#define AUDIO_DEVICE_IN_FM_RADIO_RX 0
+#define AUDIO_PARAMETER_STREAM_FM_ROUTING "fm_routing"
+#define AUDIO_PARAMETER_STREAM_FM_MUTE "fm_mute"
+
 /* Mixer control names */
 #define MIXER_DL1_EQUALIZER                 "DL1 Equalizer"
 #define MIXER_DL2_LEFT_EQUALIZER            "DL2 Left Equalizer"
@@ -400,7 +405,7 @@ struct route_setting hf_dl2[] = {
     {
         .ctl_name = MIXER_DL2_VOICE_PLAYBACK_VOLUME,
         //.intval = MIXER_ABE_GAIN_0DB,
-		.intval = DB_TO_ABE_GAIN(8),
+        .intval = DB_TO_ABE_GAIN(5),
     },
     {
         .ctl_name = MIXER_DL2_TONES_PLAYBACK_VOLUME,
