@@ -317,6 +317,11 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
 
+ PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=131072 \
+    ro.zygote.disable_gl_preload=1 \
+    ro.bq.gpu_to_cpu_unsupported=1
+
 PRODUCT_CHARACTERISTICS := tablet
 
 # Pick up overlay for features that depend on non-open-source files
