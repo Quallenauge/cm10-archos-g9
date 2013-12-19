@@ -39,6 +39,7 @@ $(call inherit-product, device/archos/archos_g9/pvr/common-vendor-blobs.mk)
 
 $(call inherit-product, device/archos/archos_g9/wpan/ti-wpan-products.mk)
 $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
+$(call inherit-product, vendor/cm/config/telephony.mk)
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
 
 include $(call first-makefiles-under,$(LOCAL_PATH)/audio)
