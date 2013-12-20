@@ -207,10 +207,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 ADDITIONAL_DEFAULT_PROPERTIES += ro.allow.mock.location=1
 ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 
-
-# The SGS series is hdpi however with new development going toward xhdpi we need to inherit xhdpi or we will lose those pngs
-PRODUCT_AAPT_CONFIG := large mdpi hdpi xhdpi nodpi
-PRODUCT_AAPT_PREF_CONFIG := mdpi
+# AAPT config
+#PRODUCT_AAPT_CONFIG := normal large hdpi xhdpi xxhdpi nodpi
+PRODUCT_AAPT_CONFIG := normal large hdpi tvdpi nodpi
+PRODUCT_AAPT_PREF_CONFIG := tvdpi
 
 # Misc.
 BOARD_NEEDS_CUTILS_LOG := true
