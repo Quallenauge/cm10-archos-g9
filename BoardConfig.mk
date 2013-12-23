@@ -34,6 +34,21 @@ TARGET_CPU_SMP             := true
 TARGET_ARCH_VARIANT        := armv7-a-neon
 TARGET_CPU_VARIANT	   := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
+#Set 32 byte cache line to true (taken from blaze config)
+ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
+
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+
+# CodeAurora Optimizations: msm8960: Improve performance of memmove, bcopy, and memmove_words
+# added by twa_priv
+TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
+TARGET_USE_KRAIT_PLD_SET := true
+TARGET_KRAIT_BIONIC_PLDOFFS := 10
+TARGET_KRAIT_BIONIC_PLDTHRESH := 10
+TARGET_KRAIT_BIONIC_BBTHRESH := 64
+TARGET_KRAIT_BIONIC_PLDSIZE := 64
+
 
 # Needed for blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
@@ -123,23 +138,6 @@ BOARD_USE_TI_ENHANCED_DOMX := true
 ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
 endif
-
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
-TARGET_ARCH_VARIANT := armv7-a-neon
-ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-
-# CodeAurora Optimizations: msm8960: Improve performance of memmove, bcopy, and memmove_words
-# added by twa_priv
-TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
-TARGET_USE_KRAIT_PLD_SET := true
-TARGET_KRAIT_BIONIC_PLDOFFS := 10
-TARGET_KRAIT_BIONIC_PLDTHRESH := 10
-TARGET_KRAIT_BIONIC_BBTHRESH := 64
-TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Audio library - as long microphone doesn't work with upstream drivers
 # COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
