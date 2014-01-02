@@ -18,6 +18,6 @@
 /dev/block/mmcblk0p2						/mnt/system 	ext4	noatime,nosuid,noexec	wait
 /dev/block/mmcblk0p4						/data		ext4	noatime,nosuid		wait,check,encryptable=footer
 
-/devices/platform/omap/usbhs_omap/ehci-omap.0/usb1/1-1/1-1.1/1-1.1:1.0/	/storage/sdcard1 auto 	defaults	voldmanaged=sdcard1:auto
-/devices/platform/omap/musb-omap2430/musb-hdrc/usb2/2-1/2-1:1.0 		/storage/usbdisk0 auto 	defaults	voldmanaged=usbdisk0:auto
+/devices/platform/omap/usbhs_omap/ehci-omap.0/usb1/1-1/1-1.1/1-1.1:1.0/	auto auto 	defaults	voldmanaged=sdcard1:auto
+/devices/platform/omap/musb-omap2430/musb-hdrc/usb2/2-1/2-1:1.0 	auto auto 	defaults	voldmanaged=usbdisk:auto
 

@@ -1,18 +1,12 @@
-#Import Archos A80S board init file
-#import init.A80S.rc
+# Common Archos G9 board init file
 
 import init.dongle.rc
 
-#on early-init
-#    export EXTERNAL_STORAGE /mnt/storage
-#    export SECONDARY_STORAGE /mnt/sdcard
-#    export EXTERNAL_UDISK_STORAGE /mnt/ext_storage
-
 on init
-#    log "On init in archos_init..."
+    # log "On init in archos_init..."
     write /sys/class/rfkill/rfkill0/state 0
 
-	# change permissions for rfkill
+    # change permissions for rfkill
     chmod 0777 /dev/rfkill
 
     export BT_FW_PATH /system/etc/firmware
@@ -25,13 +19,14 @@ on init
     mkdir /storage/emulated 0555 root root
 
     mkdir /storage/sdcard1 0775 system system
-    mkdir /storage/usbdisk0 0775 system system
+    mkdir /storage/usbdisk 0775 system system
+    mkdir /mnt/media_rw/sdcard1 0775 media_rw media_rw
+    mkdir /mnt/media_rw/usbdisk 0775 media_rw media_rw
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE /mnt/storage_sd_card
-    export SECOND_VOLUME_STORAGE /mnt/storage_sd_card
+    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
 
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
@@ -59,18 +54,18 @@ on init
 
 on post-fs-data
 	mkdir /data/smc 0770 drmrpc drmrpc
-#    setprop vold.post_fs_data_done 1
+	# we will remap this as /storage/sdcard0 with the sdcard fuse tool
 	mkdir /data/media 0770 media_rw media_rw
+
+# dmrpc
+    mkdir /data/smc 0770 drmrpc drmrpc
+    chown drmrpc drmrpc /data/smc/counter.bin
+    chown drmrpc drmrpc /data/smc/storage.bin
+    chown drmrpc drmrpc /data/smc/system.bin	
 
 on early-boot
 #	chmod 0666 /dev/pvrsrvkm
 #	setprop ro.crypto.keyfile.userdata /dev/block/platform/omap/omap_hsmmc.1/by-name/crypto
-
-
-# cpufreq interactive governor: timer 20ms, min sample 20ms, hispeed 700MHz
-#	write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
-#	write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 20000
-#	write /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq 700000
 
 
 # autosuspend root hubs immediatly after attached devices
@@ -263,11 +258,6 @@ on fs
     chmod 0444 /system/usr/keychars/omap-keypad.kcm.bin
     chmod 0444 /system/usr/keychars/qwerty.kcm.bin
 
-# change permissions for S3D hardware
-#    chown system system /sys/devices/platform/omapdss/display0/s3d_enable
-#    chown system system /sys/devices/platform/omapdss/display1/s3d_enable
-#    chown system system /sys/devices/platform/omapdss/display1/s3d_type
-
 on fs
     # mount partitions - RawFS
     mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs        
@@ -303,15 +293,26 @@ on post-fs-data
     mkdir /data/misc/vpn/profiles 0770 system vpn
     mkdir /data/local 0771 shell shell
 
+    # SGX driver
+    chmod 0666 /dev/pvrsrvkm
+
+on property:ro.secure=0
+  start console
+
+on property:wlan.driver.status=ok
+    chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
+
+on property:ro.board.cpu_type=OMAP4460
+    start thermaldaemon
+
+on boot
+
 service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
     user root
     group root
 
-# SGX driver
-    chmod 0666 /dev/pvrsrvkm
 # Initialize the SGX driver
-#service pvrsrvinit /system/bin/pvrsrvinit
 service pvrsrvinit /system/vendor/bin/pvrsrvinit
     class core
     user root
@@ -335,9 +336,6 @@ service thermaldaemon /system/bin/thermaldaemon
 #    user root
 #    group root
 #    oneshot
-
-on property:ro.board.cpu_type=OMAP4460
-    start thermaldaemon
 
 service watchdog_daemon /system/bin/watchdog_daemon
     class core
@@ -394,7 +392,7 @@ service hciattach /system/bin/hciattach -l
 
  # wifi services
  service p2p_supplicant /system/bin/wpa_supplicant -e/data/misc/wifi/entropy.bin \
-    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -N \    
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -N \
     -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
     -g@android:wpa_wlan0
      class main
@@ -449,28 +447,6 @@ service hostapd_bin /system/bin/hostapd -d /data/misc/wifi/hostapd.conf
     disabled
     oneshot
 
-# HotSpot Related services
-#service wlan_ap_loader /system/bin/tiap_loader \
-#    -f /system/etc/wifi/softap/firmware_ap.bin \
-#    -i /system/etc/wifi/softap/tiwlan_ap.ini \
-#    -e /data/misc/wifi/wlanconf.nvs
-#    class main
-#    disabled
-#    oneshot
-
-#service ifcfg_softap /system/bin/ifconfig tiap0 up
-#    class main
-#    disabled
-#    oneshot
-
-on property:wlan.driver.status=ok
-    chown wifi wifi /sys/devices/platform/wl1271/bt_coex_state
-
-# GPS services
-#service navl_server /system/xbin/strace -tt -o/data/navd.strace /system/bin/navd --android_log NAVD  -p3 -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"
-#    user root
-#    oneshot
-
 service cplc_main /system/bin/cplc_main XML
        disabled
        oneshot
@@ -486,11 +462,21 @@ service console /bin/sh
 #    user shell
 #    group log
 
-on property:ro.secure=0
-    start console
+# create virtual SD card at /storage/sdcard0, based on the /data/media directory
+# daemon will drop to user/group system/media_rw after initializing
+# underlying files in /data/media will be created with user and group media_rw (1023)
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+    class late_start
+    oneshot
 
+# FUSE sdcard daemon for rich permissions (runs as media_rw)
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+    class late_start
+    disabled
 
-on boot
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
+    class late_start
+    disabled
 
 service battery /system/bin/logwrapper /system/bin/batteryd -d
     class core
@@ -516,6 +502,7 @@ service bluetoothd /system/bin/bluetoothd -n
     group bluetooth net_bt_admin misc
     disabled
 
+# GPS services
 service navl_server /system/bin/start_navd -android_log NAVD -nav\"-c/system/etc/gps/config/pathconfigfile.txt\"a
     user root
     class main
@@ -534,7 +521,6 @@ service create_SysId /system/bin/logwrapper /usr/bin/create_sysid -p /data/media
 service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/wifi/ti-connectivity/wl1271-nvs.bin -w wl127x
     class core
     oneshot
-
 
 # enable 3G Port
 service set3GPortState /system/bin/set3GPortState
