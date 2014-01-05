@@ -188,6 +188,7 @@ PRODUCT_COPY_FILES += \
 
 # Misc Stuff
 PRODUCT_COPY_FILES += \
+    $(PREBUILT_PATH)/system/etc/gps.conf:system/etc/gps.conf \
     $(PREBUILT_PATH)/system/etc/gps/cert/client_keystore.bks:system/etc/gps/cert/client_keystore.bks \
     $(PREBUILT_PATH)/system/etc/gps/config/GPSCConfigFile.cfg:system/etc/gps/config/GPSCConfigFile.cfg \
     $(PREBUILT_PATH)/system/etc/gps/config/GpsConfigFile.txt:system/etc/gps/config/GpsConfigFile.txt \
