@@ -90,6 +90,7 @@ TIWLAN_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 
 TARGET_KERNEL_MODULES := TIWLAN_MODULES SGX_MODULES
+TARGET_KERNEL_SELINUX_CONFIG := archos_selinux_defconfig
 
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
@@ -225,3 +226,22 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recov
 include device/ti/common-open/BoardConfig.mk
 
 
+BOARD_SEPOLICY_DIRS += \
+    device/amazon/omap4-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    bluetooth.te \
+    debuggered.te \
+    file_contexts \
+    device.te \
+    dhcp.te \
+    domain.te \
+    file.te \
+    init_shell.te \
+    mediaserver.te \
+    netd.te \
+    pvrsrvinit.te \
+    rild.te \
+    system.te \
+    tee.te \
+    vold.te
