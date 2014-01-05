@@ -306,7 +306,10 @@ on property:ro.board.cpu_type=OMAP4460
     start thermaldaemon
 
 on boot
-
+    # activate zram
+    swapon_all fstab.${ro.hardware}
+    write /proc/sys/vm/page-cluster
+	
 service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
     user root

@@ -20,4 +20,5 @@
 
 /devices/platform/omap/omap_hsmmc.0 				auto auto 	defaults	voldmanaged=sdcard1:auto
 /devices/platform/omap/musb-omap2430/musb-hdrc/usb2/2-1/2-1:1.0 auto auto 	defaults	voldmanaged=usbdisk:auto
+/dev/block/zram0						none swap	defaults	zramsize=134217728
 
