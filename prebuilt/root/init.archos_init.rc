@@ -16,18 +16,19 @@ on init
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage 0751 root sdcard_r
     mkdir /storage/emulated 0555 root root
-
-    mkdir /storage/sdcard1 0775 system system
-    mkdir /storage/usbdisk 0775 system system
-    mkdir /mnt/media_rw/sdcard1 0775 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk 0775 media_rw media_rw
-
+    mkdir /storage/sdcard1 0700 root root
+    mkdir /storage/usbdisk 0700 root root
+    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
+    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
+    
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
-
+#    export SECONDARY_STORAGE /storage/sdcard1:/storage/usbdisk
+    export SECONDARY_STORAGE /storage/sdcard1
+       
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
@@ -258,7 +259,6 @@ on fs
     chmod 0444 /system/usr/keychars/omap-keypad.kcm.bin
     chmod 0444 /system/usr/keychars/qwerty.kcm.bin
 
-on fs
     # mount partitions - RawFS
     mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs        
     chown system system /mnt/rawfs/params
@@ -272,6 +272,8 @@ on fs
 
      mkdir /data/tmp 0777 root root                               
      symlink /data/tmp /tmp
+     
+     setprop ro.crypto.fuse_sdcard true
 
 on post-fs-data
     # copy hostapd.conf (WLAN HotSpot)
@@ -309,7 +311,12 @@ on boot
     # activate zram
     swapon_all fstab.${ro.hardware}
     write /proc/sys/vm/page-cluster
-	
+    
+   # enable KSM (Kernel samepage mapping)
+   write /sys/kernel/mm/ksm/pages_to_scan 100
+   write /sys/kernel/mm/ksm/sleep_millisecs 500
+   write /sys/kernel/mm/ksm/run 1
+
 service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
     user root
@@ -470,14 +477,13 @@ service console /bin/sh
 # underlying files in /data/media will be created with user and group media_rw (1023)
 service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
-    oneshot
 
 # FUSE sdcard daemon for rich permissions (runs as media_rw)
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
 
-service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
     class late_start
     disabled
 
