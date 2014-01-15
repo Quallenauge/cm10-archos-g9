@@ -125,8 +125,6 @@ PRODUCT_COPY_FILES += \
         $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
         $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so                       
 
-#$(PREBUILT_PATH)/system/bin/sdcard:system/bin/sdcard \
-
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(PREBUILT_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
@@ -178,10 +176,6 @@ PRODUCT_COPY_FILES += \
 	 $(PREBUILT_PATH)/system/lib/libsuplhelperservicejni.so:system/lib/libsuplhelperservicejni.so \
 	 $(PREBUILT_PATH)/system/lib/libgps.so:system/lib/libgps.so
 
-# archos audio depends on tinyalsa
-#PRODUCT_COPY_FILES += \
-#    $(PREBUILT_PATH)/system/lib/libtinyalsa.so:system/lib/libtinyalsa.so
-
 # OMX Libraries for 512MB RAM Ducati binary
 PRODUCT_COPY_FILES += \
      $(PREBUILT_PATH)/system/etc/firmware/ducati-m3.bin:system/etc/firmware/ducati-m3.bin
@@ -205,7 +199,6 @@ PRODUCT_PACKAGES := \
 
 PRODUCT_PACKAGES := \
         Trebuchet
-
 
 # ArchosControlCenter Stuff
 PRODUCT_PACKAGES += \
@@ -238,8 +231,6 @@ PRODUCT_PACKAGES += \
         libedid \
         omx_tests \
         libaudioutils
-#        hwcomposer.default 
-#        audio_policy.default #
 
 PRODUCT_PACKAGES += \
         LiveWallpapers \
@@ -283,7 +274,7 @@ PRODUCT_PACKAGES += \
 # Filesystem management tools
 PRODUCT_PACKAGES += \
 	make_ext4fs \
-	setup_fs \
+	setup_fs
 
 # BlueZ test tools
 PRODUCT_PACKAGES += \
@@ -318,18 +309,21 @@ PRODUCT_PACKAGES += \
 	radiooptions \
 	rild
 
-
-
 PRODUCT_PROPERTY_OVERRIDES := \
-	wifi.interface=wlan0 \
 	hwui.render_dirty_regions=false
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.sf.lcd_density=160
 
- PRODUCT_PROPERTY_OVERRIDES += \
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=120 \
     ro.opengles.version=131072 \
-    ro.zygote.disable_gl_preload=1 \
+    com.ti.omap_enhancement=true \
+    omap.enhancement=true \
+    ro.crypto.state=unencrypted \
+    persist.sys.usb.config=mtp,adb \
+    persist.sys.root_access=3 \
     ro.bq.gpu_to_cpu_unsupported=1
 
 PRODUCT_CHARACTERISTICS := tablet

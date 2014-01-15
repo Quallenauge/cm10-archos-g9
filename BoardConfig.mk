@@ -134,10 +134,6 @@ ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
 endif
 
-# Audio library - not needed anymore
-# COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
-# AUDIO_POLICY_TEST := true
-
 #ENABLE_WEBGL := true
 
 # Enable dalvik startup with a low memory footprint
@@ -213,8 +209,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 
 # AAPT config
 #PRODUCT_AAPT_CONFIG := normal large hdpi xhdpi xxhdpi nodpi
-PRODUCT_AAPT_CONFIG := normal large hdpi tvdpi nodpi
-PRODUCT_AAPT_PREF_CONFIG := tvdpi
+PRODUCT_AAPT_CONFIG := normal mdpi hdpi nodpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # Misc.
 BOARD_NEEDS_CUTILS_LOG := true
