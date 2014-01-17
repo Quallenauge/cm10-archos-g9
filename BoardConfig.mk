@@ -27,13 +27,18 @@ DEVICE_PATH := $(LOCAL_PATH)
 # Use the non-open-source parts, if they're present
 -include $(VENDOR_PATH)/BoardConfigVendor.mk
 
-TARGET_ARCH		   := arm
-TARGET_CPU_ABI             := armeabi-v7a
-TARGET_CPU_ABI2            := armeabi
-TARGET_CPU_SMP             := true
-TARGET_ARCH_VARIANT        := armv7-a-neon
-TARGET_CPU_VARIANT	   := cortex-a9
+TARGET_ARCH    := arm
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_VARIANT         := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
+#Set 32 byte cache line to true (taken from blaze config)
+ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
+
+TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_TI := true
@@ -109,14 +114,6 @@ BOARD_USE_TI_ENHANCED_DOMX := true
 ifdef OMAP_ENHANCEMENT_MULTIGPU
     COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT_MULTIGPU
 endif
-
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-TARGET_CPU_SMP := true
-TARGET_ARCH_VARIANT := armv7-a-neon
-ARCH_ARM_HAVE_TLS_REGISTER := true
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
 # CodeAurora Optimizations: msm8960: Improve performance of memmove, bcopy, and memmove_words
 # added by twa_priv
