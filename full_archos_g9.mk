@@ -198,7 +198,8 @@ PRODUCT_PACKAGES := \
         su 
 
 PRODUCT_PACKAGES := \
-        Trebuchet
+        Trebuchet \
+        Launcher3
 
 # ArchosControlCenter Stuff
 PRODUCT_PACKAGES += \
