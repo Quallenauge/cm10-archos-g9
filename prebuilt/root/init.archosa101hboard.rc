@@ -82,7 +82,7 @@ on fs
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
 #    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
 #    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
-     mount_all /fstab.archosa80sboard
+     mount_all /fstab.archosa101hboard
 
 service omx_pm /system/bin/OMXPolicyManager
     oneshot
