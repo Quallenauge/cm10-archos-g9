@@ -301,6 +301,11 @@ on post-fs-data
 
     # SGX driver
     chmod 0666 /dev/pvrsrvkm
+    
+    # By default, the Linux kernel swaps in 8 pages of memory at a time. When using ZRAM, the incremental cost
+    # of reading 1 page at a time is negligible and may help in case the device is under extreme memory pressure.
+    # To read only 1 page at a time, add the following to your init.rc:
+    write /proc/sys/vm/page-cluster 0
 
 on property:ro.secure=0
   start console

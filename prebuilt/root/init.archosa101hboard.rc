@@ -80,9 +80,8 @@ on early-boot
 on fs                                                              
 # mount partitions                                                       
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
-#    mount ext4 /dev/block/mmcblk0p2 /mnt/system noatime nosuid noexec
-#    mount ext4 /dev/block/mmcblk0p4 /data noatime nosuid
-     mount_all /fstab.archosa80sboard
+     mount_all  /fstab.archosa101hboard
+     swapon_all /fstab.archosa101hboard
 
 service omx_pm /system/bin/OMXPolicyManager
     oneshot

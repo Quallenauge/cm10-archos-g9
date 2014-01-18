@@ -73,7 +73,8 @@ on early-boot
 on fs                                                              
 # mount partitions                                                       
      mount rawfs /dev/block/mmcblk0p1 /mnt/rawfs
-     mount_all /fstab.archosa80sboard
+     mount_all  /fstab.archosa80sboard
+     swapon_all /fstab.archosa80sboard
 
 service omx_pm /system/bin/OMXPolicyManager
     oneshot
