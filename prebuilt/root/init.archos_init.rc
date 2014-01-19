@@ -536,7 +536,7 @@ service create_SysId /system/bin/logwrapper /usr/bin/create_sysid -p /data/media
     oneshot
 
 # generate nvs with calibration and mac
-service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/firmware/ti-connectivity/wl1271-nvs.bin -w wl127x
+service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin -e /data/misc/firmware/ti-connectivity/wl1271-nvs.bin -w wl127x
     class core
     oneshot
 
