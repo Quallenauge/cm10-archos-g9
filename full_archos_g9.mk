@@ -46,11 +46,6 @@ PRODUCT_COPY_FILES := \
 
 # Prebuilts /system/etc
 PRODUCT_COPY_FILES += \
-    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-mr.bin \
-    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-plt.bin \
-    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin:/system/etc/firmware/ti-connectivity/wl127x-fw-4-sr.bin \
-    $(PREBUILT_PATH)/system/etc/firmware/ti-connectivity/wl1271-nvs.bin:/system/etc/firmware/ti-connectivity/wl1271-nvs.bin \
-    $(PREBUILT_PATH)/system/etc/wifi/TQS_S_2.6.ini:/system/etc/wifi/TQS_S_2.6.ini \
     $(PREBUILT_PATH)/system/etc/firmware/TIInit_7.2.31.bts:/system/etc/firmware/TIInit_7.2.31.bts
 
 # Start Scripts for proprietary programs
@@ -142,6 +137,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
  
 # All non-essential proprietary files for Archos G9 but are still kinda important
 PRODUCT_COPY_FILES += \
@@ -214,10 +210,15 @@ PRODUCT_PACKAGES += \
         wifical.sh \
         TQS_D_1.7.ini \
         TQS_D_1.7_127x.ini \
-        crda \
-        regulatory.bin \
-        calibrator \
-        lib_driver_cmd_wl12xx
+	calibrator \
+	crda \
+	regulatory.bin \
+	lib_driver_cmd_wl12xx \
+	127x_TQS_S_2.6.ini \
+	wl1271-nvs_127x.bin \
+	wl127x-fw-4-mr.bin \
+	wl127x-fw-4-plt.bin \
+	wl127x-fw-4-sr.bin
 
 PRODUCT_PACKAGES += \
         wlan_loader \
