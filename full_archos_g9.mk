@@ -241,37 +241,10 @@ PRODUCT_PACKAGES += \
         librs_jni \
 	com.android.future.usb.accessory
 
-## It all gets a bit experiemental here. See if we can enable voice and Sms/Mms
-PRODUCT_PACKAGES += \
-        Apollo \
-        BasicSmsReceiver \
-        Camera \
-        CMWallpapers \
-        CellBroadcastReceiver \
-        Music \
-        MusicFx \
-        DeskClock \
-        Development \
-        Galaxy4 \
-        Gallery2 \
-        HoloSpiralWallpaper \
-        Term \
-        ThemeChooser \
-        ThemeManager \
-        Trebuchet \
-        SpareParts \
-        Phone \
-        Mms
-        
-
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	libaudioutils \
 	libnetcmdiface
-
-PRODUCT_PACKAGES += \
-	dhcpcd.conf \
-	calibrator
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
