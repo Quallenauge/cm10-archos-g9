@@ -193,7 +193,7 @@ PRODUCT_PACKAGES := \
         Superuser \
         su 
 
-PRODUCT_PACKAGES := \
+PRODUCT_PACKAGES += \
         Trebuchet \
         Launcher3
 
