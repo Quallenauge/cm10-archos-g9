@@ -170,7 +170,9 @@ on fs
     # change permissions for modem
     chmod 0660 /dev/ttyS0
     chown radio radio /dev/ttyS0
-
+    
+    #for Bluetooth HID
+    chmod 0666 /dev/uhid
 
     # change permissions for overlay managers and display devices
     chown system system /sys/devices/platform/omapdss/display0/enabled
