@@ -69,6 +69,9 @@ on early-init
         mkdir /mnt/rawfs  0775 root root   
         mkdir /mnt/system 0775 root system
 
+        # activating fuel_gauge mode, don't use archos implementation for now
+        #write /sys/devices/platform/omap/omap_i2c.1/i2c-1/1-0049/twl6030_bci/prefer_fuel_gauge 1
+
 on early-boot
 #	chmod 0666 /dev/pvrsrvkm
 #	setprop ro.crypto.keyfile.userdata /dev/block/platform/omap/omap_hsmmc.1/by-name/crypto
@@ -86,8 +89,9 @@ on early-boot
 	insmod /system/lib/modules/compat.ko
 	insmod /system/lib/modules/cfg80211.ko
 	insmod /system/lib/modules/mac80211.ko
-	insmod /system/lib/modules/wlcore.ko debug_level=0x63c00
+	insmod /system/lib/modules/wlcore.ko 
 	insmod /system/lib/modules/wl12xx.ko
+	#insmod /system/lib/modules/wlcore_sdio.ko
 
 # bluetooth
 	insmod /system/lib/modules/bluetooth.ko
@@ -538,7 +542,7 @@ service create_SysId /system/bin/logwrapper /usr/bin/create_sysid -p /data/media
     oneshot
 
 # generate nvs with calibration and mac
-service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/firmware/ti-connectivity/wl1271-nvs_127x.bin -e /data/misc/firmware/ti-connectivity/wl1271-nvs.bin -w wl127x
+service create_nvs /system/bin/logwrapper /usr/bin/create_nvs -t /system/etc/firmware/ti-connectivity/wl1271-nvs.bin -e /data/misc/firmware/ti-connectivity/wl1271-nvs.bin -w wl127x
     class core
     oneshot
 

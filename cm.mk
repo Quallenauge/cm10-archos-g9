@@ -42,6 +42,9 @@ $(call inherit-product, vendor/cm/config/common_full_tablet_wifionly.mk)
 $(call inherit-product, vendor/cm/config/telephony.mk)
 $(call inherit-product, hardware/ti/omap4xxx/omap4.mk)
 
+# Include firmware
+$(call inherit-product, hardware/ti/wlan/mac80211/wl127x-wlan-products.mk)
+
 include $(call first-makefiles-under,$(LOCAL_PATH)/audio)
 
 # About our tablet
