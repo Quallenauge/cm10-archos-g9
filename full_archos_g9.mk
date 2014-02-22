@@ -215,10 +215,10 @@ PRODUCT_PACKAGES += \
 	regulatory.bin \
 	lib_driver_cmd_wl12xx \
 	127x_TQS_S_2.6.ini \
-	wl1271-nvs.bin \
-	wl127x-fw-5-mr.bin \
-	wl127x-fw-5-plt.bin \
-	wl127x-fw-5-sr.bin
+	wl1271-nvs_127x.bin \
+	wl127x-fw-4-mr.bin \
+	wl127x-fw-4-plt.bin \
+	wl127x-fw-4-sr.bin
 
 PRODUCT_PACKAGES += \
         wlan_loader \
