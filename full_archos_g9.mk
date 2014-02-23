@@ -189,6 +189,10 @@ PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/gps/patch/patch-X.0.ce:system/etc/gps/patch/patch-X.0.ce
 
 
+# WI-Fi Stuff
+PRODUCT_COPY_FILES += \
+      $(PREBUILT_PATH)/system/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+
 PRODUCT_PACKAGES := \
         Superuser \
         su 
