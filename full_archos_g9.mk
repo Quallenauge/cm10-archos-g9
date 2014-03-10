@@ -27,8 +27,8 @@ PRODUCT_COPY_FILES := \
 	$(LOCAL_KERNEL):kernel \
 	$(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80sboard \
 	$(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101sboard \
-	$(PREBUILT_PATH)/root/fstab.archosa80sboard:root/fstab.archosa80hboard \
-	$(PREBUILT_PATH)/root/fstab.archosa101sboard:root/fstab.archosa101hboard \
+	$(PREBUILT_PATH)/root/fstab.archosa80hboard:root/fstab.archosa80hboard \
+	$(PREBUILT_PATH)/root/fstab.archosa101hboard:root/fstab.archosa101hboard \
 	$(PREBUILT_PATH)/root/init.archos_init.rc:root/init.archos_init.rc \
 	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
 	$(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
