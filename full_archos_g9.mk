@@ -32,8 +32,8 @@ PRODUCT_COPY_FILES := \
 	$(PREBUILT_PATH)/root/init.archos_init.rc:root/init.archos_init.rc \
 	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80sboard.rc \
 	$(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101sboard.rc \
-	$(PREBUILT_PATH)/root/init.archosa80sboard.rc:root/init.archosa80hboard.rc \
-	$(PREBUILT_PATH)/root/init.archosa101sboard.rc:root/init.archosa101hboard.rc \
+	$(PREBUILT_PATH)/root/init.archosa80hboard.rc:root/init.archosa80hboard.rc \
+	$(PREBUILT_PATH)/root/init.archosa101hboard.rc:root/init.archosa101hboard.rc \
 	$(PREBUILT_PATH)/root/init.dongle.rc:root/init.dongle.rc \
 	$(PREBUILT_PATH)/root/init.goldfish.rc:root/init.goldfish.rc \
 	$(PREBUILT_PATH)/root/ueventd.archos.rc:root/ueventd.archosa80sboard.rc \
