@@ -323,6 +323,9 @@ on boot
     swapon_all fstab.${ro.hardware}
     write /proc/sys/vm/page-cluster
     
+    # zRAM read only 1 page at a time	25
+    write /proc/sys/vm/page-cluster 0
+    
    # enable KSM (Kernel samepage mapping)
    write /sys/kernel/mm/ksm/pages_to_scan 100
    write /sys/kernel/mm/ksm/sleep_millisecs 500
