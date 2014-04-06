@@ -31,7 +31,9 @@
 
 #define MAX_FREQ_NUMBER 10
 #define NOM_FREQ_INDEX 2
+#define KSM_CTRL "/sys/kernel/mm/ksm/run"
 
+static int enable_ksm = 1;
 static int freq_num;
 static char *freq_list[MAX_FREQ_NUMBER];
 static char *max_freq, *nom_freq;
@@ -44,6 +46,37 @@ struct omap_power_module {
     int boostpulse_warned;
     int inited;
 };
+
+static int ksm_scanning_enabled(void) {
+  FILE *fp;
+  int value;	
+	  
+  /* Check to see whether KSM is enabled */
+  if (!(fp = fopen(KSM_CTRL, "r"))) {
+    ALOGW("Failed to open " KSM_CTRL ": %d", errno);
+    return 0;	
+  }	
+	
+  if ((value = fgetc(fp)) == EOF) {	
+    ALOGW("Failed to read current KSM state");	
+    value = '0';	
+  }	
+  fclose(fp);	
+	  
+  return (value != '0');	
+}	
+	
+static void set_ksm_scanning(int on) {	
+  FILE *fp;	
+	  
+  ALOGI("Turning KSM scanning %s", on ? "on" : "off");	
+  if (!(fp = fopen(KSM_CTRL, "w"))) {	
+    ALOGW("Failed to open " KSM_CTRL ": %d", errno);	
+    return;	
+  }	
+  fprintf(fp, "%d\n", on ? 1 : 0);	
+  fclose(fp);	
+}
 
 static int str_to_tokens(char *str, char **token, int max_token_idx) {
     char *pos, *start_pos = str;
@@ -143,6 +176,8 @@ static void omap_power_init(struct power_module *module) {
     sysfs_write(CPUFREQ_INTERACTIVE "go_hispeed_load", "50");
     sysfs_write(CPUFREQ_INTERACTIVE "above_hispeed_delay", "100000");
 
+    enable_ksm = ksm_scanning_enabled();
+    
     ALOGI("Initialized successfully");
     omap_device->inited = 1;
 }
@@ -192,6 +227,25 @@ static void omap_power_set_interactive(struct power_module *module, int on) {
         }
         sysfs_write(CPUFREQ_CPU0 "scaling_max_freq", nom_freq);
     }
+    
+  if (!on) {	
+    /* Screen turning off */	
+    /* If KSM scanning is currently enabled, disable it and make a note	
+    * to reenable it once the screen comes back on */	
+    if (ksm_scanning_enabled()) {	
+      enable_ksm = 1;	
+      set_ksm_scanning(0);	
+    } else {	
+    enable_ksm = 0;	
+    }
+  } else {	
+      /* Screen turning on */	
+      /* Reenable KSM scanning if it was enabled when the screen was last	
+      * turned off */	
+      if (enable_ksm) {	
+      set_ksm_scanning(1);	
+    }	
+  }
 }
 
 static void omap_power_hint(struct power_module *module, power_hint_t hint, void *data) {
