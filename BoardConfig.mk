@@ -127,6 +127,9 @@ BOARD_RIL_NO_CELLINFOLIST  := true
 # Camera                                                                                                                                                                                                                                                                       
 COMMON_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK                                                                                                                                                                                                                            
 
+#  Audio
+BOARD_AUDIO_OUT_SAMPLING_RATE := 48000
+
 # OMAP
 ENHANCED_DOMX        := true
 OMAP_ENHANCEMENT     := true
