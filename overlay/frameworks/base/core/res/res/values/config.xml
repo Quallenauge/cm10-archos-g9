@@ -78,4 +78,7 @@
     <string-array translatable="false" name="config_tether_bluetooth_regexs">
         <item>"bnep\\d"</item>
     </string-array>
+    
+    <!-- SD card is hot-pluggable on this platform -->
+    <bool name="config_batterySdCardAccessibility">true</bool>
 </resources>
