@@ -281,7 +281,9 @@ PRODUCT_PACKAGES += \
 	
 # Boost Pulse
 PRODUCT_PACKAGES += \
-	power.archos
+	power.archos \
+	camera.archos \
+	hwcomposer.archos
 
 # Rild 
 PRODUCT_PACKAGES += \

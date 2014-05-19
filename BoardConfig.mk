@@ -99,6 +99,7 @@ TARGET_KERNEL_SELINUX_CONFIG := archos_selinux_defconfig
 TARGET_NO_RADIOIMAGE         := true
 TARGET_BOARD_PLATFORM        := omap4
 TARGET_BOOTLOADER_BOARD_NAME := archos
+TARGET_BOARD_OMAP_CPU	     := 4430
 
 # Recovery
 #TARGET_RECOVERY_PIXEL_FORMAT   := "BGRA_8888"
@@ -230,9 +231,8 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recovery_keys.c
 
 
-# Common TI device independent definitions (such as DOMX_PATH...)
-include device/ti/common-open/BoardConfig.mk
-
+# inherit from common
+-include device/archos/omap4-common/BoardConfigCommon.mk
 
 BOARD_SEPOLICY_DIRS += \
     device/amazon/omap4-common/sepolicy
