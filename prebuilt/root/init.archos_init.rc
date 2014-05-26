@@ -53,6 +53,10 @@ on init
 
     write /sys/devices/platform/omapdss/display1/hpd_enabled 1
 
+# Enable KSM deferred timer for kernels supporting it
+    write /sys/kernel/mm/ksm/deferred_timer 1
+    
+    
 on post-fs-data
 	mkdir /data/smc 0770 drmrpc drmrpc
 	# we will remap this as /storage/sdcard0 with the sdcard fuse tool
