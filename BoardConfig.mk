@@ -16,6 +16,8 @@
 
 LOCAL_PATH := device/archos/archos_g9
 
+EXPERIMENTAL_USE_JAVA7 := true
+
 DEVICE_PATH := $(LOCAL_PATH)
 #$(warning "LocalPath: $(LOCAL_PATH)")
 
@@ -197,7 +199,7 @@ BOARD_ALWAYS_INSECURE := true
 
 # Bootanimation
 TARGET_BOOTANIMATION_USE_RGB565 := true
-TARGET_BOOTANIMATION_PRELOAD := true	TARGET_BOOTANIMATION_PRELOAD := truea
+TARGET_BOOTANIMATION_PRELOAD := true
 # Disable texture-cache in boot-animation to fix OOM with new animation
 TARGET_BOOTANIMATION_TEXTURE_CACHE := false
 
@@ -235,7 +237,7 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/archos/archos_g9/recovery/recov
 -include device/archos/omap4-common/BoardConfigCommon.mk
 
 BOARD_SEPOLICY_DIRS += \
-    device/amazon/omap4-common/sepolicy
+    device/archos/archos_g9/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     bluetooth.te \
