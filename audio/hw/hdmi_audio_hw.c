@@ -228,13 +228,6 @@ char * hdmi_out_get_parameters(const struct audio_stream *stream,
             first = false;
             strcat(value, "AUDIO_CHANNEL_OUT_QUAD");
         }
-        if (SUPPORTS_ARR(sa, MASK_CEA_SURROUND)) {
-            if (!first) {
-                strcat(value, "|");
-            }
-            first = false;
-            strcat(value, "AUDIO_CHANNEL_OUT_SURROUND");
-        }
         if (SUPPORTS_ARR(sa, MASK_CEA_5POINT1)) {
             if (!first) {
                 strcat(value, "|");
@@ -635,7 +628,6 @@ static int hdmi_adev_open_output_stream(audio_hw_device_t *dev,
         pcm_config->channels = 2;
         break;
     case AUDIO_CHANNEL_OUT_QUAD:
-    case AUDIO_CHANNEL_OUT_SURROUND:
         pcm_config->channels = 4;
         break;
     case AUDIO_CHANNEL_OUT_5POINT1:
