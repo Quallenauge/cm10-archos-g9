@@ -39,7 +39,7 @@ MonoPipe::MonoPipe(const PcmParams &params, uint32_t frames)
     ALOGV("MonoPipe: Create pipe for %u frames (%u bytes)",
           frames, params.framesToBytes(frames));
 
-    NBAIO_Format format = Format_from_SR_C(mParams.sampleRate, mParams.channels);
+    NBAIO_Format format = Format_from_SR_C(mParams.sampleRate, mParams.channels, AUDIO_FORMAT_PCM_16_BIT);
 
     NBAIO_Format offers[1] = {format};
     size_t numCounterOffers = 0;
