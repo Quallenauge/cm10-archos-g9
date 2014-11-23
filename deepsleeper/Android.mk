@@ -6,7 +6,7 @@ include $(CLEAR_VARS)
 
 LOCAL_CFLAGS += -Wall
 
-LOCAL_LDLIBS := -L$(LOCAL_PATH)/lib -llog -g
+LOCAL_LDLIBS := -L$(LOCAL_PATH)/lib -g
 
 LOCAL_C_INCLUDES := bionic
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
