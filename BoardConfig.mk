@@ -116,6 +116,7 @@ USE_OPENGL_RENDERER        := true
 #NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 #Refer to frameworks/native/libs/gui/SurfaceComposerClient.cpp
 COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
+#COMMON_GLOBAL_CFLAGS += -DUSE_MHEAP_SCREENSHOT
 
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
