@@ -227,6 +227,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
         wlan_loader \
         wlan_cu \
+        wpa_supplicant \
         wpa_supplicant.conf \
         make_ext4fs \
         com.android.future.usb.accessory
