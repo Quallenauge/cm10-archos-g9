@@ -208,6 +208,9 @@ ADDITIONAL_DEFAULT_PROPERTIES += ro.secure=0
 ADDITIONAL_DEFAULT_PROPERTIES += ro.allow.mock.location=1
 ADDITIONAL_DEFAULT_PROPERTIES += persist.hwc.sw_vsync=1
 
+# Currently only Camera API 1 is supported
+ADDITIONAL_DEFAULT_PROPERTIES += camera2.portability.force_api=1
+
 # AAPT config
 #PRODUCT_AAPT_CONFIG := normal large hdpi xhdpi xxhdpi nodpi
 PRODUCT_AAPT_CONFIG := normal mdpi hdpi nodpi
