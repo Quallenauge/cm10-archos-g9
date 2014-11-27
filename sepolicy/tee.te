@@ -1,1 +1,1 @@
-#allow tee pds_file:dir getattr;
+allow tee pds_file:dir getattr;

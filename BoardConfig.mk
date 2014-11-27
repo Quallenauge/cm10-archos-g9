@@ -236,6 +236,7 @@ BOARD_SEPOLICY_UNION += \
     dhcp.te \
     domain.te \
     file.te \
+    init.te \
     init_shell.te \
     mediaserver.te \
     netd.te \
