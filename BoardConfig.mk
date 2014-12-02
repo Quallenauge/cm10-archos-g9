@@ -202,3 +202,13 @@ BOARD_SEPOLICY_UNION += \
     system.te \
     tee.te \
     vold.te
+
+# Include an expanded selection of fonts
+EXTENDED_FONT_FOOTPRINT := true
+MALLOC_IMPL := dlmalloc
+
+
+# Mark as low ram device
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.config.low_ram=true
+
