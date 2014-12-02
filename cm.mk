@@ -35,7 +35,7 @@ $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 # Enable the the next line, to include the TI provided wl12xx firmware -> Moved to device specific tree
 #$(call inherit-product, device/ti/proprietary-open/wl12xx/wlan/wl12xx-wlan-fw-products.mk)
 
-$(call inherit-product, device/archos/archos_g9/pvr/common-vendor-blobs.mk)
+$(call inherit-product, device/archos/omap4-common/pvr/common-vendor-blobs.mk)
 
 $(call inherit-product, device/archos/omap4-common/common.mk)
 

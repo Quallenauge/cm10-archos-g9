@@ -108,6 +108,9 @@ on early-boot
 #	insmod /system/lib/modules/gps_drv.ko
 
 on fs
+# pvr module
+	insmod /system/lib/modules/pvrsrvkm_sgx540_120.ko
+	start pvrsrvinit
 
 # change permissions for ION driver
      chmod 0777 /dev/ion
@@ -353,11 +356,12 @@ service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     group root
 
 # Initialize the SGX driver
-service pvrsrvinit /system/vendor/bin/pvrsrvinit
+service pvrsrvinit /system/bin/pvrsrvinit
     class core
     user root
     group root
     oneshot
+    disabled
 
 service thermaldaemon /system/bin/thermaldaemon
     class core
@@ -588,4 +592,4 @@ service wifi_calibrator /system/bin/sh /system/bin/wifical.sh
 # Very first boot. We need to set the MAC address
 on property:persist.wlan.ti.calibrated=0
     start wifi_calibrator
-    setprop persist.wlan.ti.calibrated 1
+    setprop persist.wlan.ti.calibr
