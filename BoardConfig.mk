@@ -42,16 +42,6 @@ ARCH_ARM_HAVE_32_BYTE_CACHE_LINES := true
 TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
 
-# CodeAurora Optimizations: msm8960: Improve performance of memmove, bcopy, and memmove_words
-# added by twa_priv
-TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
-TARGET_USE_KRAIT_PLD_SET := true
-TARGET_KRAIT_BIONIC_PLDOFFS := 10
-TARGET_KRAIT_BIONIC_PLDTHRESH := 10
-TARGET_KRAIT_BIONIC_BBTHRESH := 64
-TARGET_KRAIT_BIONIC_PLDSIZE := 64
-
-
 # Needed for blobs
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
@@ -88,10 +78,6 @@ COMMON_GLOBAL_CFLAGS += -DFORCE_SCREENSHOT_CPU_PATH
 # HWComposer                                                                                                                                                                                                                                                                   
 BOARD_USES_HWCOMPOSER := true                                                                                                                                                                                                                                                  
 # BOARD_USE_SYSFS_VSYNC_NOTIFICATION := true
-# set if the target supports FBIO_WAITFORVSYNC
-# TARGET_HAS_WAITFORVSYNC := true
-# This is implemented since kernel 3.10.0 
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
 BOARD_RIL_NO_CELLINFOLIST  := true
 
@@ -145,7 +131,7 @@ WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wl12xx_sdio.ko"
 WIFI_DRIVER_MODULE_NAME := "wl12xx_sdio"
 WIFI_FIRMWARE_LOADER := ""
 BOARD_WIFI_SKIP_CAPABILITIES := true
-COMMON_GLOBAL_CFLAGS += -DUSES_TI_MAC80211 -DANDROID_P2P_STUB
+COMMON_GLOBAL_CFLAGS += -DUSES_TI_MAC80211
 endif
 
 #TARGET_PROVIDES_INIT_RC := true
