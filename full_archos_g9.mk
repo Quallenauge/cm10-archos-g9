@@ -123,6 +123,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(PREBUILT_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
