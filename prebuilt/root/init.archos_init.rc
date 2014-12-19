@@ -399,7 +399,7 @@ service akmd /system/bin/akmd8975 -m 6
     user compass
     group misc
 
-service switch_ms_to_3g /system/bin/logwrapper /usr/bin/usb_modeswitch
+service switch_ms_to_3g /system/bin/logwrapper /system/bin/usb_modeswitch
     class core
     user root
     group root

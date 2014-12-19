@@ -114,11 +114,9 @@ PRODUCT_COPY_FILES += \
 
 # xbin
 PRODUCT_COPY_FILES += \
-        $(PREBUILT_PATH)/system/bin/hotplugd:system/bin/hotplugd \
         $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
         $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
-        $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so                 \
-        $(PREBUILT_PATH)/system/lib/libusb.so:system/lib/libusb.so                       
+        $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so
 
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
@@ -289,6 +287,9 @@ PRODUCT_PACKAGES += \
 # Rild 
 PRODUCT_PACKAGES += \
 	radiooptions \
+        hotplugd \
+        usb_modeswitch \
+        libusb \
 	rild
 
 PRODUCT_PROPERTY_OVERRIDES := \
