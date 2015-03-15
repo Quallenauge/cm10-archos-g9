@@ -312,6 +312,24 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.root_access=3 \
     ro.bq.gpu_to_cpu_unsupported=1 \
     media.stagefright.cache-params=18432/20480/15
+    
+# Low-RAM optimizations
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.low_ram=true \
+    persist.sys.force_highendgfx=true \
+    dalvik.vm.jit.codecachesize=0 \
+    config.disable_atlas=true \
+    ro.config.max_starting_bg=8 \
+    ro.sys.fw.bg_apps_limit=16
+
+# Dalvik settings
+ADDITIONAL_BUILD_PROPERTIES += \
+    dalvik.vm.heapstartsize=5m \
+    dalvik.vm.heapgrowthlimit=48m \
+    dalvik.vm.heapsize=256m \
+    dalvik.vm.heaptargetutilization=0.75 \
+    dalvik.vm.heapminfree=512k \
+    dalvik.vm.heapmaxfree=2m
 
 PRODUCT_CHARACTERISTICS := tablet
 

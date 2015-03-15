@@ -208,8 +208,3 @@ BOARD_SEPOLICY_UNION += \
 EXTENDED_FONT_FOOTPRINT := true
 MALLOC_IMPL := dlmalloc
 
-
-# Mark as low ram device
-PRODUCT_PROPERTY_OVERRIDES += \
-ro.config.low_ram=true
-
