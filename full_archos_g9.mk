@@ -321,6 +321,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     config.disable_atlas=true \
     ro.config.max_starting_bg=8 \
     ro.sys.fw.bg_apps_limit=16
+    
 
 # Dalvik settings
 ADDITIONAL_BUILD_PROPERTIES += \
@@ -329,7 +330,15 @@ ADDITIONAL_BUILD_PROPERTIES += \
     dalvik.vm.heapsize=256m \
     dalvik.vm.heaptargetutilization=0.75 \
     dalvik.vm.heapminfree=512k \
-    dalvik.vm.heapmaxfree=2m
+    dalvik.vm.heapmaxfree=2m \
+    dalvik.vm.dex2oat-filter=interpret-only \
+    dalvik.vm.image-dex2oat-filter=speed \
+    ro.zygote=zygote32 \
+    dalvik.vm.dex2oat-Xms=64m \
+    dalvik.vm.dex2oat-Xmx=300m \
+    dalvik.vm.image-dex2oat-Xms=64m \
+    dalvik.vm.image-dex2oat-Xmx=300m \
+    ro.dalvik.vm.native.bridge=0
 
 PRODUCT_CHARACTERISTICS := tablet
 

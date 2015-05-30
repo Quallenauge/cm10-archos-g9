@@ -3,6 +3,10 @@
 import init.dongle.rc
 
 on init
+    # From: http://review.cyanogenmod.org/#/c/99561/1/init.omap4430.rc
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+
     # log "On init in archos_init..."
     write /sys/class/rfkill/rfkill0/state 0
 
@@ -130,6 +134,11 @@ on fs
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+
+    write /sys/module/cpu_boost/parameters/boost_ms 20
+    write /sys/module/cpu_boost/parameters/sync_threshold 1000000
+    write /sys/module/cpu_boost/parameters/input_boost_freq 1200000
+    write /sys/module/cpu_boost/parameters/input_boost_ms 40
 
 #Give system ownership and permission to boost clock for specified timeout
 #Note boost_timeout cannot be changed from application because of dynamic sysfs creation. It will have default value of 3 sec.
@@ -337,6 +346,9 @@ on boot
    write /sys/kernel/mm/ksm/pages_to_scan 100
    write /sys/kernel/mm/ksm/sleep_millisecs 500
    write /sys/kernel/mm/ksm/run 1
+
+   #Swap only 1 page at a time
+   write /proc/sys/vm/page-cluster 0
    
    # For setting tcp delayed ack
    chown system system /sys/kernel/ipv4/tcp_delack_seg
@@ -349,7 +361,60 @@ on boot
    setprop net.tcp.usercfg.default 0
    setprop net.tcp.usercfg.wifi 1
    setprop net.tcp.usercfg.lte 1
+   
+    # Create cgroup mount points for process groups
+    mkdir /dev/cpuctl/apps
+    chown system system /dev/cpuctl/apps/tasks
+    chmod 0666 /dev/cpuctl/apps/tasks
+    write /dev/cpuctl/apps/cpu.shares 1024
+    write /dev/cpuctl/apps/cpu.rt_runtime_us 800000
+    write /dev/cpuctl/apps/cpu.rt_period_us 1000000
+ 
+    mkdir /dev/cpuctl/apps/bg_non_interactive
+    chown system system /dev/cpuctl/apps/bg_non_interactive/tasks
+    chmod 0666 /dev/cpuctl/apps/bg_non_interactive/tasks
+    # 5.0 %
+    write /dev/cpuctl/apps/bg_non_interactive/cpu.shares 52
+    write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_runtime_us 700000
+    write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_period_us 1000000
+   
+    # Memory management.  Basic kernel parameters, and allow the high
+    # level system server to be able to adjust the kernel OOM driver
+    # parameters to match how it is managing things.
+    write /proc/sys/vm/overcommit_memory 1
+    write /proc/sys/vm/overcommit_ratio 50
+    write /proc/sys/vm/min_free_kbytes 2789
 
+    # Define default initial receive window size in segments.
+    setprop net.tcp.default_init_rwnd 60
+    write /proc/sys/vm/overcommit_memory 1
+    write /proc/sys/vm/panic_on_oom 0
+    write /proc/sys/vm/oom_kill_allocating_task 0
+    write /proc/sys/vm/oom_dump_tasks 1
+    write /proc/sys/vm/overcommit_ratio 50
+    write /proc/sys/vm/page-cluster 3
+    write /proc/sys/vm/dirty_background_ratio 5
+    write /proc/sys/vm/dirty_background_bytes 0
+    write /proc/sys/vm/dirty_ratio 20
+    write /proc/sys/vm/dirty_bytes 0
+    write /proc/sys/vm/dirty_writeback_centisecs 500
+    write /proc/sys/vm/dirty_expire_centisecs 200
+    write /proc/sys/vm/nr_pdflush_threads 0
+    write /proc/sys/vm/swappiness 60
+    write /proc/sys/vm/lowmem_reserve_ratio 32
+    write /proc/sys/vm/extfrag_threshold 500
+    write /proc/sys/vm/min_free_kbytes 2789
+    write /proc/sys/vm/min_free_order_shift 4
+    write /proc/sys/vm/percpu_pagelist_fraction 0
+    write /proc/sys/vm/max_map_count 65530
+    write /proc/sys/vm/laptop_mode 0
+    write /proc/sys/vm/block_dump 0
+    write /proc/sys/vm/vfs_cache_pressure 100
+    write /proc/sys/vm/stat_interval 1
+    write /proc/sys/vm/mmap_min_addr 4096
+    write /proc/sys/vm/highmem_is_dirtyable 0
+    write /proc/sys/vm/scan_unevictable_pages 0
+    
 service kmsg_log /system/bin/logwrapper cat /proc/kmsg
     class core
     user root
