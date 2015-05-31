@@ -208,7 +208,7 @@ BOARD_SEPOLICY_UNION += \
 EXTENDED_FONT_FOOTPRINT := true
 MALLOC_IMPL := dlmalloc
 
-BOARD_SUPPRESS_EMMC_WIPE := true
+#BOARD_SUPPRESS_EMMC_WIPE := true
 
 # Thanks trevd for this hint: a bit of dex_preopting does wonders for the boot time
 #WITH_DEXPREOPT := true
