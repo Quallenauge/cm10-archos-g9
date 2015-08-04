@@ -118,7 +118,7 @@ PRODUCT_COPY_FILES += \
 # Performance optimizations from http://forum.xda-developers.com/showpost.php?p=61824520&postcount=31 
 # Thanks BlackGunZ
 PRODUCT_COPY_FILES += \
-	$(PREBUILT_PATH)/system/etc/init.d/99performance:system/etc/init.d/99performance
+	$(PREBUILT_PATH)/system/etc/init.d/99Performance:system/etc/init.d/99Performance
 
 # xbin
 PRODUCT_COPY_FILES += \
