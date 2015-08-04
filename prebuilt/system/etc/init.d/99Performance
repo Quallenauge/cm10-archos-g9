@@ -1,0 +1,63 @@
+#!/system/bin/sh
+
+####################
+#  Perfect mount  #
+##################
+
+# Sysfs mount options
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto /;
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto /proc;
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto /sys;
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto /sys/kernel/debug;
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto /mnt/shell/emulated;
+
+# Partition & sdcard mount options
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime,barrier=0,noauto_da_alloc -t auto /data;
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime,barrier=0,noauto_da_alloc -t auto /cache;
+busybox mount -o remount,nodev,noatime,nodiratime,barrier=0,noauto_da_alloc -t auto /system;
+for i in /storage/emulated/*; do
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto $i;
+busybox mount -o remount,nosuid,nodev,noatime,nodiratime -t auto $i/Android/obb;
+done;
+
+########################
+#  Disable debugging  #
+######################
+
+echo "0" > /sys/module/wakelock/parameters/debug_mask;
+echo "0" > /sys/module/userwakelock/parameters/debug_mask;
+echo "0" > /sys/module/earlysuspend/parameters/debug_mask;
+echo "0" > /sys/module/alarm/parameters/debug_mask;
+echo "0" > /sys/module/alarm_dev/parameters/debug_mask;
+echo "0" > /sys/module/binder/parameters/debug_mask;
+
+##############
+# Entropy  #
+###########
+
+busybox sysctl -e -w kernel.random.read_wakeup_threshold=128;
+busybox sysctl -e -w kernel.random.write_wakeup_threshold=256;
+
+###################
+# I/O Scheduler  #
+#################
+
+# General queue tweaks
+for i in /sys/block/*/queue; do
+echo "512" > $i/nr_requests;
+echo "256" > $i/read_ahead_kb;
+echo "0" > $i/add_random;
+echo "0" > $i/rotational;
+echo "0" > $i/iostats;
+echo "2" > $i/rq_affinity;
+# ROW scheduler settings
+echo "100" > $i/iosched/hp_read_quantum;
+echo "100" > $i/iosched/rp_read_quantum;
+echo "2" > $i/iosched/hp_swrite_quantum;
+echo "1" > $i/iosched/rp_swrite_quantum;
+echo "1" > $i/iosched/rp_write_quantum;
+echo "1" > $i/iosched/lp_read_quantum;
+echo "1" > $i/iosched/lp_swrite_quantum;
+echo "10" > $i/iosched/read_idle;
+echo "20" > $i/iosched/read_idle_freq;
+done;

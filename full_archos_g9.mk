@@ -106,25 +106,30 @@ PRODUCT_COPY_FILES += \
 	$(PREBUILT_PATH)/system/etc/ppp/ip-down-gprs:system/etc/ppp/ip-down-gprs \
 	$(PREBUILT_PATH)/system/etc/ppp/peers/datakey:system/etc/ppp/peers/datakey \
 	$(PREBUILT_PATH)/system/etc/ppp/peers/gprs:system/etc/ppp/peers/gprs \
-	$(PREBUILT_PATH)/system/etc/ppp/write_secrets:system/etc/ppp/write_secrets 
-	
+	$(PREBUILT_PATH)/system/etc/ppp/write_secrets:system/etc/ppp/write_secrets
+
 # chatscripts scripts
 PRODUCT_COPY_FILES += \
-        $(PREBUILT_PATH)/system/etc/chatscripts/gprs_start:system/etc/chatscripts/gprs_start \
-        $(PREBUILT_PATH)/system/etc/chatscripts/gprs_stop:system/etc/chatscripts/gprs_stop \
-        $(PREBUILT_PATH)/system/etc/chatscripts/datakey_start:system/etc/chatscripts/datakey_start \
-        $(PREBUILT_PATH)/system/etc/chatscripts/datakey_stop:system/etc/chatscripts/datakey_stop 
+	$(PREBUILT_PATH)/system/etc/chatscripts/gprs_start:system/etc/chatscripts/gprs_start \
+	$(PREBUILT_PATH)/system/etc/chatscripts/gprs_stop:system/etc/chatscripts/gprs_stop \
+	$(PREBUILT_PATH)/system/etc/chatscripts/datakey_start:system/etc/chatscripts/datakey_start \
+	$(PREBUILT_PATH)/system/etc/chatscripts/datakey_stop:system/etc/chatscripts/datakey_stop
+
+# Performance optimizations from http://forum.xda-developers.com/showpost.php?p=61824520&postcount=31 
+# Thanks BlackGunZ
+PRODUCT_COPY_FILES += \
+	$(PREBUILT_PATH)/system/etc/init.d/99performance:system/etc/init.d/99performance
 
 # xbin
 PRODUCT_COPY_FILES += \
-        $(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
-        $(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
-        $(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so
+	$(PREBUILT_PATH)/system/xbin/chat:system/xbin/chat \
+	$(PREBUILT_PATH)/system/lib/libhuaweigeneric-ril.so:system/lib/libhuaweigeneric-ril.so \
+	$(PREBUILT_PATH)/system/lib/libtcl-ril.so:system/lib/libtcl-ril.so
 
 PRODUCT_COPY_FILES += \
     $(PREBUILT_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(PREBUILT_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
+    external/stagefright-plugins/data/media_codecs_ffmpeg.xml:system/etc/media_codecs_ffmpeg.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
